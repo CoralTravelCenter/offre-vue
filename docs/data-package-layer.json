@@ -1,0 +1,124 @@
+{
+    "Hotel": {
+        "Id": 874,
+        "Name": "EFTALIA VILLAGE HOTEL",
+        "FriendlyUrl": "turkey/eftalia-village-hotel-alanya",
+        "Category": {
+            "Id": 0,
+            "Name": "5 *"
+        },
+        "Location": {
+            "Country": null,
+            "Region": null,
+            "Place": "Турклер (Turkler)",
+            "Area": "Аланья (Alanya)",
+            "Latitude": null,
+            "Longitude": null
+        },
+        "MealTypeId": 5,
+        "MealType": "Все Включено",
+        "RoomTypes": [
+            {
+                "Caption": "STANDARD ROOM",
+                "Value": "STANDARD ROOM"
+            },
+            {
+                "Caption": "STANDARD LARGE ROOM",
+                "Value": "STANDARD LARGE ROOM"
+            },
+            {
+                "Caption": "FAMILY ROOM -B",
+                "Value": "FAMILY ROOM -B"
+            },
+            {
+                "Caption": "FAMILY ROOM -A",
+                "Value": "FAMILY ROOM -A"
+            }
+        ],
+        "TripAdvisor": null,
+        "Facilities": null,
+        "Images": [
+            {
+                "Category": null,
+                "SubCategoryId": null,
+                "SubCategory": null,
+                "Name": null,
+                "ImageUrl": "media/image/1/874/636511815691278228.jpg",
+                "CustomURL": null,
+                "IsDefault": null
+            }
+        ],
+        "Videos": null,
+        "TripAdvisorPoint": 3.5,
+        "TripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/3.5.svg",
+        "TripAdvisorCommentCount": 1975,
+        "dontShowTripAdvisorComments": false,
+        "InfoSheet": null,
+        "ServiceExistence": {
+            "ChildrenMenu": true,
+            "ChildrenPool": true,
+            "Disco": true,
+            "IndoorPool": false,
+            "MiniClub": true,
+            "BabySitter": false,
+            "HeatedPool": false,
+            "AquaPark": true,
+            "ChildrenAquapark": true,
+            "Wifi": true
+        },
+        "EliteStatus": false,
+        "HotelType": "normal",
+        "IsExclusive": true
+    },
+    "Flight": {
+        "SeatClass": {
+            "Id": 1,
+            "Name": ""
+        },
+        "Type": {
+            "Id": 0,
+            "Name": ""
+        }
+    },
+    "FlightBack": {
+        "SeatClass": {
+            "Id": 1,
+            "Name": ""
+        },
+        "Type": {
+            "Id": 0,
+            "Name": ""
+        }
+    },
+    "Night": 7,
+    "Day": 7,
+    "ToCompany": 0,
+    "RoomName": "STANDARD ROOM",
+    "Price": "0jlZNYYZAoy0MFXesTy5Mw==",
+    "FlightDate": "2024-04-17T00:00:00",
+    "CheckInDate": "2024-04-17T00:00:00",
+    "FlightAdultCount": 2,
+    "FlightChildCount": 0,
+    "HotelAdultCount": 2,
+    "HotelChildCount": 0,
+    "IsRecommended": true,
+    "RoomTypeId": 48164,
+    "ProviderRoomId": "",
+    "IsWishlist": false,
+    "PromoStatus": false,
+    "AccId": 0,
+    "StopSaleStatus": false,
+    "LeftAllotmentStatus": 3,
+    "LeftAllotmentBackStatus": 3,
+    "ProviderID": 0,
+    "BookingCode": "",
+    "IsRefundable": true,
+    "TransferSalePriceID": null,
+    "IsBlackFriday": false,
+    "HotelEarlyBookingEndDate": "2024-03-31T00:00:00",
+    "ParentRoomId": null,
+    "FlightMandatoryExtraList": {
+        "FlightMandatoryExtraTotalPrice": 0,
+        "FlightMandatoryExtra": null
+    }
+}

@@ -1,9 +1,9 @@
 
-import globals from "../config/globals";
 import { asap, dependency, hostReactAppReady } from '../../lib/usefuls';
 import { createApp } from "vue";
 import ElementPlus from 'element-plus';
 import OffreVue from "../components/OffreVue.vue";
+import citySpelling from '../components/city-spelling';
 
 asap(async () => {
     await hostReactAppReady();
@@ -24,5 +24,5 @@ function createVueApp(app_root, options, hotels) {
     createApp(OffreVue, {
         options,
         hotelsList: hotels
-    }).use(ElementPlus).mount(app_root);
+    }).use(ElementPlus).use(citySpelling).mount(app_root);
 }

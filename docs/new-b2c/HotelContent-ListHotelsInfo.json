@@ -1,0 +1,184 @@
+{
+    "result": {
+        "hotels": [
+            {
+                "id": "3815",
+                "name": "EFTALIA AQUA RESORT",
+                "countryKey": "1",
+                "regionKey": "2",
+                "areaKey": "3",
+                "placeKey": "2131",
+                "location": {
+                    "id": "3815-7-1-",
+                    "type": 7,
+                    "name": "EFTALIA AQUA RESORT",
+                    "friendlyUrl": "turkey/eftalia-aqua-resort-alanya",
+                    "parent": {
+                        "id": "2131",
+                        "type": 6,
+                        "name": "Турклер (Turkler), Аланья (Alanya), Турция",
+                        "countryId": "1"
+                    }
+                },
+                "coordinates": {
+                    "latitude": "36.597234501804884",
+                    "longitude": "31.82061195373535"
+                },
+                "categoryKey": "1",
+                "friendlyUrl": "turkey/eftalia-aqua-resort-alanya",
+                "recommended": true,
+                "eliteHotel": false,
+                "exclusive": true,
+                "sunFamilyClub": true,
+                "featureKeys": [
+                    "10",
+                    "5",
+                    "15",
+                    "8",
+                    "3"
+                ],
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                },
+                "reviews": {
+                    "tripAdvisor": {
+                        "code": "2153290",
+                        "point": 4,
+                        "imageURL": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                        "commentCount": 3095
+                    }
+                },
+                "images": [
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748089288407.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748226004846.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748276316532.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748326315827.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748360065564.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748478970675.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748524751405.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748568500889.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466748613812824.jpg"
+                            }
+                        ]
+                    },
+                    {
+                        "sizes": [
+                            {
+                                "type": 4,
+                                "url": "http://content.coral.ru/resize/576x522/media/image/1/3815/637466750021761725.jpg"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "countries": {
+            "1": {
+                "name": "Турция"
+            }
+        },
+        "regions": {
+            "2": {
+                "name": "Анталийское (Mediterranean)"
+            }
+        },
+        "places": {
+            "2131": {
+                "name": "Турклер (Turkler)"
+            }
+        },
+        "areas": {
+            "3": {
+                "name": "Аланья (Alanya)"
+            }
+        }
+    },
+    "meta": {
+        "responseDateTime": "2024-02-14T10:26:03.8481553Z",
+        "elapsedTime": "00:00:00",
+        "statusCode": 200,
+        "correlation": "61836c1c-df31-4daf-89f7-2e11bcf71931"
+    }
+}

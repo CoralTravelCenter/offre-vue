@@ -1,0 +1,2364 @@
+{
+    "result": {
+        "hotelDetail": {
+            "id": "3815",
+            "name": "EFTALIA AQUA RESORT",
+            "locationSummary": "Турция, Аланья (Alanya), Турклер (Turkler)",
+            "country": {
+                "id": "1",
+                "name": "Турция"
+            },
+            "region": {
+                "id": "2",
+                "name": "Анталийское (Mediterranean)"
+            },
+            "area": {
+                "id": "3",
+                "name": "Аланья (Alanya)"
+            },
+            "place": {
+                "id": "2131",
+                "name": "Турклер (Turkler)"
+            },
+            "friendlyUrl": "turkey/eftalia-aqua-resort-alanya",
+            "address": "",
+            "web": "",
+            "giataCode": "229489",
+            "marketingText": {
+                "dataType": 5,
+                "data": {
+                    "paragraph": {}
+                }
+            },
+            "recommended": {
+                "title": "рекомендуемые",
+                "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/recommended_06072023213317.svg"
+            },
+            "exclusive": {
+                "title": "Эксклюзивный",
+                "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/exclusive_06072023213149.svg"
+            },
+            "sunFamilyClub": {
+                "title": "Sun Family Club",
+                "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/sunfamilyclub_06072023213247.svg"
+            },
+            "hotelConcepts": [
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "3",
+                    "name": "Sun Family Club",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                },
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "34",
+                    "name": "Эксклюзивные отели",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                },
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "37",
+                    "name": "Рекомендуемые отели",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                },
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "57",
+                    "name": "Splash & Aquapark",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                },
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "69",
+                    "name": "Отели, размещающие мужчин в одном номере",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                },
+                {
+                    "bgColor": "#E5F7FF",
+                    "id": "85",
+                    "name": "ТОП Популярные отели",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/elite_06072023213422.svg"
+                }
+            ],
+            "hotelCategory": {
+                "id": "1",
+                "name": "5*",
+                "starCount": 5
+            },
+            "hotelFeatures": [
+                {
+                    "id": "10",
+                    "name": "Wi-Fi",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/2_10_27062023213243.svg"
+                },
+                {
+                    "id": "5",
+                    "name": "Мини-клуб",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/2_5_27062023213034.svg"
+                },
+                {
+                    "id": "15",
+                    "name": "Кондиционер",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/2_15_06072023171454.svg"
+                },
+                {
+                    "id": "8",
+                    "name": "Водные горки",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/2_8_27062023213203.svg"
+                },
+                {
+                    "id": "3",
+                    "name": "Дискотека",
+                    "iconUrl": "https://b2ccdn.coral.ru/content/defaultimages/2_3_27062023212950.svg"
+                }
+            ],
+            "coordinates": {
+                "latitude": "36.597234501804884",
+                "longitude": "31.82061195373535"
+            },
+            "distances": {
+                "airport": {
+                    "nameCaption": "Ближайший аэропорт",
+                    "name": "Antalya-AYT",
+                    "valueCaption": "Расстояние до ближайшего аэропорта",
+                    "value": "100",
+                    "unit": "км"
+                },
+                "city": {
+                    "nameCaption": "Ближайший центр города",
+                    "name": "Alanya",
+                    "valueCaption": "Расстояние до ближайшего центра города",
+                    "value": "18",
+                    "unit": "км"
+                },
+                "town": {
+                    "nameCaption": "Ближайший город",
+                    "name": "Konakli",
+                    "valueCaption": "Расстояние до ближайшего города",
+                    "value": "4",
+                    "unit": "км"
+                },
+                "beach": {
+                    "materialOfTheBeach": {
+                        "type": 1,
+                        "value": "Песчано-галечный пляж"
+                    },
+                    "valueCaption": "Расстояние до пляжа",
+                    "value": "100",
+                    "unit": "м"
+                }
+            },
+            "reviews": {
+                "tripAdvisor": {
+                    "code": "2153290",
+                    "point": 4,
+                    "imageURL": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                    "commentCount": 3095,
+                    "reviewURL": "https://www.tripadvisor.com/WidgetEmbed-cdspropertydetail?locationId=2153290&partnerId=5a945762f84e4d85b1d6bcfe320644b4&display=true&lang=ru&isTA=true"
+                }
+            },
+            "gallery": {
+                "galleryCategories": [
+                    {
+                        "id": "general",
+                        "categoryType": 1,
+                        "name": "Общий",
+                        "subCategories": [
+                            {
+                                "id": "general-general",
+                                "name": "Общий"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "rooms",
+                        "categoryType": 2,
+                        "name": "Номера",
+                        "subCategories": [
+                            {
+                                "id": "rooms-standard-room",
+                                "name": "STANDARD ROOM"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "restaurants",
+                        "categoryType": 3,
+                        "name": "Рестораны",
+                        "subCategories": [
+                            {
+                                "id": "restaurants-restaurants",
+                                "name": "Рестораны"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "pools",
+                        "categoryType": 5,
+                        "name": "Бассейны",
+                        "subCategories": [
+                            {
+                                "id": "pools-outdoor-pool",
+                                "name": "Открытый бассейн"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "water-park",
+                        "categoryType": 6,
+                        "name": "Аква-парк",
+                        "subCategories": [
+                            {
+                                "id": "water-park-water-park",
+                                "name": "Аква-парк"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "beach",
+                        "categoryType": 7,
+                        "name": "Пляж",
+                        "subCategories": [
+                            {
+                                "id": "beach-beach",
+                                "name": "Пляж"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "mini-club",
+                        "categoryType": 8,
+                        "name": "Мини-клуб",
+                        "subCategories": [
+                            {
+                                "id": "mini-club-mini-club",
+                                "name": "Мини-клуб"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "spa",
+                        "categoryType": 9,
+                        "name": "СПА",
+                        "subCategories": [
+                            {
+                                "id": "spa-spa",
+                                "name": "СПА"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "sport",
+                        "categoryType": 10,
+                        "name": "Спорт",
+                        "subCategories": [
+                            {
+                                "id": "sport-sport",
+                                "name": "Спорт"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "animation",
+                        "categoryType": 11,
+                        "name": "Анимация",
+                        "subCategories": [
+                            {
+                                "id": "animation-animation",
+                                "name": "Анимация"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "Video",
+                        "categoryType": 99,
+                        "name": "Видео"
+                    }
+                ],
+                "images": [
+                    {
+                        "id": "637466748089288407.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748089288407.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748089288407.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748089288407.jpg"
+                    },
+                    {
+                        "id": "637466748226004846.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748226004846.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748226004846.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748226004846.jpg"
+                    },
+                    {
+                        "id": "637466748276316532.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748276316532.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748276316532.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748276316532.jpg"
+                    },
+                    {
+                        "id": "637466748326315827.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748326315827.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748326315827.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748326315827.jpg"
+                    },
+                    {
+                        "id": "637466748360065564.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748360065564.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748360065564.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748360065564.jpg"
+                    },
+                    {
+                        "id": "637466748478970675.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748478970675.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748478970675.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748478970675.jpg"
+                    },
+                    {
+                        "id": "637466748524751405.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748524751405.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748524751405.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748524751405.jpg"
+                    },
+                    {
+                        "id": "637466748568500889.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748568500889.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748568500889.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748568500889.jpg"
+                    },
+                    {
+                        "id": "637466748613812824.jpg",
+                        "categoryType": 1,
+                        "categoryId": "general",
+                        "subCategoryId": "general-general",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748613812824.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748613812824.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748613812824.jpg"
+                    },
+                    {
+                        "id": "637466750021761725.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750021761725.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750021761725.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750021761725.jpg",
+                        "roomIds": [
+                            "48164"
+                        ]
+                    },
+                    {
+                        "id": "637466750045511781.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750045511781.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750045511781.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750045511781.jpg",
+                        "roomIds": [
+                            "48164"
+                        ]
+                    },
+                    {
+                        "id": "637466750073792870.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750073792870.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750073792870.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750073792870.jpg",
+                        "roomIds": [
+                            "48164"
+                        ]
+                    },
+                    {
+                        "id": "637466750101761611.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750101761611.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750101761611.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750101761611.jpg",
+                        "roomIds": [
+                            "48164"
+                        ]
+                    },
+                    {
+                        "id": "637466750355822832.jpeg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-large-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750355822832.jpeg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750355822832.jpeg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750355822832.jpeg",
+                        "roomIds": [
+                            "50033"
+                        ]
+                    },
+                    {
+                        "id": "637466750371916500.jpeg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-large-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750371916500.jpeg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750371916500.jpeg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750371916500.jpeg",
+                        "roomIds": [
+                            "50033"
+                        ]
+                    },
+                    {
+                        "id": "637466750400510119.jpeg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-large-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750400510119.jpeg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750400510119.jpeg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750400510119.jpeg",
+                        "roomIds": [
+                            "50033"
+                        ]
+                    },
+                    {
+                        "id": "637466750418791256.jpeg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-standard-large-room",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750418791256.jpeg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750418791256.jpeg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750418791256.jpeg",
+                        "roomIds": [
+                            "50033"
+                        ]
+                    },
+                    {
+                        "id": "637466750545353753.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-family-room-a",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750545353753.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750545353753.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750545353753.jpg",
+                        "roomIds": [
+                            "50032",
+                            "293548"
+                        ]
+                    },
+                    {
+                        "id": "637466750565197590.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-family-room-a",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750565197590.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750565197590.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750565197590.jpg",
+                        "roomIds": [
+                            "50032",
+                            "293548"
+                        ]
+                    },
+                    {
+                        "id": "637466750580978902.jpg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-family-room-a",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750580978902.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750580978902.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750580978902.jpg",
+                        "roomIds": [
+                            "50032",
+                            "293548"
+                        ]
+                    },
+                    {
+                        "id": "637466750618635181.jpeg",
+                        "categoryType": 2,
+                        "categoryId": "rooms",
+                        "subCategoryId": "rooms-family-room-a",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750618635181.jpeg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750618635181.jpeg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750618635181.jpeg",
+                        "roomIds": [
+                            "50032",
+                            "293548"
+                        ]
+                    },
+                    {
+                        "id": "637466750823948089.jpg",
+                        "categoryType": 3,
+                        "categoryId": "restaurants",
+                        "subCategoryId": "restaurants-restaurants",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750823948089.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750823948089.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750823948089.jpg"
+                    },
+                    {
+                        "id": "637466750874260649.jpg",
+                        "categoryType": 3,
+                        "categoryId": "restaurants",
+                        "subCategoryId": "restaurants-restaurants",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750874260649.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750874260649.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750874260649.jpg"
+                    },
+                    {
+                        "id": "637466750915666991.jpg",
+                        "categoryType": 3,
+                        "categoryId": "restaurants",
+                        "subCategoryId": "restaurants-restaurants",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750915666991.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750915666991.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750915666991.jpg"
+                    },
+                    {
+                        "id": "637466750949885983.jpg",
+                        "categoryType": 3,
+                        "categoryId": "restaurants",
+                        "subCategoryId": "restaurants-restaurants",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750949885983.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750949885983.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750949885983.jpg"
+                    },
+                    {
+                        "id": "637466750994104746.jpg",
+                        "categoryType": 3,
+                        "categoryId": "restaurants",
+                        "subCategoryId": "restaurants-restaurants",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466750994104746.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466750994104746.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466750994104746.jpg"
+                    },
+                    {
+                        "id": "637466751262218869.jpg",
+                        "categoryType": 5,
+                        "categoryId": "pools",
+                        "subCategoryId": "pools-outdoor-pool",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751262218869.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751262218869.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751262218869.jpg"
+                    },
+                    {
+                        "id": "637466751398625607.jpg",
+                        "categoryType": 5,
+                        "categoryId": "pools",
+                        "subCategoryId": "pools-indoor-pool",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751398625607.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751398625607.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751398625607.jpg"
+                    },
+                    {
+                        "id": "637466751444719215.jpg",
+                        "categoryType": 5,
+                        "categoryId": "pools",
+                        "subCategoryId": "pools-outdoor-pool",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751444719215.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751444719215.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751444719215.jpg"
+                    },
+                    {
+                        "id": "637466751518313071.jpg",
+                        "categoryType": 5,
+                        "categoryId": "pools",
+                        "subCategoryId": "pools-outdoor-pool",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751518313071.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751518313071.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751518313071.jpg"
+                    },
+                    {
+                        "id": "637466751592531992.jpg",
+                        "categoryType": 5,
+                        "categoryId": "pools",
+                        "subCategoryId": "pools-outdoor-pool",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751592531992.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751592531992.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751592531992.jpg"
+                    },
+                    {
+                        "id": "637466748713343089.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748713343089.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748713343089.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748713343089.jpg"
+                    },
+                    {
+                        "id": "637466748747717562.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466748747717562.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466748747717562.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466748747717562.jpg"
+                    },
+                    {
+                        "id": "637466749511295395.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466749511295395.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466749511295395.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466749511295395.jpg"
+                    },
+                    {
+                        "id": "637466751697063606.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751697063606.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751697063606.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751697063606.jpg"
+                    },
+                    {
+                        "id": "637466751750501094.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751750501094.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751750501094.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751750501094.jpg"
+                    },
+                    {
+                        "id": "637466751942689011.jpg",
+                        "categoryType": 6,
+                        "categoryId": "water-park",
+                        "subCategoryId": "water-park-water-park",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466751942689011.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466751942689011.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466751942689011.jpg"
+                    },
+                    {
+                        "id": "637466754800975795.jpg",
+                        "categoryType": 7,
+                        "categoryId": "beach",
+                        "subCategoryId": "beach-beach",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466754800975795.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466754800975795.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466754800975795.jpg"
+                    },
+                    {
+                        "id": "637466754873476098.jpg",
+                        "categoryType": 7,
+                        "categoryId": "beach",
+                        "subCategoryId": "beach-beach",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466754873476098.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466754873476098.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466754873476098.jpg"
+                    },
+                    {
+                        "id": "637466755108945244.jpg",
+                        "categoryType": 8,
+                        "categoryId": "mini-club",
+                        "subCategoryId": "mini-club-mini-club",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755108945244.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755108945244.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755108945244.jpg"
+                    },
+                    {
+                        "id": "637466755143164027.jpg",
+                        "categoryType": 8,
+                        "categoryId": "mini-club",
+                        "subCategoryId": "mini-club-mini-club",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755143164027.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755143164027.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755143164027.jpg"
+                    },
+                    {
+                        "id": "637466755205507843.jpg",
+                        "categoryType": 8,
+                        "categoryId": "mini-club",
+                        "subCategoryId": "mini-club-mini-club",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755205507843.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755205507843.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755205507843.jpg"
+                    },
+                    {
+                        "id": "637466755753165415.jpg",
+                        "categoryType": 9,
+                        "categoryId": "spa",
+                        "subCategoryId": "spa-spa",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755753165415.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755753165415.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755753165415.jpg"
+                    },
+                    {
+                        "id": "637466755775040363.jpg",
+                        "categoryType": 9,
+                        "categoryId": "spa",
+                        "subCategoryId": "spa-spa",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755775040363.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755775040363.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755775040363.jpg"
+                    },
+                    {
+                        "id": "637466755798009207.jpg",
+                        "categoryType": 9,
+                        "categoryId": "spa",
+                        "subCategoryId": "spa-spa",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755798009207.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755798009207.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755798009207.jpg"
+                    },
+                    {
+                        "id": "637466755823321899.jpg",
+                        "categoryType": 9,
+                        "categoryId": "spa",
+                        "subCategoryId": "spa-spa",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466755823321899.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466755823321899.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466755823321899.jpg"
+                    },
+                    {
+                        "id": "637466756096918016.jpg",
+                        "categoryType": 10,
+                        "categoryId": "sport",
+                        "subCategoryId": "sport-sport",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466756096918016.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466756096918016.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466756096918016.jpg"
+                    },
+                    {
+                        "id": "637466756167856071.jpg",
+                        "categoryType": 10,
+                        "categoryId": "sport",
+                        "subCategoryId": "sport-sport",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466756167856071.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466756167856071.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466756167856071.jpg"
+                    },
+                    {
+                        "id": "637466756428952081.jpg",
+                        "categoryType": 10,
+                        "categoryId": "sport",
+                        "subCategoryId": "sport-sport",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466756428952081.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466756428952081.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466756428952081.jpg"
+                    },
+                    {
+                        "id": "637466756554890559.jpg",
+                        "categoryType": 10,
+                        "categoryId": "sport",
+                        "subCategoryId": "sport-sport",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466756554890559.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466756554890559.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466756554890559.jpg"
+                    },
+                    {
+                        "id": "637466756983487991.jpg",
+                        "categoryType": 11,
+                        "categoryId": "animation",
+                        "subCategoryId": "animation-animation",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466756983487991.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466756983487991.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466756983487991.jpg"
+                    },
+                    {
+                        "id": "637466757088369708.jpg",
+                        "categoryType": 11,
+                        "categoryId": "animation",
+                        "subCategoryId": "animation-animation",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466757088369708.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466757088369708.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466757088369708.jpg"
+                    },
+                    {
+                        "id": "637466757137432614.jpg",
+                        "categoryType": 11,
+                        "categoryId": "animation",
+                        "subCategoryId": "animation-animation",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637466757137432614.jpg",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637466757137432614.jpg",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637466757137432614.jpg"
+                    },
+                    {
+                        "id": "637516810273585207.JPG",
+                        "categoryType": 8,
+                        "categoryId": "mini-club",
+                        "subCategoryId": "mini-club-mini-club",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637516810273585207.JPG",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637516810273585207.JPG",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637516810273585207.JPG"
+                    },
+                    {
+                        "id": "637516810455150248.JPG",
+                        "categoryType": 8,
+                        "categoryId": "mini-club",
+                        "subCategoryId": "mini-club-mini-club",
+                        "small": "http://content.coral.ru/resize/200x200/media/image/1/3815/637516810455150248.JPG",
+                        "medium": "http://content.coral.ru/resize/800x600/media/image/1/3815/637516810455150248.JPG",
+                        "large": "http://content.coral.ru/resize/1600x900/media/image/1/3815/637516810455150248.JPG"
+                    }
+                ],
+                "videos": [
+                    {
+                        "name": "637517701414728544.mp4",
+                        "url": "http://content.coral.ru/media/video/1/3815/637517701414728544.mp4"
+                    }
+                ]
+            },
+            "hotelContents": [
+                {
+                    "title": "Общее",
+                    "type": 1,
+                    "sections": [
+                        {
+                            "title": "Общее",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_2_28092023114051.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_2_28092023114051.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Дата основания",
+                                                            "value": "2011"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Последняя дата реставрации",
+                                                            "value": "2020 (Вся территория)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Общая Площадь",
+                                                            "value": "380 00 кв.м."
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Расположение",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_9_28092023114822.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_9_28092023114822.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Город",
+                                                            "value": "Турклер (Turkler)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "В 4 км от города Konakli. В 18 км из города Alanya"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "В 100 км от аэропорта Antalya-AYT"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "В окрестностях",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_3_28092023114144.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_3_28092023114144.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Торговый центр",
+                                                            "value": "4 км"
+                                                        },
+                                                        {
+                                                            "caption": "Автобусная остановка или метро",
+                                                            "value": "100 м"
+                                                        },
+                                                        {
+                                                            "caption": "Банкомат",
+                                                            "value": "500 м"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "В отеле",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_4_28092023114227.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_4_28092023114227.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Главное Здание: 2 (этажи: 5, Лифты: 6)"
+                                                        },
+                                                        {
+                                                            "value": "Здание Анекс: 5 (этажи: 3, Лифты: Нет)"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Рестораны: 4  (из них ресторанов а’ля карт: 1) "
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Бары: 6"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Комнаты для переговоров: 0"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Бассейны для взрослых",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Открытый Бассейн (площадь 117 кв.м., глубина 130 см)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Детские бассейны",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Открытый Бассейн (площадь 152 кв.м., глубина 35 см)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Водные горки",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_5_28092023114418.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "бесплатно, для взрослых: 8, для детей: 3"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Пляж",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_7_28092023114635.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_7_28092023114635.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "До пляжа, 100 м, Между отелем и пляжем проходит дорога (существует подземный пешеходный переход)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Собственный песчаный пляж на территории общественного пляжа, протяженность 1 км"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Песчано-галечный пляж"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Песчано-галечный вход в воду"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Зонты"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Шезлонги"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Пляжные полотенца (deposit)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Павильон на пляже (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Душ на пляже"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Питание и напитки на пляже"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Особенности",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_8_28092023114753.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_8_28092023114753.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Количество номеров для людей с ограниченными возможностями",
+                                                            "value": "5, Кресло-коляска для людей с ограниченными возможностями (Платно) "
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Сертификаты отеля",
+                                                            "value": "ИСО 9001, ХАССП (HACCP), ИСО 22000"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Контакты",
+                            "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_10_28092023114848.svg",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_1_10_28092023114848.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Адрес"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Телефон",
+                                                            "value": "+(90) 02424446607"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Email",
+                                                            "value": "info@eftaliahotels.com"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Сайт",
+                                                            "value": "www.eftaliahotels.com"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {},
+                                                        {
+                                                            "caption": "Youtube",
+                                                            "value": "https://www.youtube.com/channel/UCDtMiQreGfTKRNKhEZOQz_Q"
+                                                        },
+                                                        {
+                                                            "caption": "Twitter",
+                                                            "value": "www.twitter.com/EftaliaH"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Услуги",
+                    "type": 2,
+                    "sections": [
+                        {
+                            "title": "Услуги",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_1_28092023115014.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Прачечная (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Услуги врача (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Wi-Fi В общественных зонах (бесплатно)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Красота",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_2_28092023115053.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "СПА-Центр (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Сауна (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Массаж (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Хамам (Платно)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Развлечения",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_3_28092023115122.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Дискотека (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Анимация (Ночные развлекательные программы, Дневные развлекательные программы); языки: (Русский, Английский)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Спорт",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_4_28092023115209.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Фитнес-Центр: 25 кв.м. , Штанги, Тренажеры"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Теннисный корт (1 шт.):  твердое покрытие (1)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "Освещение теннисного корта (Платно)"
+                                                        },
+                                                        {
+                                                            "value": "Теннисные мячи, ракетки (Платно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Настольный Теннис"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Дартс"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Пляжный волейбол"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Бильярд (Платно)"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Для детей",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_6_28092023115310.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Развлекательные программы для детей"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Детская Площадка "
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Детское меню в ресторане"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Детское кресло в ресторане"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Детская кроватка"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Мини-Клуб",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_2_7_28092023115350.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "детский клуб: 4-12 лет, 10:00 - 12:00"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "детский клуб: 4-12 лет, 14:00 - 17:00"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 6,
+                                    "data": {
+                                        "paragraph": {
+                                            "text": "Администрация отеля оставляет за собой право вносить изменения в перечень и порядок предоставление услуг без предварительного уведомления, поэтому рекомендуем предварительно уточнять интересующую Вас информацию."
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Номера",
+                    "type": 3,
+                    "sections": [
+                        {
+                            "title": "Количество номеров для людей с ограниченными возможностями",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_4_1_28092023115605.svg",
+                                    "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_4_1_28092023115605.svg",
+                                    "dataType": 8,
+                                    "data": {
+                                        "captionValueText": {
+                                            "caption": "Количество номеров для людей с ограниченными возможностями",
+                                            "value": "5"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Количество номеров для некурящих",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "preIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_4_2_28092023115505.svg",
+                                    "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_4_2_28092023115505.svg",
+                                    "dataType": 8,
+                                    "data": {
+                                        "captionValueText": {
+                                            "caption": "Количество номеров для некурящих",
+                                            "value": "Все"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "STANDARD ROOM",
+                            "roomIds": [
+                                "48164"
+                            ],
+                            "viewType": 1,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Всего номеров: 133"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Площадь номера: 24 кв.м."
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "1 спальня (Полутороспальная  кровать: 1, Одноместные кровати: 1)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ванных комнат: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Туалетов: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Балкон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Не определено"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Кондиционер с индивидуальным управлением"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Спутниковое телевидение, каналы: Турецкий, Немецкий, Русский, Польский"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Минибар в номере (пополняется один раз в неделю; для Ultra All Inclusive бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Сейф в номере (бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Напольное покрытие: ламинат"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ежедневная уборка"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Телефон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Номера расположены на этажах: 1,2,3,4,5"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Максимальное размещение: взрослых до 3, детей до 1; общее количество человек: до 3"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "STANDARD ROOM SINGLE USE",
+                            "roomIds": [
+                                "49688"
+                            ],
+                            "viewType": 1,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Всего номеров: 133"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Площадь номера: 24 кв.м."
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "1 спальня (Полутороспальная  кровать: 1, Одноместные кровати: 1)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ванных комнат: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Туалетов: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Балкон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Не определено"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Кондиционер с индивидуальным управлением"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Спутниковое телевидение, каналы: Турецкий, Немецкий, Русский, Польский"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Минибар в номере (пополняется один раз в неделю; для Ultra All Inclusive бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Сейф в номере (бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Напольное покрытие: ламинат"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ежедневная уборка"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Телефон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Номера расположены на этажах: 1,2,3,4,5"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Максимальное размещение: взрослых до 1, детей до 2; общее количество человек: до 3"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "STANDARD LARGE ROOM",
+                            "roomIds": [
+                                "50033"
+                            ],
+                            "viewType": 1,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Всего номеров: 177"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Площадь номера: 34 кв.м."
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "1 спальня (Полутороспальная  кровать: 1, Одноместные кровати: 1, Unknown: 1)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ванных комнат: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Туалетов: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Балкон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Не определено"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Кондиционер с индивидуальным управлением"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Спутниковое телевидение, каналы: Турецкий, Немецкий, Русский, Польский"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Минибар в номере (пополняется один раз в неделю; для Ultra All Inclusive бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Сейф в номере (бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Напольное покрытие: ламинат"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ежедневная уборка"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Телефон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Номера расположены на этажах: 1,2,3,4,5"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Максимальное размещение: взрослых до 3, детей до 2; общее количество человек: до 4"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "FAMILY ROOM A",
+                            "roomIds": [
+                                "50032"
+                            ],
+                            "viewType": 1,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Всего номеров: 79"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Площадь номера: 43 кв.м."
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "2 спальни (Полутороспальная  кровать: 1, Single bed: 2)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Межкомнатная дверь"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ванных комнат: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Туалетов: 1"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Балкон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Не определено"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Кондиционер с индивидуальным управлением"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Спутниковое телевидение, каналы: Турецкий, Немецкий, Русский, Польский"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Минибар в номере (пополняется один раз в неделю; для Ultra All Inclusive бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Сейф в номере (бесплатно)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Напольное покрытие: ламинат"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ежедневная уборка"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Телефон"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Номера расположены на этажах: 1,2,3,4,5"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Максимальное размещение: взрослых до 4, детей до 3; общее количество человек: до 5"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Питание",
+                    "type": 4,
+                    "sections": [
+                        {
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 7,
+                                    "data": {
+                                        "titleDescription": {
+                                            "title": "Отель работает по системе Ультра все включено"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 7,
+                                    "data": {
+                                        "titleDescription": {
+                                            "title": "Концепции питания"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Ультра все включено",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_3_1_28092023132839.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "value": "Ультра все включено: 24 часа"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Питание",
+                                                            "value": "Завтрак, Поздний завтрак, Обед, Закуски, Послеобеденный чай, Ужин, Поздний уж"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Бесплатно",
+                                                            "value": "Безалкогольные напитки, Напитки местного производства, Мороженое, Кондитерская"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Платно",
+                                                            "value": "Напитки импортного производства"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "Расписание"
+                                                        },
+                                                        {
+                                                            "caption": "Завтрак",
+                                                            "value": "Рестораны MAIN RESTAURANT (Шведский стол, 07:00 - 10:00)"
+                                                        },
+                                                        {
+                                                            "caption": "Поздний завтрак",
+                                                            "value": "Рестораны BURGERLAND (Шведский стол, 10:00 - 11:00)"
+                                                        },
+                                                        {
+                                                            "caption": "Обед",
+                                                            "value": "Рестораны MAIN RESTAURANT (Шведский стол, 12:30 - 14:00)"
+                                                        },
+                                                        {
+                                                            "caption": "Закуски",
+                                                            "value": "Рестораны BURGERLAND (Шведский стол, 00:00 - 23:59)"
+                                                        },
+                                                        {
+                                                            "caption": "Послеобеденный чай",
+                                                            "value": "Рестораны PATISSERIE (Шведский стол, 11:00 - 17:00)"
+                                                        },
+                                                        {
+                                                            "caption": "Ужин",
+                                                            "value": "Рестораны MAIN RESTAURANT (Шведский стол, 19:00 - 21:00)"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 7,
+                                    "data": {
+                                        "titleDescription": {
+                                            "title": "Рестораны и бары",
+                                            "description": "Всего ресторанов: 4 (из них 1 а'ля карт), Бары: 6"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "A'ля карт pестораны",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_3_2_28092023132906.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "title": "A'ля карт pестораны",
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "ITALIAN A'LA CARTE",
+                                                            "value": "(кухня Итальянская, бронирование не требуется, 19:00 - 21:00)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "Один раз за весь период проживания бесплатно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": "Бары",
+                            "mobilePreIconUrl": "https://b2ccdn.coral.ru/content/defaultimages/4_3_3_28092023132928.svg",
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "title": "Бары",
+                                    "dataType": 0,
+                                    "data": {
+                                        "list": {
+                                            "items": [
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "LOBBY BAR",
+                                                            "value": "(24 часа, Напитки местного производства, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "платно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "POOL BAR",
+                                                            "value": "(10:00 - 23:30, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "платно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "EFES PUB BAR",
+                                                            "value": "(18:00 - 00:00, Напитки местного производства, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "платно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "DISCO BAR",
+                                                            "value": "(00:00 - 02:00, Напитки местного производства, Напитки импортного производства, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "AQUA BAR",
+                                                            "value": "(10:00 - 16:00, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "платно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                },
+                                                {
+                                                    "values": [
+                                                        {
+                                                            "caption": "BEACH BAR",
+                                                            "value": "(10:00 - 00:00, Безалкогольные напитки)"
+                                                        }
+                                                    ],
+                                                    "children": [
+                                                        {
+                                                            "value": "платно для Ultra All Inclusive"
+                                                        }
+                                                    ],
+                                                    "isDownListed": true
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "viewType": 0,
+                            "contents": [
+                                {
+                                    "dataType": 6,
+                                    "data": {
+                                        "paragraph": {
+                                            "text": "Администрация отеля оставляет за собой право вносить изменения в концепцию без предварительного уведомления, поэтому рекомендуем\tпредварительно уточнить интересующую вас информацию."
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "meta": {
+        "responseDateTime": "2024-02-14T09:40:43.6845439Z",
+        "elapsedTime": "00:00:00",
+        "statusCode": 200,
+        "correlation": "7fd2387d-fcf5-4eac-bc72-773e6c52bfac"
+    }
+}

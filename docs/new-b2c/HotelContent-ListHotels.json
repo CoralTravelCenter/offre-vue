@@ -1,0 +1,66 @@
+{
+    "result": {
+        "hotels": [
+            {
+                "id": 3815,
+                "name": "EFTALIA AQUA RESORT",
+                "giataCode": "229489",
+                "friendlyUrl": "turkey/eftalia-aqua-resort-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.597234501804884",
+                    "longitude": "31.82061195373535"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "2153290",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 3095,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "meta": {
+        "responseDateTime": "2024-02-14T10:23:02.1039191Z",
+        "elapsedTime": "00:00:00",
+        "statusCode": 200,
+        "correlation": "6b711fef-81a7-4e71-8e7a-1ba6690e9a13"
+    }
+}

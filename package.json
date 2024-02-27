@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "api-proxy": "lcp --proxyUrl https://www.coral.ru",
+        "api-proxy": "lcp --proxyUrl https://b2cpilotapi.coral.ru",
         "b2c-proxy": "b2c-proxy --coral"
     },
     "devDependencies": {

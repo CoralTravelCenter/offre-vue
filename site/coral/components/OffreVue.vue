@@ -1,13 +1,19 @@
 <script setup>
 
-import { computed, onMounted, provide, ref, watchEffect } from "vue";
+import { computed, getCurrentInstance, onMounted, provide, ref, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent } from "../../lib/b2c-api";
+import { commonSearchCriterias } from "../config/globals";
+import { hotelSearchTerms } from "../../lib/data-ops";
+
+import dayjs from "dayjs";
+import locale_ru from 'dayjs/locale/ru'
+dayjs.locale(locale_ru);
 
 const props = defineProps({
     options: {
         type: Object,
-        default: { groupBy: 'country', chartersOnly: true }
+        default: { groupBy: 'countries', chartersOnly: true }
     },
     hotelsList: { type: Array, default: [] }
 });
@@ -15,21 +21,43 @@ const props = defineProps({
 const regionOptions = ref([]);
 const selectedRegion = ref();
 
+const hotelInfos = ref([]);
+
 watchEffect(async () => {
-    const hotel_ids = props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id);
-    const { result: { hotels: hotel_list }  } = await HotelContent.ListHotels(hotel_ids);
-    regionOptions.value = [...(new Set(hotel_list.map(h => h[`${ props.options.groupBy }Name`])))];
+    const hotel_ids = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
+    const { result: hotels_info } = await HotelContent.ListHotelsInfo(hotel_ids);
+    const { hotels } = hotels_info;
+    hotelInfos.value = hotels;
+    const location_options = hotels_info[props.options.groupBy];
+    regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
+
+    for (const hotel of props.hotelsList) {
+        let hst = hotelSearchTerms(hotel, props.options);
+        console.log(hst);
+    }
+
+    const offersQuery = Object.assign({}, commonSearchCriterias, {
+        beginDates: [],
+        nights: [],
+        departureLocations: [selectedDeparture.value],
+        arrivalLocations: hotelInfos.value.map(info => ({ id: info.location.id, type: info.location.type })),
+        paging: { pageNumber: 1, pageSize: hotelInfos.value.length, sortType: 0 },
+        flightType: props.options.chartersOnly ? 0 : 2
+    });
+    console.log('+++ offersQuery: %o', offersQuery);
+
 });
 
 const departures = ref([]);
 const selectedDeparture = ref({});
 
 const matchedDepartures = computed(() => {
+    const { $cityCorrectName } = getCurrentInstance().appContext.config.globalProperties;
     return departures.value.filter(dep => {
         const pattern_input = departureInputPattern.value?.trim();
         if (pattern_input) {
             const words_uc = pattern_input.toUpperCase().split(/\s+/);
-            const dep_name_words_uc = (dep.correctName || dep.name).toUpperCase().split(/\s+/);
+            const dep_name_words_uc = ($cityCorrectName(dep.name)).toUpperCase().split(/\s+/);
             return words_uc.reduce((matched, word) => {
                 if (!matched) return false;
                 const idx = dep_name_words_uc.findIndex(dep_word => dep_word.indexOf(word) === 0);

@@ -13,4 +13,6 @@
 
 ### /PackageTourHotelProduct/ListDepartureLocations
 
-    
+### /HotelContent/ListHotelsInfo
+
+    ...has location info

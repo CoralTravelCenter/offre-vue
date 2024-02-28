@@ -5,16 +5,18 @@ const searchCriterias = {
     ],
     "arrivalLocations": [
         {
-            "id": "1-0--",
-            "locationId": "1",
-            "locationUniqueId": "Country_1",
-            "countryIds": null,
-            "type": 0,
-            "name": "Турция",
-            "countryName": "Турция",
-            "friendlyUrl": "turtsiya",
-            "parent": null,
-            "children": null
+            "id": "49757-7-12-",
+            "type": 7,
+            // "id": "1-0--",
+            // "type": 0,
+            // "locationId": "1",
+            // "locationUniqueId": "Country_1",
+            // "countryIds": null,
+            // "name": "Турция",
+            // "countryName": "Турция",
+            // "friendlyUrl": "turtsiya",
+            // "parent": null,
+            // "children": null
         }
     ],
     "departureLocations": [
@@ -57,22 +59,23 @@ const searchCriterias = {
         "pageSize": 20,
         "sortType": 0
     },
-    "additionalFilters": [
-        {
-            "type": 18,
-            "values": [
-                {
-                    "id": "3815-7-1-",
-                    // "value": "EFTALIA AQUA RESORT"
-                },
-                {
-                    "id": "55032-7-1-",
-                    // "value": "EFTALIA BLUE"
-                }
-            ],
-            "providers": []
-        }
-    ],
+    // "additionalFilters": [
+    //     {
+    //         "type": 18,
+    //         "values": [
+    //             {
+    //                 id: '49757-7-12-'
+    //             },
+    //             // {
+    //             //     "id": "3815-7-1-",
+    //             // },
+    //             // {
+    //             //     "id": "55032-7-1-",
+    //             // }
+    //         ],
+    //         "providers": []
+    //     }
+    // ],
     "imageSizes": [
         0
     ],

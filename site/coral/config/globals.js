@@ -11,3 +11,10 @@ const globals = {
 
 export default globals;
 export const devAPIHost = { home: globals.devHomeAPIHost, office: globals.devOfficeAPIHost }[globals.devLocation];
+
+export const commonSearchCriterias = {
+    datePickerMode: 0,
+    roomCriterias: [{ "passengers": [{ "age": 20, "passengerType": 0 }, { "age": 20, "passengerType": 0 }] }],
+    reservationType: 1,
+    imageSizes: [4,7],
+};

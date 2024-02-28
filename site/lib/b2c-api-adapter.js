@@ -8,10 +8,12 @@ export async function consultApi(endpoint, method = 'post', params = {}) {
         return Promise.resolve(JSON.parse(cached_response));
     }
     let apiHost;
-    const queryParams = new URLSearchParams(params);
     if (location.hostname === 'localhost') {
         if (globals.devLocation === 'home') {
-
+            apiHost = globals.devHomeAPIHost;
+            endpoint = `/${ request_hash }.json`;
+            method = 'get';
+            params = {};
         } else if (globals.devLocation === 'office') {
             apiHost = globals.devOfficeAPIHost;
         }

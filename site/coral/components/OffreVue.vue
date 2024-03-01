@@ -1,10 +1,10 @@
 <script setup>
 
-import { computed, getCurrentInstance, onMounted, provide, ref, watchEffect } from "vue";
+import { computed, getCurrentInstance, onMounted, provide, ref, watch, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent } from "../../lib/b2c-api";
 import { commonSearchCriterias } from "../config/globals";
-import { hotelSearchTerms } from "../../lib/data-ops";
+import { hotelSearchTimeframes } from "../../lib/data-ops";
 
 import dayjs from "dayjs";
 import locale_ru from 'dayjs/locale/ru'
@@ -18,34 +18,83 @@ const props = defineProps({
     hotelsList: { type: Array, default: [] }
 });
 
+const layoutMode = ref('');
+provide('layout-mode', layoutMode);
+onMounted(() => {
+    const layout = matchMedia('(max-width:768px)');
+    layout.addEventListener('change', e => layoutMode.value = e.matches ? 'mobile' : 'desktop');
+    layoutMode.value = layout.matches ? 'mobile' : 'desktop';
+});
+
+const hotelsDirectory = ref([]);
+watchEffect(() => {
+    hotelsDirectory.value = props.hotelsList.map(hotel => {
+        return {
+            id: typeof hotel === 'number' ? hotel : hotel.id,
+            timeframes: hotelSearchTimeframes(hotel, props.options),
+        }
+    });
+    console.log('+++ hotelsDirectory: %o', hotelsDirectory.value);
+});
+
+
 const regionOptions = ref([]);
 const selectedRegion = ref();
 
+const selectedTimeframe = ref();
+const timeframeOptions = computed(() => {
+    return [...(new Set(hotelsDirectory.value.map(entry => entry.timeframes.map(tf => tf.key)).flat(Infinity)))];
+});
+const isTimeframeSelectable = computed(() => {
+    return timeframeOptions.value.length > 1;
+});
+watchEffect(() => {
+    if (timeframeOptions.value.length) {
+        selectedTimeframe.value = timeframeOptions.value[0];
+    }
+});
+
 const hotelInfos = ref([]);
+const regionsDirectory = ref({});
 
 watchEffect(async () => {
     const hotel_ids = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
     const { result: hotels_info } = await HotelContent.ListHotelsInfo(hotel_ids);
-    const { hotels } = hotels_info;
+    const { hotels, countries, regions, areas, places } = hotels_info;
     hotelInfos.value = hotels;
+    regionsDirectory.value = { countries, regions, areas, places };
     const location_options = hotels_info[props.options.groupBy];
     regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
 
-    for (const hotel of props.hotelsList) {
-        let hst = hotelSearchTerms(hotel, props.options);
-        console.log(hst);
+    // const offersQuery = Object.assign({}, commonSearchCriterias, {
+    //     beginDates: [],
+    //     nights: [],
+    //     departureLocations: [selectedDeparture.value],
+    //     arrivalLocations: hotelInfos.value.map(info => ({ id: info.location.id, type: info.location.type })),
+    //     paging: { pageNumber: 1, pageSize: hotelInfos.value.length, sortType: 0 },
+    //     flightType: props.options.chartersOnly ? 0 : 2
+    // });
+    // console.log('+++ offersQuery: %o', offersQuery);
+
+});
+
+const matchingHotelsDirectory = computed(() => {
+    if (selectedRegion.value && selectedTimeframe.value && hotelInfos.value.length) {
+        const region_key = {
+            countries: 'countryKey',
+            regions:   'regionKey',
+            areas:     'areaKey',
+            places:    'placeKey'
+        }[props.options.groupBy];
+        return hotelsDirectory.value.filter(hotel => {
+            const hotel_info = hotelInfos.value.find(info => hotel.id == info.id);
+            return (selectedRegion.value === '*'
+                    || hotel_info[region_key] == [...Object.entries(regionsDirectory.value[props.options.groupBy])].find(([k, v]) => v.name === selectedRegion.value)[0])
+                && (!isTimeframeSelectable.value || hotel.timeframes.some(tf => tf.key === selectedTimeframe.value));
+        });
+    } else {
+        return [];
     }
-
-    const offersQuery = Object.assign({}, commonSearchCriterias, {
-        beginDates: [],
-        nights: [],
-        departureLocations: [selectedDeparture.value],
-        arrivalLocations: hotelInfos.value.map(info => ({ id: info.location.id, type: info.location.type })),
-        paging: { pageNumber: 1, pageSize: hotelInfos.value.length, sortType: 0 },
-        flightType: props.options.chartersOnly ? 0 : 2
-    });
-    console.log('+++ offersQuery: %o', offersQuery);
-
 });
 
 const departures = ref([]);
@@ -73,13 +122,6 @@ const matchedDepartures = computed(() => {
 });
 const departureInputPattern = ref();
 
-const layoutMode = ref('');
-provide('layout-mode', layoutMode);
-onMounted(() => {
-    const layout = matchMedia('(max-width:768px)');
-    layout.addEventListener('change', e => layoutMode.value = e.matches ? 'mobile' : 'desktop');
-    layoutMode.value = layout.matches ? 'mobile' : 'desktop';
-});
 
 
 onMounted(async () => {
@@ -115,6 +157,23 @@ onMounted(async () => {
                     <span>{{ $cityCorrectName(departure.name) }}</span>
                 </el-option>
             </el-select>
+
+            <el-select v-if="isTimeframeSelectable"
+                       v-model="selectedTimeframe">
+                <el-option v-for="timeframe in timeframeOptions"
+                           :size="layoutMode.value === 'mobile' ? 'small' : 'default'"
+                           :key="timeframe"
+                           :label="timeframe"
+                           :value="timeframe">
+                </el-option>
+            </el-select>
+        </div>
+        <div class="console">
+            <ul>
+                <li v-for="hotel in matchingHotelsDirectory">
+                    {{ hotel }}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -171,6 +230,9 @@ onMounted(async () => {
         display: flex;
         align-items: center;
         gap: 1em;
+        .el-select {
+            flex: 0 0 auto;
+        }
     }
 
 }

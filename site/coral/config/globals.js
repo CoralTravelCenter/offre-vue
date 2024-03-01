@@ -7,7 +7,9 @@ const globals = {
     productionAPIHost: '//b2cpilotapi.coral.ru',
     // devHomeAPIHost: 'http://localhost:8888',
     devHomeAPIHost: 'https://localhost/site/coral/dev-api-cache',
-    devOfficeAPIHost: 'http://localhost:8010/proxy'
+    devOfficeAPIHost: 'http://localhost:8010/proxy',
+    //
+    timeframeDefaultKey: '*'
 };
 
 export default globals;

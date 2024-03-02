@@ -66,7 +66,7 @@ function monthlyTimeframes(since, until, hotel, options) {
             yield {
                 key: dayjs(since_run).format('MMMM'),
                 searchFields: {
-                    beginDates: [since_run.format(), until_run.format()],
+                    beginDates: [since_run.startOf('day').format(), until_run.endOf('day').format()],
                     nights: conformNights(hotel, options)
                 }
             };

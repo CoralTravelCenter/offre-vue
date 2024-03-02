@@ -34,7 +34,7 @@ const vTidy = {
 @import "../common/css/coral-colors";
 @import "../common/css/layout";
 .region-select {
-    flex: 1 1 auto;
+    //flex: 1 1 auto;
     ul {
         display: flex;
         align-items: center;
@@ -42,6 +42,9 @@ const vTidy = {
         padding: 0;
         margin: 0;
         overflow-x: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
         >li {
             .interactive();
             flex: 1 1 auto;

@@ -1,13 +1,15 @@
 <script setup>
 
-import { computed, getCurrentInstance, onMounted, provide, ref, watch, watchEffect } from "vue";
+import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watch, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
-import { HotelContent } from "../../lib/b2c-api";
+import { HotelContent, PackageTourHotelProduct } from "../../lib/b2c-api";
 import { commonSearchCriterias } from "../config/globals";
 import { hotelSearchTimeframes } from "../../lib/data-ops";
 
 import dayjs from "dayjs";
 import locale_ru from 'dayjs/locale/ru'
+import hash from "object-hash";
+import ProductGrid from "./ProductGrid.vue";
 dayjs.locale(locale_ru);
 
 const props = defineProps({
@@ -65,20 +67,9 @@ watchEffect(async () => {
     regionsDirectory.value = { countries, regions, areas, places };
     const location_options = hotels_info[props.options.groupBy];
     regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
-
-    // const offersQuery = Object.assign({}, commonSearchCriterias, {
-    //     beginDates: [],
-    //     nights: [],
-    //     departureLocations: [selectedDeparture.value],
-    //     arrivalLocations: hotelInfos.value.map(info => ({ id: info.location.id, type: info.location.type })),
-    //     paging: { pageNumber: 1, pageSize: hotelInfos.value.length, sortType: 0 },
-    //     flightType: props.options.chartersOnly ? 0 : 2
-    // });
-    // console.log('+++ offersQuery: %o', offersQuery);
-
 });
 
-const matchingHotelsDirectory = computed(() => {
+const matchedHotelsDirectory = computed(() => {
     if (selectedRegion.value && selectedTimeframe.value && hotelInfos.value.length) {
         const region_key = {
             countries: 'countryKey',
@@ -97,8 +88,66 @@ const matchingHotelsDirectory = computed(() => {
     }
 });
 
+const offerQueryParams = ref([]);
+const offerQueries = ref([]);
+
+watchEffect((onCleanup) => {
+    const searchFields_lut = {};
+    for (const matchedHotel of matchedHotelsDirectory.value) {
+        const id = matchedHotel.id;
+        const { searchFields } = matchedHotel.timeframes.find(tf => tf.key === selectedTimeframe.value);
+        console.log('--- %o -> %o', id, searchFields);
+        const terms_hash = hash(searchFields);
+        searchFields_lut[terms_hash] ||= {
+            termsSearchFields: JSON.parse(JSON.stringify(searchFields)),
+            locationsSearchFields: new Set()
+        };
+        const { location } = hotelInfos.value.find(info => info.id == id);
+        searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type })
+    }
+    console.log(searchFields_lut);
+    offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
+        return  Object.assign({}, commonSearchCriterias, {
+            beginDates: terms_and_locations.termsSearchFields.beginDates,
+            nights: terms_and_locations.termsSearchFields.nights.map(n=>({ value: n })),
+            departureLocations: [selectedDeparture.value],
+            arrivalLocations: [...terms_and_locations.locationsSearchFields],
+            paging: { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
+            flightType: props.options.chartersOnly ? 0 : 2
+        });
+    });
+    console.log('=== offerQueries: %o', offerQueryParams.value);
+});
+
+watchEffect(() => {
+    offerQueries.value = offerQueryParams.value.map(queryParams => {
+        return PackageTourHotelProduct.PriceSearchList({ searchCriterias: queryParams });
+    });
+});
+
+const productsLoading = ref(0);
+const productsList = reactive([]);
+
+watchEffect(() => {
+    productsLoading.value = 0;
+    productsList.splice(0);
+    offerQueries.value.forEach(offerQuery => {
+        offerQuery.then(response_json => {
+            if (offerQueries.value.includes(offerQuery)) {
+                console.log('--- response_json: %o', response_json);
+                productsLoading.value += 1 / offerQueries.value.length * 100;
+                productsList.push(...response_json.result.products);
+            }
+        });
+    });
+    Promise.all(offerQueries.value).then(() => {
+        productsLoading.value = 0;
+    });
+});
+
 const departures = ref([]);
 const selectedDeparture = ref({});
+provide('selected-departure', selectedDeparture);
 
 const matchedDepartures = computed(() => {
     const { $cityCorrectName } = getCurrentInstance().appContext.config.globalProperties;
@@ -137,44 +186,40 @@ onMounted(async () => {
 
 <template>
     <div class="offre-vue">
-        <div class="controls">
-            <RegionSelect v-model="selectedRegion"
-                          :options-list="regionOptions"
-                          :wildcard-option="options.wildcardOption"></RegionSelect>
+        <el-affix>
+            <div class="controls">
+                <RegionSelect v-model="selectedRegion"
+                              :options-list="regionOptions"
+                              :wildcard-option="options.wildcardOption"></RegionSelect>
 
-            <el-select v-model="selectedDeparture"
-                       value-key="id"
-                       filterable
-                       default-first-option
-                       :filter-method="input => departureInputPattern = input"
-                       :teleported="true">
-                <template #empty><div style="text-align:center; padding: 1em;">Не найден</div></template>
-                <el-option v-for="departure in matchedDepartures"
-                           :size="layoutMode.value === 'mobile' ? 'small' : 'default'"
-                           :key="departure.id"
-                           :label="`из ${ $cityGenitiveCase(departure.name) }`"
-                           :value="departure">
-                    <span>{{ $cityCorrectName(departure.name) }}</span>
-                </el-option>
-            </el-select>
+                <el-select v-model="selectedDeparture"
+                           value-key="id"
+                           filterable
+                           default-first-option
+                           :filter-method="input => departureInputPattern = input"
+                           :teleported="true">
+                    <template #empty><div style="text-align:center; padding: 1em;">Не найден</div></template>
+                    <el-option v-for="departure in matchedDepartures"
+                               :size="layoutMode.value === 'mobile' ? 'small' : 'default'"
+                               :key="departure.id"
+                               :label="`из ${ $cityGenitiveCase(departure.name) }`"
+                               :value="departure">
+                        <span>{{ $cityCorrectName(departure.name) }}</span>
+                    </el-option>
+                </el-select>
 
-            <el-select v-if="isTimeframeSelectable"
-                       v-model="selectedTimeframe">
-                <el-option v-for="timeframe in timeframeOptions"
-                           :size="layoutMode.value === 'mobile' ? 'small' : 'default'"
-                           :key="timeframe"
-                           :label="timeframe"
-                           :value="timeframe">
-                </el-option>
-            </el-select>
-        </div>
-        <div class="console">
-            <ul>
-                <li v-for="hotel in matchingHotelsDirectory">
-                    {{ hotel }}
-                </li>
-            </ul>
-        </div>
+                <el-select v-if="isTimeframeSelectable"
+                           v-model="selectedTimeframe">
+                    <el-option v-for="timeframe in timeframeOptions"
+                               :size="layoutMode.value === 'mobile' ? 'small' : 'default'"
+                               :key="timeframe"
+                               :label="timeframe"
+                               :value="timeframe">
+                    </el-option>
+                </el-select>
+            </div>
+        </el-affix>
+        <ProductGrid :products="productsList" :in-progress="productsLoading"></ProductGrid>
     </div>
 </template>
 
@@ -227,11 +272,15 @@ onMounted(async () => {
     gap: 1em;
 
     .controls {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(0,auto));
         align-items: center;
         gap: 1em;
+        padding: .75em .5em;
+        background: fade(white, 80%);
+        backdrop-filter: blur(8px);
         .el-select {
-            flex: 0 0 auto;
+            //flex: 0 0 auto;
         }
     }
 

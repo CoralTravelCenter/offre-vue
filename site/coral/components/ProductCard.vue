@@ -6,6 +6,9 @@ const props = defineProps(['product']);
 const { hotel, offers } = props.product;
 
 const selectedDeparture = inject('selected-departure');
+const { getReferenceValueByKey } = inject('product-reference');
+
+const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
 
 </script>
 
@@ -15,6 +18,13 @@ const selectedDeparture = inject('selected-departure');
             <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }"></div>
             <div class="details">
                 <div class="location">{{ hotel.locationSummary }}</div>
+                <div class="category">
+                    <div v-if="hotelStarCount" class="stars">
+                        <span v-for="n in hotelStarCount" class="filled"></span>
+                        <span v-for="n in (5-hotelStarCount)" class="empty"></span>
+                    </div>
+                    <span v-else class="category-name">{{ hotelCategoryName }}</span>
+                </div>
                 <h3 class="name">{{ hotel.name }}</h3>
                 <ul class="terms">
                     <li class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
@@ -75,6 +85,22 @@ const selectedDeparture = inject('selected-departure');
         h3.name {
             font-size: (20/14em);
             font-weight: bold;
+        }
+        .stars {
+            display: inline-grid;
+            grid-template-columns: repeat(5,auto);
+            gap: 2px;
+            >*{
+                width: 1.2em;
+                height: (96/101) * 1.2em;
+                background: center / cover no-repeat;
+                &.filled {
+                    background-image: url(data-url:/site/coral/assets-inline/rating-star-filled.svg);
+                }
+                &.empty {
+                    background-image: url(data-url:/site/coral/assets-inline/rating-star-empty.svg);
+                }
+            }
         }
         ul.terms {
             list-style: none;

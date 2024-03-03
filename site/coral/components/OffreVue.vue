@@ -12,6 +12,8 @@ import hash from "object-hash";
 import ProductGrid from "./ProductGrid.vue";
 dayjs.locale(locale_ru);
 
+import { omit, merge } from 'lodash';
+
 const props = defineProps({
     options: {
         type: Object,
@@ -127,14 +129,21 @@ watchEffect(() => {
 
 const productsLoading = ref(0);
 const productsList = reactive([]);
+const productReference = ref({});
+function getReferenceValueByKey(referenceField, key) {
+    return productReference.value[referenceField][key];
+}
+provide('product-reference', { productReference, getReferenceValueByKey });
 
 watchEffect(() => {
     productsLoading.value = 0;
     productsList.splice(0);
+    productReference.value = {};
     offerQueries.value.forEach(offerQuery => {
         offerQuery.then(response_json => {
             if (offerQueries.value.includes(offerQuery)) {
                 console.log('--- response_json: %o', response_json);
+                merge(productReference.value, omit(response_json.result, ['products', 'topProducts', 'filter', 'availableSortTypes', 'searchCriterias']));
                 productsLoading.value += 1 / offerQueries.value.length * 100;
                 productsList.push(...response_json.result.products);
             }
@@ -142,6 +151,7 @@ watchEffect(() => {
     });
     Promise.all(offerQueries.value).then(() => {
         productsLoading.value = 0;
+        console.log('--- productReference: %o', productReference.value);
     });
 });
 
@@ -279,6 +289,7 @@ onMounted(async () => {
         padding: .75em .5em;
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
+        border-radius: 0 0 1em 1em;
         .el-select {
             //flex: 0 0 auto;
         }

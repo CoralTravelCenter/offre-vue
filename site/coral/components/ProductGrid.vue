@@ -78,6 +78,7 @@ const pagedProductList = computed(() => {
         padding: 1em .5em;
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
+        border-radius: 1em 1em 0 0;
     }
 
 }

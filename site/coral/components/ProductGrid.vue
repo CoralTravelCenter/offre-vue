@@ -25,7 +25,6 @@ const pagedProductList = computed(() => {
     return props.products.slice(start, start + productListPageSize.value);
 });
 
-
 </script>
 
 <template>

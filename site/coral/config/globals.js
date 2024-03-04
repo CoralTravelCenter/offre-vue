@@ -21,3 +21,11 @@ export const commonSearchCriterias = {
     reservationType: 1,
     imageSizes: [4,7],
 };
+
+Number.prototype.pluralForm = function (root, suffix_list) {
+    return root + (this >= 11 && this <= 14 ? suffix_list[0] : suffix_list[this % 10]);
+}
+Number.prototype.asNights = function () {
+    const n = Math.floor(this);
+    return n.pluralForm('ноч', ['ей', 'ь', 'и', 'и', 'и', 'ей', 'ей', 'ей', 'ей', 'ей']);
+};

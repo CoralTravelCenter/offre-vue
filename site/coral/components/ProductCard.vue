@@ -1,14 +1,19 @@
 <script setup>
-import { inject } from "vue";
+import { inject, ref } from "vue";
+import dayjs from "dayjs";
 
 const props = defineProps(['product']);
 
 const { hotel, offers } = props.product;
+const offer = ref(offers[0]);
+
+const beginDate = offer.value.flight ? dayjs(offer.value.flight.flightDate).format('DD/MM/YYYY') : ''
 
 const selectedDeparture = inject('selected-departure');
 const { getReferenceValueByKey } = inject('product-reference');
 
 const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
+const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
 </script>
 
@@ -27,12 +32,15 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
                 </div>
                 <h3 class="name">{{ hotel.name }}</h3>
                 <ul class="terms">
-                    <li class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
+                    <li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
+                    <li class="begin-date">{{ beginDate }}</li>
+                    <li class="stay-nights">{{ offer.stayNights }} {{ offer.stayNights.asNights() }}</li>
+                    <li class="meal-type">{{ mealType }}</li>
                 </ul>
             </div>
         </div>
         <div class="pricing">
-            {{ offers[0].price.amount }}
+            {{ offer.price.amount }}
         </div>
     </div>
 </template>
@@ -82,6 +90,11 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
                 margin-right: .3em;
             }
         }
+        .category {
+            .category-name {
+                color: @coral-main-yellow;
+            }
+        }
         h3.name {
             font-size: (20/14em);
             font-weight: bold;
@@ -103,10 +116,39 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
             }
         }
         ul.terms {
+            display: flex;
+            align-items: baseline;
+            gap: 1em;
             list-style: none;
             margin: 0;
             padding: 0;
-            font-weight: 300;
+            font-size: (12/14em);
+            >li {
+                display: inline-flex;
+                align-items: center;
+                &:before {
+                    content: '';
+                    height: 1.2em;
+                    margin-right: .5em;
+                    background: center / cover no-repeat;
+                }
+                &.departure:before {
+                    width: (42/33) * 1.2em;
+                    background-image: url(data-url:/site/coral/assets-inline/icon-flight.svg);
+                }
+                &.begin-date:before {
+                    width: (32/33) * 1.2em;
+                    background-image: url(data-url:/site/coral/assets-inline/icon-cal.svg);
+                }
+                &.stay-nights:before {
+                    width: (40/33) * 1.2em;
+                    background-image: url(data-url:/site/coral/assets-inline/icon-bed.svg);
+                }
+                &.meal-type:before {
+                    width: (43/33) * 1.2em;
+                    background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
+                }
+            }
         }
     }
     .pricing {

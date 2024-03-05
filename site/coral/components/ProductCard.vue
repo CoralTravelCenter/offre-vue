@@ -15,6 +15,8 @@ const { getReferenceValueByKey } = inject('product-reference');
 const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
+const tourType = ref('package');
+
 </script>
 
 <template>
@@ -40,7 +42,26 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
             </div>
         </div>
         <div class="pricing">
-            {{ offer.price.amount }}
+            <div class="tour-type">
+                <button class="package" :class="{ selected: tourType === 'package' }" @click="tourType = 'package'">Тур с перелетом</button>
+                <button class="only-hotel" :class="{ selected: tourType === 'hotel' }" @click="tourType = 'hotel'">Только отель</button>
+            </div>
+            <div class="tour-info">
+                <div class="price-discount">
+                    <div class="price">
+                        <div class="from-wording">цена от:</div>
+                        <div v-if="offer.price.oldAmount" class="list-price">
+                            {{ offer.price.oldAmount.formatCurrency(offer.price.currency) }}
+                        </div>
+                        <div class="final-price">
+                            {{ offer.price.amount.formatCurrency(offer.price.currency) }}
+                        </div>
+                    </div>
+                    <div class="discount" v-if="offer.price.discountPercent">
+                        {{ offer.price.discountPercent }}% Скидка
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +83,7 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
         display: flex;
     }
     .visual {
+        flex-shrink: 0;
         width: 38%;
         .proportional(4/3);
         background: center / cover no-repeat;
@@ -154,9 +176,97 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
     .pricing {
         width: 30%;
         border-left: 1px solid fade(black, 10%);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 1em;
+        padding: 1em;
+        .tour-type {
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0,1fr) 1px minmax(0,1fr);
+            button {
+                .interactive();
+                background: transparent;
+                line-height: 1;
+                height: (32/14em);
+                place-content: center;
+                border: 1px solid fade(black, 15%);
+                .transit(color);
+                cursor: pointer;
+                &.selected {
+                    pointer-events: none;
+                    color: @coral-main-blue;
+                    border-color: currentColor;
+                    z-index: 1;
+                }
+
+                &.package {
+                    grid-row: 1;
+                    grid-column: 1 / span 2;
+                    border-radius: .5em 0 0 .5em;
+                }
+
+                &.only-hotel {
+                    grid-row: 1;
+                    grid-column: 2 / span 2;
+                    border-radius: 0 .5em .5em 0;
+                }
+            }
+        }
+        .tour-info {
+            .price-discount {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                position: relative;
+                align-items: flex-end;
+                .price {
+                    line-height: 1;
+                    white-space: nowrap;
+                    .from-wording {
+                        font-size: (10/14em);
+                        color: @coral-grey;
+                        margin-bottom: 1em;
+                    }
+                    .list-price {
+                        text-decoration: line-through @coral-red-error;
+                        margin-bottom: .5em;
+                    }
+                    .final-price {
+                        //font-size: (24/14em);
+                        font-size: 2em;
+                        font-weight: 600;
+                        color: @coral-main-blue;
+                    }
+                }
+                .discount {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    display: grid;
+                    place-content: center;
+                    //font-size: (12/14em);
+                    line-height: 1;
+                    height: 2em;
+                    padding: 0 1em;
+                    background: #52C41A;
+                    color: white;
+                    border-radius: .5em .5em 0 .5em;
+                    transform: translateX(calc(1em + 10px));
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        top: 100%;
+                        right: 0;
+                        width: 10px;
+                        height: 7px;
+                        background: linear-gradient(to bottom right, darken(#52C41A, 10%) 50%, transparent 55%);
+                    }
+                }
+            }
+        }
     }
 
-    overflow: hidden;
+    //overflow: hidden;
     max-height: 20em;
     .transit(opacity);
     .transit(max-height);

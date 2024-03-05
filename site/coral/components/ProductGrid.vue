@@ -1,19 +1,20 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 
 const props = defineProps(['products','inProgress']);
 
 const showProgress = ref(false);
 let showProgressTimeout;
-watch(() => props.inProgress, (newValue, oldValue) => {
-    console.log('+++ newValue, oldValue: %o, %o', newValue, oldValue);
-    if (newValue && !oldValue) {
-        showProgressTimeout = setTimeout(() => {
-            showProgress.value = true;
-        }, 300);
+
+watchEffect(() => {
+    if (props.inProgress) {
+        if (!showProgressTimeout) {
+            showProgressTimeout = setTimeout(() => showProgress.value = true);
+        }
     } else {
         clearTimeout(showProgressTimeout);
+        showProgressTimeout = null;
         showProgress.value = false;
     }
 });
@@ -23,6 +24,14 @@ const productListPageSize = ref(10);
 const pagedProductList = computed(() => {
     const start = (productListPageNumber.value-1) * productListPageSize.value;
     return props.products.slice(start, start + productListPageSize.value);
+});
+
+const pagerAffix = ref();
+watch(pagedProductList, () => {
+    setTimeout(() => {
+        pagerAffix.value?.update();
+        pagerAffix.value?.updateRoot();
+    }, 501);
 });
 
 </script>
@@ -37,7 +46,7 @@ const pagedProductList = computed(() => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <el-affix position="bottom" target=".product-grid">
+        <el-affix ref="pagerAffix" position="bottom" target=".product-grid">
             <div class="pager">
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"
@@ -78,6 +87,9 @@ const pagedProductList = computed(() => {
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
         border-radius: 1em 1em 0 0;
+        &:not(:has(.el-pagination)) {
+            display: none;
+        }
     }
 
 }

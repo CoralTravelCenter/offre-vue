@@ -121,22 +121,28 @@ watchEffect((onCleanup) => {
     console.log('=== offerQueries: %o', offerQueryParams.value);
 });
 
+const productsLoading = ref(0);
+const productsList = reactive([]);
+const productReference = ref({});
+
 watchEffect(() => {
     offerQueries.value = offerQueryParams.value.map(queryParams => {
         return PackageTourHotelProduct.PriceSearchList({ searchCriterias: queryParams });
     });
+    if (offerQueries.value.length) {
+        productsLoading.value = 1 / offerQueries.value.length * 100;
+    } else {
+        productsLoading.value = 0;
+    }
 });
 
-const productsLoading = ref(0);
-const productsList = reactive([]);
-const productReference = ref({});
 function getReferenceValueByKey(referenceField, key) {
     return productReference.value[referenceField][key];
 }
 provide('product-reference', { productReference, getReferenceValueByKey });
 
 watchEffect(() => {
-    productsLoading.value = 0;
+    // productsLoading.value = 0;
     productsList.splice(0);
     productReference.value = {};
     offerQueries.value.forEach(offerQuery => {

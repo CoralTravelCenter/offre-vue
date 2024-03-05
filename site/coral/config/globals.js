@@ -3,8 +3,8 @@ const globals = {
     elementPlusCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.full.min.js',
     elementPlusStylesCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
     //
-    devLocation: 'home',
-    productionAPIHost: '//b2cpilotapi.coral.ru',
+    devLocation: 'office',
+    productionAPIHost: '//b2capi.coral.ru',
     // devHomeAPIHost: 'http://localhost:8888',
     devHomeAPIHost: 'https://localhost/site/coral/dev-api-cache',
     devOfficeAPIHost: 'http://localhost:8010/proxy',
@@ -28,4 +28,19 @@ Number.prototype.pluralForm = function (root, suffix_list) {
 Number.prototype.asNights = function () {
     const n = Math.floor(this);
     return n.pluralForm('ноч', ['ей', 'ь', 'и', 'и', 'и', 'ей', 'ей', 'ей', 'ей', 'ей']);
+};
+
+Number.prototype.formatPrice = function(prefix, suffix) {
+    var s;
+    s = String(Math.round(this));
+    var sum = s.split('').reverse().join('').replace(/\d{3}(?=\d)/g, "$& ").split('').reverse().join('');
+    return `${ prefix ? (prefix + ' ') : '' }${ sum }${ suffix ? (' ' + suffix) : '' }`;
+};
+
+Number.prototype.formatCurrency = function (code = 'RUB') {
+    return {
+        RUB: this.formatPrice('', '₽'),
+        EUR: this.formatPrice('€', ''),
+        USD: this.formatPrice('$', '')
+    }[code];
 };

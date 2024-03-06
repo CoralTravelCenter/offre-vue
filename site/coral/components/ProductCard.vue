@@ -1,10 +1,11 @@
 <script setup>
-import { computed, inject, ref } from "vue";
+import { computed, inject, ref, watchEffect } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps(['product']);
 
 const widgetOptions = inject('widget-options');
+const { calcCashbackFn } = inject('calc-cashback');
 
 const { hotel, offers } = props.product;
 const offer = ref(offers[0]);
@@ -43,7 +44,7 @@ const offerListPriceFormatted = computed(() => {
 });
 
 const beginDate = computed(() => {
-    return offer.value.flight ? dayjs(offer.value.flight.flightDate).format('DD/MM/YYYY') : '';
+    return dayjs(offer.value.flight ? offer.value.flight.flightDate : offer.value.checkInDate).format('DD/MM/YYYY');
 });
 
 const selectedDeparture = inject('selected-departure');
@@ -58,6 +59,18 @@ const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
     return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }`;
+});
+
+const cashbackInfo = computed(() => {
+    return calcCashbackFn.value({
+        id: hotel.id,
+        night: offer.value.stayNights,
+        star: hotelStarCount,
+        price: offerFinalPrice.value,
+        checkInDate: offer.value.checkInDate,
+        countryID: hotel.countryKey,
+        isOnlyHotel: tourType.value === 'hotel'
+    });
 });
 
 </script>
@@ -100,14 +113,99 @@ const offerHref = computed(() => {
                         {{ offer.price.discountPercent }}% Скидка
                     </div>
                 </div>
-                <div class="cashback">
-
-                </div>
+                <el-popover placement="top" width="30em" :teleported="false">
+                    <div class="offre-vue-cashback-popover">
+                        <div class="promos-grid">
+                            <template v-for="promo in cashbackInfo.listOfPromos">
+                                <span class="value">{{ promo.content_result.formatCurrency() }}</span>
+                                <a v-if="promo.content_link" :href="promo.content_link" class="description" target="_blank">{{ promo.content_txt }}</a>
+                                <span v-else class="description">{{ promo.content_txt }}</span>
+                            </template>
+                            <div class="info-action">
+                                <div class="info">Для начисления бонусов, укажите номер карты в поле "Примечание к заказу"</div>
+                                <a href="https://coralbonus.ru/registration?promo=R3R5VO93GKG8N1PGQC1UP0G6EICQLRWEN3Z64WZGC4YBYIKHFJV55IND5O20WUJ" class="action" target="_blank">Активировать</a>
+                            </div>
+                        </div>
+                    </div>
+                    <template #reference>
+                        <div class="cashback">
+                            <div class="info">
+                                <span class="up-to">Кешбэк до {{ cashbackInfo.finalBonus.formatCurrency() }}</span>
+                                <span class="to-coral-bonus-card">на карту CoralBonus</span>
+                            </div>
+                            <img src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
+                        </div>
+                    </template>
+                </el-popover>
                 <a :href="offerHref" class="do-choose" target="_blank">Выбрать</a>
             </div>
         </div>
     </div>
 </template>
+
+<style lang="less">
+@import "../common/css/coral-colors";
+@import "../common/css/layout";
+.offre-vue-cashback-popover {
+    font-size: (12/14em);
+    .promos-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1px 0;
+        background: fade(@coral-grey, 20%);
+        >* {
+            background: white;
+        }
+        .value {
+            height: 3em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            padding-right: 1em;
+            text-align: right;
+            &:before {
+                content: '+ ';
+            }
+        }
+        a.description {
+            text-decoration: underline;
+        }
+        .description {
+            display: flex;
+            align-items: center;
+            line-height: 1.1;
+            height: 3em;
+            color: inherit;
+        }
+    }
+    .info-action {
+        padding-top: 1em;
+        grid-column: 1 / span 2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2em;
+        .info {
+            font-weight: 600;
+            color: black;
+        }
+        .action {
+            .interactive();
+            display: inline-grid;
+            place-content: center;
+            font-size: (14/12em);
+            white-space: nowrap;
+            line-height: 1;
+            height: 2.5em;
+            padding: 0 1em;
+            border-radius: .5em;
+            color: white;
+            background: @coral-main-blue;
+        }
+    }
+}
+</style>
 
 <style scoped lang="less">
 @import "../common/css/coral-colors";
@@ -313,7 +411,35 @@ const offerHref = computed(() => {
                 }
             }
             .cashback {
+                width: 100%;
                 margin: auto;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                background: #FEEFCD;
+                border-radius: .5em;
+                padding: .5em .5em .5em 1em;
+                cursor: pointer;
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .up-to {
+                        font-size: (16/14em);
+                        font-weight: 600;
+                    }
+                    .to-coral-bonus-card {
+                        font-size: (12/14em);
+                        display: flex;
+                        align-items: center;
+                        &:after {
+                            content: '';
+                            width: 1.5em;
+                            height: 1.5em;
+                            margin-left: .5em;
+                            background: url("data-url:/site/coral/assets-inline/icon-help.svg") center / cover no-repeat;
+                        }
+                    }
+                }
             }
             .do-choose {
                 margin-top: auto;

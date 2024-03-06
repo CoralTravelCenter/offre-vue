@@ -1,13 +1,50 @@
 <script setup>
-import { inject, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import dayjs from "dayjs";
 
 const props = defineProps(['product']);
 
+const widgetOptions = inject('widget-options');
+
 const { hotel, offers } = props.product;
 const offer = ref(offers[0]);
 
-const beginDate = offer.value.flight ? dayjs(offer.value.flight.flightDate).format('DD/MM/YYYY') : ''
+const offerFinalPrice = computed(() => {
+    if (widgetOptions.pricing === 'per-person') {
+        return offer.value.price.amount / offer.value.rooms[0].passengers.length;
+    } else if (widgetOptions.pricing === 'per-night') {
+        return offer.value.price.amount / offer.value.stayNights;
+    } else {
+        return offer.value.price.amount;
+    }
+});
+const offerFinalPriceFormatted = computed(() => {
+    const value_formatted = offerFinalPrice.value.formatCurrency(offer.value.price.currency);
+    const pricing_option = widgetOptions.pricing || 'default';
+    const suffix = {
+        'per-person': ' / чел.',
+        'per-night': '<span class="per-night"> за ночь</span>',
+        default: ''
+    }[pricing_option];
+    return value_formatted + suffix;
+});
+
+const offerListPrice = computed(() => {
+    if (widgetOptions.pricing === 'per-person') {
+        return offer.value.price.oldAmount / offer.value.rooms[0].passengers.length;
+    } else if (widgetOptions.pricing === 'per-night') {
+        return offer.value.price.oldAmount / offer.value.stayNights;
+    } else {
+        return offer.value.price.oldAmount;
+    }
+});
+const offerListPriceFormatted = computed(() => {
+    return offerListPrice.value.formatCurrency(offer.value.price.currency);
+});
+
+const beginDate = computed(() => {
+    return offer.value.flight ? dayjs(offer.value.flight.flightDate).format('DD/MM/YYYY') : '';
+});
 
 const selectedDeparture = inject('selected-departure');
 const { getReferenceValueByKey } = inject('product-reference');
@@ -16,6 +53,12 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
 const tourType = ref('package');
+
+const offerHref = computed(() => {
+    const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
+    const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }`;
+});
 
 </script>
 
@@ -50,17 +93,17 @@ const tourType = ref('package');
                 <div class="price-discount">
                     <div class="price">
                         <div class="from-wording">цена от:</div>
-                        <div v-if="offer.price.oldAmount" class="list-price">
-                            {{ offer.price.oldAmount.formatCurrency(offer.price.currency) }}
-                        </div>
-                        <div class="final-price">
-                            {{ offer.price.amount.formatCurrency(offer.price.currency) }}
-                        </div>
+                        <div v-if="offer.price.oldAmount" class="list-price">{{ offerListPriceFormatted }}</div>
+                        <div class="final-price" v-html="offerFinalPriceFormatted"></div>
                     </div>
                     <div class="discount" v-if="offer.price.discountPercent">
                         {{ offer.price.discountPercent }}% Скидка
                     </div>
                 </div>
+                <div class="cashback">
+
+                </div>
+                <a :href="offerHref" class="do-choose" target="_blank">Выбрать</a>
             </div>
         </div>
     </div>
@@ -214,6 +257,8 @@ const tourType = ref('package');
             }
         }
         .tour-info {
+            display: flex;
+            flex-direction: column;
             .price-discount {
                 display: grid;
                 grid-template-columns: 1fr auto;
@@ -236,6 +281,10 @@ const tourType = ref('package');
                         font-size: 2em;
                         font-weight: 600;
                         color: @coral-main-blue;
+                        :deep(.per-night) {
+                            font-size: 62%;
+                            font-weight: 300;
+                        }
                     }
                 }
                 .discount {
@@ -262,6 +311,21 @@ const tourType = ref('package');
                         background: linear-gradient(to bottom right, darken(#52C41A, 10%) 50%, transparent 55%);
                     }
                 }
+            }
+            .cashback {
+                margin: auto;
+            }
+            .do-choose {
+                margin-top: auto;
+                .interactive();
+                display: grid;
+                place-content: center;
+                font-size: (16/14em);
+                text-decoration: none;
+                height: 3em;
+                color: white;
+                background: @coral-main-blue;
+                border-radius: .5em;
             }
         }
     }

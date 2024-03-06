@@ -5,6 +5,7 @@ import RegionSelect from "./RegionSelect.vue";
 import { HotelContent, PackageTourHotelProduct } from "../../lib/b2c-api";
 import { commonSearchCriterias } from "../config/globals";
 import { hotelSearchTimeframes } from "../../lib/data-ops";
+import { useScriptTag } from "@vueuse/core/index";
 
 import dayjs from "dayjs";
 import locale_ru from 'dayjs/locale/ru'
@@ -21,6 +22,14 @@ const props = defineProps({
     },
     hotelsList: { type: Array, default: [] }
 });
+
+provide('widget-options', props.options);
+
+const calcCashbackFn = ref(()=>{});
+useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
+    calcCashbackFn.value = window._get_CBonuses;
+});
+provide('calc-cashback', { calcCashbackFn });
 
 const layoutMode = ref('');
 provide('layout-mode', layoutMode);

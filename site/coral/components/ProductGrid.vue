@@ -61,7 +61,8 @@ watch(pagedProductList, () => {
 <style scoped lang="less">
 @import "../common/css/layout";
 .product-grid {
-    display: grid;
+    display: flex;
+    flex-direction: column;
 
     .offers-list {
         display: grid;

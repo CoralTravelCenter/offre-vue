@@ -293,7 +293,8 @@ onMounted(async () => {
     .bbox();
     //.silly-b2c-font-size(@max-font-size: 14px);
     font-weight: normal;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1em;
 
     .controls {

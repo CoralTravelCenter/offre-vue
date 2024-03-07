@@ -58,7 +58,7 @@ const tourType = ref('package');
 const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }`;
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=1`;
 });
 
 const cashbackInfo = computed(() => {
@@ -78,7 +78,12 @@ const cashbackInfo = computed(() => {
 <template>
     <div class="product-card">
         <div class="visual-details">
-            <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }"></div>
+            <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
+                <div class="badge-grid">
+                    <div v-if="hotel.recommended" class="badge">Рекомендуем</div>
+                    <div v-if="hotel.exclusive" class="badge exclusive">Эксклюзив</div>
+                </div>
+            </div>
             <div class="details">
                 <div class="location">{{ hotel.locationSummary }}</div>
                 <div class="category">
@@ -113,7 +118,7 @@ const cashbackInfo = computed(() => {
                         {{ offer.price.discountPercent }}% Скидка
                     </div>
                 </div>
-                <el-popover placement="top" width="30em" :teleported="false">
+                <el-popover placement="top" width="30em" trigger="click" :teleported="false">
                     <div class="offre-vue-cashback-popover">
                         <div class="promos-grid">
                             <template v-for="promo in cashbackInfo.listOfPromos">
@@ -229,6 +234,28 @@ const cashbackInfo = computed(() => {
         .proportional(4/3);
         background: center / cover no-repeat;
         border-radius: .7em;
+        .badge-grid {
+            font-size: (12/14em);
+            font-weight: 300;
+            display: grid;
+            grid-template-rows: repeat(auto-fit, 2em);
+            justify-items: start;
+            gap: 1em;
+            grid-auto-flow: column dense;
+            padding: 1em;
+            filter: drop-shadow(1px 1px 2px fade(black,15%));
+            .badge {
+                color: black;
+                background: white;
+                border-radius: 100px;
+                line-height: 2;
+                padding: 0 1em;
+                &.exclusive {
+                    background-color: #e84f0e;
+                    color: white;
+                }
+            }
+        }
     }
     .details {
         flex: 1 1 auto;

@@ -3,7 +3,7 @@ const globals = {
     elementPlusCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.full.min.js',
     elementPlusStylesCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
     //
-    devLocation: 'home',
+    devLocation: 'office',
     productionAPIHost: '//b2capi.coral.ru',
     // devHomeAPIHost: 'http://localhost:8888',
     devHomeAPIHost: 'https://localhost/site/coral/dev-api-cache',

@@ -86,12 +86,16 @@ const cashbackInfo = computed(() => {
             </div>
             <div class="details">
                 <div class="location">{{ hotel.locationSummary }}</div>
-                <div class="category">
+                <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
                         <span v-for="n in hotelStarCount" class="filled"></span>
                         <span v-for="n in (5-hotelStarCount)" class="empty"></span>
                     </div>
                     <span v-else class="category-name">{{ hotelCategoryName }}</span>
+                    <div class="concepts">
+                        <span v-if="hotel.eliteHotel" class="elite-service-badge"><span>ELITE SERVICE</span></span>
+                        <span v-if="hotel.sunFamilyClub || hotel.coralFamilyClub" class="cfc-badge"></span>
+                    </div>
                 </div>
                 <h3 class="name">{{ hotel.name }}</h3>
                 <ul class="terms">
@@ -280,9 +284,38 @@ const cashbackInfo = computed(() => {
                 margin-right: .3em;
             }
         }
-        .category {
+        .category-concept {
+            display: flex;
+            align-items: center;
             .category-name {
                 color: @coral-main-yellow;
+            }
+            .concepts {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 1em;
+                .elite-service-badge {
+                    display: inline-grid;
+                    place-content: center;
+                    padding: 0 .5em;
+                    font-weight: 300;
+                    background-color: #333;
+                    color: white;
+                    font-size: 1.2em;
+                    height: 1em;
+                    >span {
+                        font-size: .62em;
+                        letter-spacing: .15em;
+                    }
+                }
+                .cfc-badge {
+                    display: block;
+                    aspect-ratio: 151/35;
+                    font-size: 1.25em;
+                    height: 1em;
+                    background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
+                }
             }
         }
         h3.name {

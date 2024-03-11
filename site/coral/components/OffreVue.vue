@@ -3,7 +3,7 @@
 import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watch, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent, PackageTourHotelProduct } from "../../lib/b2c-api";
-import { commonSearchCriterias } from "../config/globals";
+import { packageCommonSearchCriterias } from "../config/globals";
 import { hotelSearchTimeframes } from "../../lib/data-ops";
 import { useScriptTag } from "@vueuse/core/index";
 
@@ -118,7 +118,7 @@ watchEffect((onCleanup) => {
     }
     console.log(searchFields_lut);
     offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
-        return  Object.assign({}, commonSearchCriterias, {
+        return  Object.assign({}, packageCommonSearchCriterias, {
             beginDates: terms_and_locations.termsSearchFields.beginDates,
             nights: terms_and_locations.termsSearchFields.nights.map(n=>({ value: n })),
             departureLocations: [selectedDeparture.value],
@@ -306,6 +306,15 @@ onMounted(async () => {
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
         border-radius: 0 0 1em 1em;
+        @media screen and (max-width: @mobile-breakpoint) {
+            grid-template: auto auto / 1fr 1fr;
+        }
+        @media screen and (max-width: @narrow-breakpoint) {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            grid-template: none;
+        }
         .el-select {
             //flex: 0 0 auto;
         }

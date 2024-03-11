@@ -1,14 +1,40 @@
 <script setup>
 import { computed, inject, ref, watchEffect } from "vue";
 import dayjs from "dayjs";
+import { OnlyHotelProduct } from "../../lib/b2c-api";
+import { hotelCommonSearchCriterias } from "../config/globals";
 
 const props = defineProps(['product']);
 
 const widgetOptions = inject('widget-options');
 const { calcCashbackFn } = inject('calc-cashback');
 
-const { hotel, offers } = props.product;
-const offer = ref(offers[0]);
+const tourType = ref('package');
+
+const { hotel, offers: packageOffers } = props.product;
+const hotelOffer = ref();
+const fetchingHotelOffer = ref(false);
+const offer = ref();
+
+watchEffect(() => {
+    if (tourType.value === 'package') {
+        offer.value = packageOffers[0];
+    } else if (tourType.value === 'hotel') {
+        if (hotelOffer.value) offer.value = hotelOffer.value
+        else {
+            const searchCriterias = Object.assign({}, hotelCommonSearchCriterias, {
+                beginDates: [packageOffers[0].checkInDate],
+                nights: [{ value: packageOffers[0].stayNights }],
+                arrivalLocations: [{ id: hotel.location.id, type: hotel.location.type }]
+            });
+            fetchingHotelOffer.value = true;
+            OnlyHotelProduct.PriceSearchList({ searchCriterias }).then(response_json => {
+                offer.value = hotelOffer.value = response_json.result.products[0].offers[0];
+                fetchingHotelOffer.value = false;
+            });
+        }
+    }
+});
 
 const offerFinalPrice = computed(() => {
     if (widgetOptions.pricing === 'per-person') {
@@ -53,12 +79,10 @@ const { getReferenceValueByKey } = inject('product-reference');
 const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
-const tourType = ref('package');
-
 const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=1`;
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ tourType.value === 'package' ? 1 : 2 }`;
 });
 
 const cashbackInfo = computed(() => {
@@ -111,7 +135,7 @@ const cashbackInfo = computed(() => {
                 <button class="package" :class="{ selected: tourType === 'package' }" @click="tourType = 'package'">Тур с перелетом</button>
                 <button class="only-hotel" :class="{ selected: tourType === 'hotel' }" @click="tourType = 'hotel'">Только отель</button>
             </div>
-            <div class="tour-info">
+            <div class="tour-info" :class="{ blocked: fetchingHotelOffer }">
                 <div class="price-discount">
                     <div class="price">
                         <div class="from-wording">цена от:</div>
@@ -142,7 +166,7 @@ const cashbackInfo = computed(() => {
                                 <span class="up-to">Кешбэк до {{ cashbackInfo.finalBonus.formatCurrency() }}</span>
                                 <span class="to-coral-bonus-card">на карту CoralBonus</span>
                             </div>
-                            <img src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
+                            <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
                         </div>
                     </template>
                 </el-popover>
@@ -225,12 +249,23 @@ const cashbackInfo = computed(() => {
     border-radius: 1em;
     box-shadow: 0 0 0 1px fade(black, 6%);
     color: black;
+    max-height: 20em;
+    .transit(opacity);
+    .transit(max-height);
+    @media screen and (max-width: @mobile-breakpoint) {
+        flex-direction: column;
+        max-height: none;
+    }
     >* {
         padding: .5em;
     }
     .visual-details {
         width: 70%;
         display: flex;
+        @media screen and (max-width: @mobile-breakpoint) {
+            width: 100%;
+            flex-direction: column;
+        }
     }
     .visual {
         flex-shrink: 0;
@@ -238,6 +273,10 @@ const cashbackInfo = computed(() => {
         .proportional(4/3);
         background: center / cover no-repeat;
         border-radius: .7em;
+        @media screen and (max-width: @mobile-breakpoint) {
+            .proportional(16/9);
+            width: 100%;
+        }
         .badge-grid {
             font-size: (12/14em);
             font-weight: 300;
@@ -268,6 +307,9 @@ const cashbackInfo = computed(() => {
         justify-content: center;
         gap: 1em;
         padding: 0 2em;
+        @media screen and (max-width: @mobile-breakpoint) {
+            padding: 2em 1em 1em;
+        }
         >* {
             line-height: 1;
             margin: 0;
@@ -381,6 +423,11 @@ const cashbackInfo = computed(() => {
         grid-template-rows: auto 1fr;
         gap: 1em;
         padding: 1em;
+        @media screen and (max-width: @mobile-breakpoint) {
+            width: 100%;
+            border-left: 0;
+            border-top: 1px solid fade(black, 10%);
+        }
         .tour-type {
             width: 100%;
             display: grid;
@@ -388,6 +435,7 @@ const cashbackInfo = computed(() => {
             button {
                 .interactive();
                 background: transparent;
+                font-size: inherit;
                 line-height: 1;
                 height: (32/14em);
                 place-content: center;
@@ -417,6 +465,16 @@ const cashbackInfo = computed(() => {
         .tour-info {
             display: flex;
             flex-direction: column;
+            .transit(opacity, .25s);
+            .transit(filter, .25s);
+            @media screen and (max-width: @mobile-breakpoint) {
+                gap: 1em;
+            }
+            &.blocked {
+                pointer-events: none;
+                opacity: .3;
+                filter: blur(4px);
+            }
             .price-discount {
                 display: grid;
                 grid-template-columns: 1fr auto;
@@ -479,6 +537,9 @@ const cashbackInfo = computed(() => {
                 border-radius: .5em;
                 padding: .5em .5em .5em 1em;
                 cursor: pointer;
+                .card-visual {
+                    width: (81/14em);
+                }
                 .info {
                     display: flex;
                     flex-direction: column;
@@ -516,10 +577,6 @@ const cashbackInfo = computed(() => {
         }
     }
 
-    //overflow: hidden;
-    max-height: 20em;
-    .transit(opacity);
-    .transit(max-height);
     &.slide-inout-enter-from, &.slide-inout-leave-to {
         opacity: 0;
         max-height: 0;

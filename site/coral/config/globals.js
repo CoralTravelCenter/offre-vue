@@ -15,11 +15,17 @@ const globals = {
 export default globals;
 export const devAPIHost = { home: globals.devHomeAPIHost, office: globals.devOfficeAPIHost }[globals.devLocation];
 
-export const commonSearchCriterias = {
+export const packageCommonSearchCriterias = {
     datePickerMode: 0,
     roomCriterias: [{ "passengers": [{ "age": 20, "passengerType": 0 }, { "age": 20, "passengerType": 0 }] }],
     reservationType: 1,
     imageSizes: [4,7],
+};
+
+export const hotelCommonSearchCriterias = {
+    reservationType: 2,
+    roomCriterias: [{ "passengers": [{ "age": 20, "passengerType": 0 }, { "age": 20, "passengerType": 0 }] }],
+    paging: { pageNumber: 1, pageSize: 1, sortType: 0 }
 };
 
 Number.prototype.pluralForm = function (root, suffix_list) {

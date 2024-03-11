@@ -82,7 +82,7 @@ const searchCriterias = {
     "flightType": 2
 };
 const query = { searchCriterias };
-fetch('https://b2cpilotapi.coral.ru/PackageTourHotelProduct/PriceSearchList', {
+fetch('https://b2capi.coral.ru/PackageTourHotelProduct/PriceSearchList', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(query)

@@ -1,8 +1,10 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, inject, ref, watch, watchEffect } from "vue";
 
 const props = defineProps(['products','inProgress']);
+
+const layoutMode = inject('layout-mode');
 
 const showProgress = ref(false);
 let showProgressTimeout;
@@ -46,7 +48,7 @@ watch(pagedProductList, () => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <el-affix ref="pagerAffix" position="bottom" target=".product-grid">
+        <el-affix ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" target=".product-grid">
             <div class="pager">
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"
@@ -63,7 +65,15 @@ watch(pagedProductList, () => {
 .product-grid {
     display: flex;
     flex-direction: column;
-
+    @media screen and (max-width: @wide-breakpoint) {
+        font-size: (14/1530) * 100vw;
+    }
+    @media screen and (max-width: @mobile-breakpoint) {
+        font-size: 2vw;
+    }
+    @media screen and (max-width: @narrow-breakpoint) {
+        font-size: 2.5vw;
+    }
     .offers-list {
         display: grid;
         gap: 1em;

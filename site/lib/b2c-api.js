@@ -9,6 +9,12 @@ export const PackageTourHotelProduct = {
     },
 }
 
+export const OnlyHotelProduct = {
+    async PriceSearchList(queryParams) {
+        return consultApi('/OnlyHotelProduct/PriceSearchList', 'post', queryParams);
+    },
+}
+
 export const HotelContent = {
     async ListHotels(hotelIds) {
         return consultApi('/HotelContent/ListHotels', 'post', { hotelIds });

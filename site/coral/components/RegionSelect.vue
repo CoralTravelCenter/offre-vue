@@ -1,6 +1,6 @@
 <script setup>
 import { useMouseInElement, useResizeObserver, useScroll } from "@vueuse/core";
-import { ref, watch, watchEffect } from "vue";
+import { inject, ref, watch, watchEffect } from "vue";
 
 const props = defineProps({
     modelValue: String,
@@ -9,6 +9,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const layoutMode = inject('layout-mode');
 
 function selectOptionEl(el) {
     el.classList.add('selected');
@@ -30,7 +32,7 @@ useResizeObserver(scroller, (entries) => {
 const { x: scroll_x } = useScroll(scroller, { behavior: 'auto' });
 
 watchEffect(() => {
-    if (scroller.value) {
+    if (layoutMode.value === 'desktop' && scroller.value) {
         const li = [...scroller.value.children];
         const left_gap = li.at(0).clientWidth;
         const rightGap = li.at(-1).clientWidth;
@@ -59,6 +61,12 @@ watchEffect(() => {
 @import "../common/css/layout";
 .region-select {
     //flex: 1 1 auto;
+    @media screen and (max-width: @mobile-breakpoint) {
+        grid-column: 1 / span 2;
+    }
+    @media screen and (max-width: @narrow-breakpoint) {
+        grid-column: 1;
+    }
     ul {
         display: flex;
         align-items: center;

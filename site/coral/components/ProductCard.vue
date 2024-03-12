@@ -293,6 +293,9 @@ const cashbackInfo = computed(() => {
                 border-radius: 100px;
                 line-height: 2;
                 padding: 0 1em;
+                @media screen and (max-width: @narrow-breakpoint) {
+                    line-height: 2.1;
+                }
                 &.exclusive {
                     background-color: #e84f0e;
                     color: white;
@@ -353,7 +356,7 @@ const cashbackInfo = computed(() => {
                 }
                 .cfc-badge {
                     display: block;
-                    aspect-ratio: 151/35;
+                    aspect-ratio: 153/35;
                     font-size: 1.25em;
                     height: 1em;
                     background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;

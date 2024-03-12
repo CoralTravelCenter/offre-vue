@@ -1,12 +1,14 @@
 <script setup>
 import { useMouseInElement, useResizeObserver, useScroll } from "@vueuse/core";
-import { inject, ref, watch, watchEffect } from "vue";
+import { inject, ref, watchEffect } from "vue";
 
 const props = defineProps({
     modelValue: String,
     wildcardOption: String,
     optionsList: Array
 });
+
+const $el = ref();
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -17,6 +19,11 @@ function selectOptionEl(el) {
     [...el.parentNode.children].filter(n => n !== el).forEach(n => n.classList.remove('selected'));
     emit('update:modelValue', el.dataset.value);
 }
+
+watchEffect(() => {
+    const li = $el.value?.querySelector(`li[data-value="${ props.modelValue }"]`);
+    if (li) selectOptionEl(li);
+});
 
 const vTidy = {
     mounted(el) {
@@ -48,10 +55,10 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div class="region-select">
+    <div class="region-select" ref="$el">
         <ul ref="scroller">
-            <li v-if="wildcardOption" data-value="*" @click="selectOptionEl($event.target)" v-tidy>{{ wildcardOption }}</li>
-            <li v-for="option in optionsList" :data-value="option" @click="selectOptionEl($event.target)" v-tidy>{{ option }}</li>
+            <li v-if="wildcardOption" data-value="*" @click="modelValue='*'" v-tidy>{{ wildcardOption }}</li>
+            <li v-for="option in optionsList" :data-value="option" @click="modelValue=option" v-tidy>{{ option }}</li>
         </ul>
     </div>
 </template>
@@ -61,6 +68,8 @@ watchEffect(() => {
 @import "../common/css/layout";
 .region-select {
     //flex: 1 1 auto;
+    background: fade(@coral-main-blue, 5%);
+    border-radius: 100px;
     @media screen and (max-width: @mobile-breakpoint) {
         grid-column: 1 / span 2;
     }

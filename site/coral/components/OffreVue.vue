@@ -14,6 +14,7 @@ import ProductGrid from "./ProductGrid.vue";
 dayjs.locale(locale_ru);
 
 import { omit, merge } from 'lodash';
+import { useEventListener } from "@vueuse/core";
 
 const props = defineProps({
     options: {
@@ -133,6 +134,7 @@ watchEffect((onCleanup) => {
 const productsLoading = ref(0);
 const productsList = reactive([]);
 const productReference = ref({});
+const noMatchedProducts = ref(false);
 
 watchEffect(() => {
     offerQueries.value = offerQueryParams.value.map(queryParams => {
@@ -166,6 +168,7 @@ watchEffect(() => {
     });
     Promise.all(offerQueries.value).then(() => {
         productsLoading.value = 0;
+        noMatchedProducts.value = productsList.length === 0;
         console.log('--- productReference: %o', productReference.value);
     });
 });
@@ -204,6 +207,14 @@ onMounted(async () => {
 
     departures.value = next_data.props.pageProps.meta.departures;
     selectedDeparture.value = departures.value.find(d => d.isCurrent);
+
+    useEventListener(document, 'prefer-region', (e) => {
+        selectedRegion.value = e.detail.regionName;
+    });
+
+    useEventListener(document, 'prefer-timeframe', (e) => {
+        selectedTimeframe.value = e.detail.timeframeKey;
+    });
 
 });
 
@@ -244,6 +255,11 @@ onMounted(async () => {
                 </el-select>
             </div>
         </el-affix>
+        <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="no-matched-products">
+            <div class="icon warning"></div>
+            <div class="reason">В данной подборке отелей нет подходящих вариантов.</div>
+            <div class="hint">Пожалуйста, попробуйте поменять условия выбора &mdash; регион / город вылета / период путешествия</div>
+        </div>
         <ProductGrid :products="productsList" :in-progress="productsLoading"></ProductGrid>
     </div>
 </template>
@@ -284,6 +300,7 @@ onMounted(async () => {
 </style>
 <style scoped lang="less">
 @import "../common/css/layout";
+@import "../common/css/coral-colors";
 
 .offre-vue {
     //max-width: 1120px;
@@ -299,7 +316,9 @@ onMounted(async () => {
 
     .controls {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(0,auto));
+        //grid-template-columns: repeat(auto-fit, minmax(0,auto));
+        //grid-template-columns: 1fr minmax(min-content, max-content) minmax(min-content,max-content);
+        grid-template-columns: minmax(0,1fr) auto auto;
         align-items: center;
         gap: 1em;
         padding: .75em .5em;
@@ -317,6 +336,40 @@ onMounted(async () => {
         }
         .el-select {
             //flex: 0 0 auto;
+        }
+    }
+
+    .no-matched-products {
+        display: grid;
+        grid-template: auto auto / auto auto;
+        gap: 1em 2em;
+        padding: 2em;
+        background: fade(@coral-main-yellow, 5%);
+        border-radius: 1em;
+        .icon {
+            grid-area: 1 / 1 / -1 / 2;
+            justify-self: end;
+            @media screen and (max-width: @narrow-breakpoint) {
+                width: 2.5em;
+                height: 2.5em;
+            }
+        }
+        .reason {
+            grid-area: 1 / 2;
+            font-weight: 600;
+        }
+        .hint {
+            grid-area: 2 / 2;
+            font-weight: 300;
+        }
+    }
+
+    .icon {
+        width: 4em;
+        height: 4em;
+        background: center / cover no-repeat;
+        &.warning {
+            background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
         }
     }
 

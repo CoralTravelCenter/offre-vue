@@ -79,6 +79,11 @@ watchEffect(async () => {
     regionsDirectory.value = { countries, regions, areas, places };
     const location_options = hotels_info[props.options.groupBy];
     regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
+    if (props.options.preferRegion) {
+        selectedRegion.value = props.options.preferRegion;
+    } else {
+        selectedRegion.value = props.options.wildcardOption ? '*' : regionOptions.value[0];
+    }
 });
 
 const matchedHotelsDirectory = computed(() => {
@@ -153,7 +158,6 @@ function getReferenceValueByKey(referenceField, key) {
 provide('product-reference', { productReference, getReferenceValueByKey });
 
 watchEffect(() => {
-    // productsLoading.value = 0;
     productsList.splice(0);
     productReference.value = {};
     offerQueries.value.forEach(offerQuery => {

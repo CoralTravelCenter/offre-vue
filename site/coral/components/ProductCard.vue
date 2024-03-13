@@ -149,7 +149,7 @@ const cashbackInfo = computed(() => {
                 <el-popover placement="top" width="30em" trigger="click" :teleported="false">
                     <div class="offre-vue-cashback-popover">
                         <div class="promos-grid">
-                            <template v-for="promo in cashbackInfo.listOfPromos">
+                            <template v-for="promo in (cashbackInfo?.listOfPromos ?? [])">
                                 <span class="value">{{ promo.content_result.formatCurrency() }}</span>
                                 <a v-if="promo.content_link" :href="promo.content_link" class="description" target="_blank">{{ promo.content_txt }}</a>
                                 <span v-else class="description">{{ promo.content_txt }}</span>
@@ -163,7 +163,7 @@ const cashbackInfo = computed(() => {
                     <template #reference>
                         <div class="cashback">
                             <div class="info">
-                                <span class="up-to">Кешбэк до {{ cashbackInfo.finalBonus.formatCurrency() }}</span>
+                                <span class="up-to">Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span>
                                 <span class="to-coral-bonus-card">на карту CoralBonus</span>
                             </div>
                             <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">

@@ -1,5 +1,5 @@
 
-import { asap, dependency, hostReactAppReady } from '../../lib/usefuls';
+import { asap, hostReactAppReady } from '../../lib/usefuls';
 import { createApp } from "vue";
 import ElementPlus from 'element-plus';
 import OffreVue from "../components/OffreVue.vue";

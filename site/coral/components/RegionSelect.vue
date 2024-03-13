@@ -23,7 +23,7 @@ function selectOptionEl(el) {
 watchEffect(() => {
     const li = $el.value?.querySelector(`li[data-value="${ props.modelValue }"]`);
     if (li) selectOptionEl(li);
-});
+}, { flush: 'post' });
 
 const vTidy = {
     mounted(el) {
@@ -41,14 +41,16 @@ const { x: scroll_x } = useScroll(scroller, { behavior: 'auto' });
 watchEffect(() => {
     if (layoutMode.value === 'desktop' && scroller.value) {
         const li = [...scroller.value.children];
-        const left_gap = li.at(0).clientWidth;
-        const rightGap = li.at(-1).clientWidth;
-        const hover_area_width = scroller.value.clientWidth - left_gap - rightGap;
-        let target_scroll_ratio = (mouse_x.value - left_gap) / hover_area_width;
-        if (target_scroll_ratio < 0) target_scroll_ratio = 0.0;
-        if (target_scroll_ratio > 1) target_scroll_ratio = 1.0;
-        const scroll_span = scroller.value.scrollWidth - scroller.value.clientWidth;
-        scroll_x.value = Math.round(scroll_span * target_scroll_ratio);
+        if (li.length) {
+            const left_gap = li.at(0).clientWidth;
+            const rightGap = li.at(-1).clientWidth;
+            const hover_area_width = scroller.value.clientWidth - left_gap - rightGap;
+            let target_scroll_ratio = (mouse_x.value - left_gap) / hover_area_width;
+            if (target_scroll_ratio < 0) target_scroll_ratio = 0.0;
+            if (target_scroll_ratio > 1) target_scroll_ratio = 1.0;
+            const scroll_span = scroller.value.scrollWidth - scroller.value.clientWidth;
+            scroll_x.value = Math.round(scroll_span * target_scroll_ratio);
+        }
     }
 });
 

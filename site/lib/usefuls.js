@@ -22,7 +22,7 @@ export async function hostReactAppReady(cb) {
     return new Promise(resolve => {
         (() => {
             const host_el = document.querySelector('#__next > div');
-            if (host_el.getBoundingClientRect().height) {
+            if (host_el?.getBoundingClientRect().height) {
                 resolve();
             } else {
                 setTimeout(arguments.callee, 100);
@@ -31,7 +31,7 @@ export async function hostReactAppReady(cb) {
     });
 }
 
-export async function dependency(globalPropName, libUrlOrList, cb) {
+export async function globalDependency(globalPropName, libUrlOrList, cb) {
     if (window[globalPropName]) {
         cb && cb();
         return Promise.resolve()

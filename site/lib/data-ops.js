@@ -17,13 +17,13 @@ export function hotelSearchTimeframes(hotel, options) {
             if (timeframe.monthly) {
                 return monthlyTimeframes(since, until, hotel, options);
             } else {
-                return {
+                return [{
                     key: globals.timeframeDefaultKey,
                     searchFields: {
                         beginDates: [since.startOf('day').format(), until.endOf('day').format()],
                         nights: conformNights(hotel, options)
                     }
-                };
+                }];
             }
         } else {
             return timeframe.fixed.map(fixed => {
@@ -42,13 +42,13 @@ export function hotelSearchTimeframes(hotel, options) {
         if (timeframe.monthly) {
             return monthlyTimeframes(since, until, hotel, options);
         } else {
-            return {
+            return [{
                 key: globals.timeframeDefaultKey,
                 searchFields: {
                     beginDates: [since.startOf('day').format(), until.endOf('day').format()],
                     nights: conformNights(hotel, options)
                 }
-            };
+            }];
         }
     }
 

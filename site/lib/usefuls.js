@@ -18,16 +18,17 @@ export function preloadCSS(url) {
     document.head.append(link);
 }
 
-export async function hostReactAppReady(cb) {
+export async function hostReactAppReady(selector = '#__next > div', timeout = 500, cb) {
     return new Promise(resolve => {
-        (() => {
-            const host_el = document.querySelector('#__next > div');
+        const waiter = () => {
+            const host_el = document.querySelector(selector);
             if (host_el?.getBoundingClientRect().height) {
                 resolve();
             } else {
-                setTimeout(arguments.callee, 100);
+                setTimeout(waiter, timeout);
             }
-        })();
+        };
+        waiter();
     });
 }
 
@@ -39,6 +40,7 @@ export async function globalDependency(globalPropName, libUrlOrList, cb) {
         const urlsList = Array.isArray(libUrlOrList) ? libUrlOrList : [libUrlOrList];
         const promises = [];
         for (const url of urlsList) {
+            // console.log('*** globalDependency: url: %o', url);
             if (~url.indexOf('.css')) {
                 preloadCSS(url);
             } else {

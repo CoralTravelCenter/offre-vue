@@ -14,7 +14,10 @@ import ProductGrid from "./ProductGrid.vue";
 dayjs.locale(locale_ru);
 
 import { omit, merge } from 'lodash';
-import { useEventListener } from "@vueuse/core";
+import { invoke, until, useElementVisibility, useEventListener } from "@vueuse/core";
+import { v4 as uuid_v4 } from 'uuid';
+
+const instance_uuid = uuid_v4();
 
 const props = defineProps({
     options: {
@@ -25,6 +28,8 @@ const props = defineProps({
 });
 
 provide('widget-options', props.options);
+
+const $el = ref();
 
 const calcCashbackFn = ref(()=>{});
 useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
@@ -48,7 +53,7 @@ watchEffect(() => {
             timeframes: hotelSearchTimeframes(hotel, props.options),
         }
     });
-    console.log('+++ hotelsDirectory: %o', hotelsDirectory.value);
+    // console.log('+++ hotelsDirectory: %o', hotelsDirectory.value);
 });
 
 
@@ -71,18 +76,28 @@ watchEffect(() => {
 const hotelInfos = ref([]);
 const regionsDirectory = ref({});
 
+const isVisible = useElementVisibility($el);
+const shownOnce = ref(false);
+
+invoke(async () => {
+    await until(isVisible).toBe(true);
+    shownOnce.value = true;
+});
+
 watchEffect(async () => {
-    const hotel_ids = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
-    const { result: hotels_info } = await HotelContent.ListHotelsInfo(hotel_ids);
-    const { hotels, countries, regions, areas, places } = hotels_info;
-    hotelInfos.value = hotels;
-    regionsDirectory.value = { countries, regions, areas, places };
-    const location_options = hotels_info[props.options.groupBy];
-    regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
-    if (props.options.preferRegion) {
-        selectedRegion.value = props.options.preferRegion;
-    } else {
-        selectedRegion.value = props.options.wildcardOption ? '*' : regionOptions.value[0];
+    if (shownOnce.value) {
+        const hotel_ids = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
+        const { result: hotels_info } = await HotelContent.ListHotelsInfo(hotel_ids);
+        const { hotels, countries, regions, areas, places } = hotels_info;
+        hotelInfos.value = hotels;
+        regionsDirectory.value = { countries, regions, areas, places };
+        const location_options = hotels_info[props.options.groupBy];
+        regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
+        if (props.options.preferRegion) {
+            selectedRegion.value = props.options.preferRegion;
+        } else {
+            selectedRegion.value = props.options.wildcardOption ? '*' : regionOptions.value[0];
+        }
     }
 });
 
@@ -113,7 +128,7 @@ watchEffect((onCleanup) => {
     for (const matchedHotel of matchedHotelsDirectory.value) {
         const id = matchedHotel.id;
         const { searchFields } = matchedHotel.timeframes.find(tf => tf.key === selectedTimeframe.value);
-        console.log('--- %o -> %o', id, searchFields);
+        // console.log('--- %o -> %o', id, searchFields);
         const terms_hash = hash(searchFields);
         searchFields_lut[terms_hash] ||= {
             termsSearchFields: JSON.parse(JSON.stringify(searchFields)),
@@ -122,7 +137,7 @@ watchEffect((onCleanup) => {
         const { location } = hotelInfos.value.find(info => info.id == id);
         searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type })
     }
-    console.log(searchFields_lut);
+    // console.log(searchFields_lut);
     offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
         return  Object.assign({}, packageCommonSearchCriterias, {
             beginDates: terms_and_locations.termsSearchFields.beginDates,
@@ -133,7 +148,7 @@ watchEffect((onCleanup) => {
             flightType: props.options.chartersOnly ? 0 : 2
         });
     });
-    console.log('=== offerQueries: %o', offerQueryParams.value);
+    // console.log('=== offerQueries: %o', offerQueryParams.value);
 });
 
 const productsLoading = ref(0);
@@ -163,7 +178,7 @@ watchEffect(() => {
     offerQueries.value.forEach(offerQuery => {
         offerQuery.then(response_json => {
             if (offerQueries.value.includes(offerQuery)) {
-                console.log('--- response_json: %o', response_json);
+                // console.log('--- response_json: %o', response_json);
                 merge(productReference.value, omit(response_json.result, ['products', 'topProducts', 'filter', 'availableSortTypes', 'searchCriterias']));
                 productsLoading.value += 1 / offerQueries.value.length * 100;
                 productsList.push(...response_json.result.products);
@@ -173,7 +188,7 @@ watchEffect(() => {
     Promise.all(offerQueries.value).then(() => {
         productsLoading.value = 0;
         noMatchedProducts.value = productsList.length === 0;
-        console.log('--- productReference: %o', productReference.value);
+        // console.log('--- productReference: %o', productReference.value);
     });
 });
 
@@ -225,8 +240,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="offre-vue">
-        <el-affix>
+    <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
+        <el-affix :target="`[data-instance-uuid='${ instance_uuid }']`">
             <div class="controls">
                 <RegionSelect v-model="selectedRegion"
                               :options-list="regionOptions"
@@ -308,6 +323,8 @@ onMounted(async () => {
 
 .offre-vue {
     //max-width: 1120px;
+    width: 90vw;
+    max-width: 1370px;
     margin-left: auto;
     margin-right: auto;
 

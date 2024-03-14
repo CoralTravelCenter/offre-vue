@@ -5,6 +5,8 @@
     },
     contents: [
         '/site/coral/markup/app.html',
-        '/site/coral/markup/widget-placeholder.html'
+        '/site/coral/markup/widget-eb.html',
+//        '/site/coral/markup/widget-mockup.html',
+//        '/site/coral/markup/widget-placeholder.html'
     ]
 }

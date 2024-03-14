@@ -1,6 +1,9 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
 import { computed, inject, ref, watch, watchEffect } from "vue";
+import { v4 as uuid_v4 } from 'uuid';
+
+const instance_uuid = uuid_v4();
 
 const props = defineProps(['products','inProgress']);
 
@@ -39,7 +42,7 @@ watch(pagedProductList, () => {
 </script>
 
 <template>
-    <div class="product-grid">
+    <div class="product-grid" :data-instance-uuid="instance_uuid">
         <Transition name="slide-inout">
             <el-progress v-if="inProgress && showProgress" :percentage="inProgress" :indeterminate="true" :show-text="false"></el-progress>
         </Transition>
@@ -48,7 +51,7 @@ watch(pagedProductList, () => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <el-affix ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" target=".product-grid">
+        <el-affix ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" :target="`[data-instance-uuid='${ instance_uuid }']`">
             <div class="pager">
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"

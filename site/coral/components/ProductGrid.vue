@@ -68,8 +68,9 @@ watch(pagedProductList, () => {
 .product-grid {
     display: flex;
     flex-direction: column;
+    font-size: (14/1370) * 100cqw;
     @media screen and (max-width: @wide-breakpoint) {
-        font-size: (14/1530) * 100vw;
+        //font-size: (14/1530) * 100vw;
     }
     @media screen and (max-width: @mobile-breakpoint) {
         font-size: 2vw;

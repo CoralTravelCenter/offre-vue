@@ -2,10 +2,13 @@
 import ProductCard from "./ProductCard.vue";
 import { computed, inject, ref, watch, watchEffect } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
+import { toValue, useElementSize, useParentElement } from "@vueuse/core";
 
 const instance_uuid = uuid_v4();
 
 const props = defineProps(['products','inProgress']);
+
+const $el = ref();
 
 const layoutMode = inject('layout-mode');
 
@@ -39,10 +42,22 @@ watch(pagedProductList, () => {
     }, 501);
 });
 
+let widgetWidth = ref();
+watchEffect(() => {
+    if ($el.value) {
+        widgetWidth = useElementSize($el.value.closest('.offre-vue')).width;
+    }
+});
+watchEffect(() => {
+    if ($el.value) {
+        $el.value.style.fontSize = (toValue(widgetWidth.value) / 1370) * 14 + 'px';
+    }
+});
+
 </script>
 
 <template>
-    <div class="product-grid" :data-instance-uuid="instance_uuid">
+    <div ref="$el" class="product-grid" :data-instance-uuid="instance_uuid">
         <Transition name="slide-inout">
             <el-progress v-if="inProgress && showProgress" :percentage="inProgress" :indeterminate="true" :show-text="false"></el-progress>
         </Transition>
@@ -68,15 +83,11 @@ watch(pagedProductList, () => {
 .product-grid {
     display: flex;
     flex-direction: column;
-    font-size: (14/1370) * 100cqw;
-    @media screen and (max-width: @wide-breakpoint) {
-        //font-size: (14/1530) * 100vw;
-    }
     @media screen and (max-width: @mobile-breakpoint) {
-        font-size: 2vw;
+        font-size: 2vw!important;
     }
     @media screen and (max-width: @narrow-breakpoint) {
-        font-size: 2.5vw;
+        font-size: 2.5vw!important;
     }
     .offers-list {
         display: grid;

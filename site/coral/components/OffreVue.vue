@@ -329,7 +329,6 @@ onMounted(async () => {
 
     max-width: 100%;
     width: min(1370px, 90vw);
-    container-type: inline-size;
 
     margin-left: auto;
     margin-right: auto;
@@ -342,17 +341,6 @@ onMounted(async () => {
     gap: 1em;
 
     .controls {
-        font-size: (14/1370) * 100cqw;
-        @media screen and (max-width: @wide-breakpoint) {
-            //font-size: (14/1530) * 100vw;
-        }
-        @media screen and (max-width: @mobile-breakpoint) {
-            font-size: 2vw;
-        }
-        @media screen and (max-width: @narrow-breakpoint) {
-            font-size: 2.5vw;
-        }
-
         display: grid;
         //grid-template-columns: repeat(auto-fit, minmax(0,auto));
         //grid-template-columns: 1fr minmax(min-content, max-content) minmax(min-content,max-content);

@@ -151,6 +151,7 @@ watchEffect((onCleanup) => {
     // console.log('=== offerQueries: %o', offerQueryParams.value);
 });
 
+const initialLoading = ref(true);
 const productsLoading = ref(0);
 const productsList = reactive([]);
 const productReference = ref({});
@@ -187,6 +188,7 @@ watchEffect(() => {
     });
     Promise.all(offerQueries.value).then(() => {
         productsLoading.value = 0;
+        initialLoading.value = !offerQueries.value.length;
         noMatchedProducts.value = productsList.length === 0;
         // console.log('--- productReference: %o', productReference.value);
     });
@@ -274,10 +276,15 @@ onMounted(async () => {
                 </el-select>
             </div>
         </el-affix>
-        <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="no-matched-products">
+        <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
             <div class="icon warning"></div>
             <div class="reason">В данной подборке отелей нет подходящих вариантов.</div>
             <div class="hint">Пожалуйста, попробуйте поменять условия выбора &mdash; регион / город вылета / период путешествия</div>
+        </div>
+        <div v-if="initialLoading" class="message-hint initial-loading">
+            <div class="icon info"></div>
+            <div class="reason">Ищем варианты</div>
+            <div class="hint">Пожалуйста, подождите...</div>
         </div>
         <ProductGrid :products="productsList" :in-progress="productsLoading"></ProductGrid>
     </div>
@@ -365,13 +372,18 @@ onMounted(async () => {
         }
     }
 
-    .no-matched-products {
+    .message-hint {
         display: grid;
         grid-template: auto auto / auto auto;
         gap: 1em 2em;
         padding: 2em;
-        background: fade(@coral-main-yellow, 5%);
         border-radius: 1em;
+        &.no-matched-products {
+            background: fade(@coral-main-yellow, 5%);
+        }
+        &.initial-loading {
+            background: fade(@coral-main-blue, 5%);
+        }
         .icon {
             grid-area: 1 / 1 / -1 / 2;
             justify-self: end;
@@ -396,6 +408,9 @@ onMounted(async () => {
         background: center / cover no-repeat;
         &.warning {
             background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
+        }
+        &.info {
+            background-image: url("data-url:/site/coral/assets-inline/icon-info.svg");
         }
     }
 

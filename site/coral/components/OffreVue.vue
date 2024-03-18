@@ -220,7 +220,10 @@ const matchedDepartures = computed(() => {
 });
 const departureInputPattern = ref();
 
-
+const controlsAffix = ref();
+watchEffect(() => {
+    window.controlsAffix = controlsAffix.value;
+});
 
 onMounted(async () => {
 
@@ -243,7 +246,7 @@ onMounted(async () => {
 
 <template>
     <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
-        <el-affix :target="`[data-instance-uuid='${ instance_uuid }']`">
+        <el-affix ref="controlsAffix" :target="`[data-instance-uuid='${ instance_uuid }']`" :offset="layoutMode === 'mobile' ? 54 : 0">
             <div class="controls">
                 <RegionSelect v-model="selectedRegion"
                               :options-list="regionOptions"
@@ -286,7 +289,8 @@ onMounted(async () => {
             <div class="reason">Ищем варианты</div>
             <div class="hint">Пожалуйста, подождите...</div>
         </div>
-        <ProductGrid :products="productsList" :in-progress="productsLoading"></ProductGrid>
+        <ProductGrid :products="productsList" :in-progress="productsLoading"
+                     @update-layout="e => { controlsAffix?.updateRoot(); controlsAffix?.update() }"></ProductGrid>
     </div>
 </template>
 

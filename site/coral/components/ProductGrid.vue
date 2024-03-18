@@ -7,6 +7,7 @@ import { toValue, useElementSize, useParentElement } from "@vueuse/core";
 const instance_uuid = uuid_v4();
 
 const props = defineProps(['products','inProgress']);
+const emit = defineEmits(['updateLayout']);
 
 const $el = ref();
 
@@ -37,9 +38,10 @@ const pagedProductList = computed(() => {
 const pagerAffix = ref();
 watch(pagedProductList, () => {
     setTimeout(() => {
-        pagerAffix.value?.update();
         pagerAffix.value?.updateRoot();
-    }, 501);
+        pagerAffix.value?.update();
+        emit('updateLayout');
+    }, 600);
 });
 
 let widgetWidth = ref();
@@ -52,6 +54,10 @@ watchEffect(() => {
     if ($el.value) {
         $el.value.style.fontSize = (toValue(widgetWidth.value) / 1370) * 14 + 'px';
     }
+});
+
+watchEffect(() => {
+    window.pagerAffix = pagerAffix.value;
 });
 
 </script>

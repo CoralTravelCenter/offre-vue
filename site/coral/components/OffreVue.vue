@@ -227,6 +227,8 @@ watchEffect(() => {
 
 onMounted(async () => {
 
+    window.OffreVue ||= { version: '1.0.0' };
+
     const next_data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
 
     departures.value = next_data.props.pageProps.meta.departures;
@@ -238,6 +240,10 @@ onMounted(async () => {
 
     useEventListener(document, 'prefer-timeframe', (e) => {
         selectedTimeframe.value = e.detail.timeframeKey;
+    });
+
+    window.addEventListener('scroll', (e) => {
+        controlsAffix.value?.updateRoot();
     });
 
 });

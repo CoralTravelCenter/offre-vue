@@ -1,8 +1,8 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, inject, ref, watch, watchEffect } from "vue";
+import { computed, inject, onMounted, ref, watch, watchEffect } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
-import { toValue, useElementSize, useParentElement } from "@vueuse/core";
+import { toValue, useElementSize, useEventListener } from "@vueuse/core";
 
 const instance_uuid = uuid_v4();
 
@@ -58,6 +58,12 @@ watchEffect(() => {
 
 watchEffect(() => {
     window.pagerAffix = pagerAffix.value;
+});
+
+onMounted(() => {
+    window.addEventListener('scroll', (e) => {
+        pagerAffix.value?.updateRoot();
+    });
 });
 
 </script>

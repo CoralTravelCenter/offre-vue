@@ -12,10 +12,14 @@ export async function preloadScript(url, cb) {
 }
 
 export function preloadCSS(url) {
-    const link = document.createElement('link');
-    link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', url);
-    document.head.append(link);
+    return new Promise(resolve => {
+        const link = document.createElement('link');
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
+        link.onload = resolve;
+        link.href = url;
+        document.head.append(link);
+    });
 }
 
 export async function hostReactAppReady(selector = '#__next > div', timeout = 500, cb) {
@@ -32,26 +36,30 @@ export async function hostReactAppReady(selector = '#__next > div', timeout = 50
     });
 }
 
-export async function globalDependency(globalPropName, libUrlOrList, cb) {
+export async function globalDependency(globalPropName, libUrlOrList, parallel = true, cb) {
     if (window[globalPropName]) {
         cb && cb();
         return Promise.resolve()
     } else {
         const urlsList = Array.isArray(libUrlOrList) ? libUrlOrList : [libUrlOrList];
-        const promises = [];
-        for (const url of urlsList) {
-            // console.log('*** globalDependency: url: %o', url);
-            if (~url.indexOf('.css')) {
-                preloadCSS(url);
-            } else {
-                promises.push(preloadScript(url))
+        if (parallel) {
+            const promises = [];
+            for (const url of urlsList) {
+                promises.push(~url.indexOf('.css') ? preloadCSS(url) : preloadScript(url));
             }
+            return new Promise(async resolve => {
+                await Promise.all(promises);
+                cb && cb();
+                resolve();
+            });
+        } else {
+            return new Promise(async resolve => {
+                for (const url of urlsList) {
+                    ~url.indexOf('.css') ? await preloadCSS(url) : await preloadScript(url);
+                }
+                resolve();
+            });
         }
-        return new Promise(async resolve => {
-            await Promise.all(promises);
-            cb && cb();
-            resolve();
-        });
     }
 }
 

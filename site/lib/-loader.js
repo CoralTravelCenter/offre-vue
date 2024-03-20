@@ -12,9 +12,11 @@ import { globalDependency, hostReactAppReady } from "./usefuls";
     }
     if (shouldRun) {
         console.log('+++ shouldRun');
-        await Promise.all(Object.entries(deps.globalDependencies).map(([g, list]) => globalDependency(g, list)));
+        for (const [globalProp, this_deps] of Object.entries(deps.globalDependencies)) {
+            await globalDependency(globalProp, this_deps, false);
+        }
         console.log('+++ loaded globalDependencies');
-        globalDependency('load-always', deps.runtimes);
+        globalDependency('load-always', deps.runtimes, false);
     }
 })('[data-offre-vue]', {
         globalDependencies: {

@@ -4,6 +4,7 @@ o1 = {
         groupBy: 'countries' | 'regions' | 'areas' | 'places',
         chartersOnly: true,
         wildcardOption: 'Все отели',
+        pricing: 'per-person' | 'per-night',
         timeframe: {
             fixed: [],
             fluid: ['P14D', 'P21D'],

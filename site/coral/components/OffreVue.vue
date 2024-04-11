@@ -28,6 +28,7 @@ const props = defineProps({
 });
 
 provide('widget-options', props.options);
+provide('widget-hotels-list', props.hotelsList);
 
 const $el = ref();
 

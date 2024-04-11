@@ -97,6 +97,11 @@ const cashbackInfo = computed(() => {
     });
 });
 
+const widgetHotelsList = inject('widget-hotels-list');
+const hotelUspsList = computed(() => {
+    return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.usps;
+});
+
 </script>
 
 <template>
@@ -127,6 +132,9 @@ const cashbackInfo = computed(() => {
                     <li class="begin-date">{{ beginDate }}</li>
                     <li class="stay-nights">{{ offer.stayNights }} {{ offer.stayNights.asNights() }}</li>
                     <li class="meal-type">{{ mealType }}</li>
+                </ul>
+                <ul class="usps" v-if="hotelUspsList">
+                    <li v-for="usp in hotelUspsList">{{ usp }}</li>
                 </ul>
             </div>
         </div>
@@ -415,6 +423,27 @@ const cashbackInfo = computed(() => {
                 &.meal-type:before {
                     width: (43/33) * 1.2em;
                     background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
+                }
+            }
+        }
+        ul.usps {
+            list-style: none;
+            margin: 0;
+            padding: 1em 0 0;
+            font-size: (12/14em);
+            display: grid;
+            grid-template-rows: repeat(auto-fill, minmax(1.2em, min-content));
+            /* grid-template-columns: repeat(auto-fill, minmax(50%, max-content)); */
+            grid-auto-flow: column;
+            gap: .5em 2em;
+            max-height: 10em;
+            border-top: 1px solid fade(@coral-main-blue, 25%);
+            >li {
+                display: flex;
+                &:before {
+                    content: '\2022';
+                    margin-right: .5em;
+                    color: @coral-main-blue;
                 }
             }
         }

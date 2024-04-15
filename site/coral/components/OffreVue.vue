@@ -94,6 +94,15 @@ watchEffect(async () => {
         regionsDirectory.value = { countries, regions, areas, places };
         const location_options = hotels_info[props.options.groupBy];
         regionOptions.value = [...(new Set(Object.entries(location_options).map(([id, { name }]) => name)))];
+        if (props.options.regionsOrder) {
+            regionOptions.value.sort((a, b) => {
+                let aidx = props.options.regionsOrder.indexOf(a);
+                if (aidx < 0) aidx = Infinity;
+                let bidx = props.options.regionsOrder.indexOf(b);
+                if (bidx < 0) bidx = Infinity;
+                return aidx - bidx;
+            });
+        }
         if (props.options.preferRegion) {
             selectedRegion.value = props.options.preferRegion;
         } else {

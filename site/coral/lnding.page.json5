@@ -6,7 +6,9 @@
     contents: [
         '/site/coral/markup/app.html',
 //        '/site/coral/markup/widget-cuba.html',
-        '/site/coral/markup/widget-CFC.html',
+//        '/site/coral/markup/widget-CFC.html',
+        '/site/coral/markup/widget-business.html',
+//        '/site/coral/markup/widget-TMP.html',
 //        '/site/coral/markup/widget-bahrain.html',
 //        '/site/coral/markup/widget-eb.html',
 //        '/site/coral/markup/widget-mockup.html',

@@ -49,10 +49,12 @@ onMounted(() => {
 const hotelsDirectory = ref([]);
 watchEffect(() => {
     hotelsDirectory.value = props.hotelsList.map(hotel => {
-        return {
-            id: typeof hotel === 'number' ? hotel : hotel.id,
+        const entry = {
+            id:         typeof hotel === 'number' ? hotel : hotel.id,
             timeframes: hotelSearchTimeframes(hotel, props.options),
-        }
+        };
+        if (hotel.onlyhotel) entry.onlyhotel = hotel.onlyhotel;
+        return entry;
     });
     // console.log('+++ hotelsDirectory: %o', hotelsDirectory.value);
 });

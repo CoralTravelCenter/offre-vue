@@ -2,8 +2,8 @@
 
 import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watch, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
-import { HotelContent, PackageTourHotelProduct } from "../../lib/b2c-api";
-import { packageCommonSearchCriterias } from "../config/globals";
+import { HotelContent, OnlyHotelProduct, PackageTourHotelProduct } from "../../lib/b2c-api";
+import { hotelCommonSearchCriterias, packageCommonSearchCriterias } from "../config/globals";
 import { hotelSearchTimeframes } from "../../lib/data-ops";
 import { useScriptTag } from "@vueuse/core/index";
 
@@ -141,8 +141,9 @@ watchEffect((onCleanup) => {
         const id = matchedHotel.id;
         const { searchFields } = matchedHotel.timeframes.find(tf => tf.key === selectedTimeframe.value);
         // console.log('--- %o -> %o', id, searchFields);
-        const terms_hash = hash(searchFields);
+        const terms_hash = hash({ onlyhotel: matchedHotel.onlyhotel, searchFields });
         searchFields_lut[terms_hash] ||= {
+            onlyhotel: matchedHotel.onlyhotel,
             termsSearchFields: JSON.parse(JSON.stringify(searchFields)),
             locationsSearchFields: new Set()
         };
@@ -151,13 +152,18 @@ watchEffect((onCleanup) => {
     }
     // console.log(searchFields_lut);
     offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
-        return  Object.assign({}, packageCommonSearchCriterias, {
-            beginDates: terms_and_locations.termsSearchFields.beginDates,
-            nights: terms_and_locations.termsSearchFields.nights.map(n=>({ value: n })),
+        return terms_and_locations.onlyhotel ? Object.assign({}, hotelCommonSearchCriterias, {
+            beginDates:         terms_and_locations.termsSearchFields.beginDates,
+            nights:             terms_and_locations.termsSearchFields.nights.map(n => ({ value: n })),
+            arrivalLocations:   [...terms_and_locations.locationsSearchFields],
+            paging:             { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
+        }) : Object.assign({}, packageCommonSearchCriterias, {
+            beginDates:         terms_and_locations.termsSearchFields.beginDates,
+            nights:             terms_and_locations.termsSearchFields.nights.map(n => ({ value: n })),
             departureLocations: [selectedDeparture.value],
-            arrivalLocations: [...terms_and_locations.locationsSearchFields],
-            paging: { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
-            flightType: props.options.chartersOnly ? 0 : 2
+            arrivalLocations:   [...terms_and_locations.locationsSearchFields],
+            paging:             { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
+            flightType:         props.options.chartersOnly ? 0 : 2
         });
     });
     // console.log('=== offerQueries: %o', offerQueryParams.value);
@@ -171,7 +177,9 @@ const noMatchedProducts = ref(false);
 
 watchEffect(() => {
     offerQueries.value = offerQueryParams.value.map(queryParams => {
-        return PackageTourHotelProduct.PriceSearchList({ searchCriterias: queryParams });
+        return queryParams.departureLocations
+               ? PackageTourHotelProduct.PriceSearchList({ searchCriterias: queryParams })
+               : OnlyHotelProduct.PriceSearchList({ searchCriterias: queryParams });
     });
     if (offerQueries.value.length) {
         productsLoading.value = 1 / offerQueries.value.length * 100;
@@ -195,6 +203,7 @@ watchEffect(() => {
                 merge(productReference.value, omit(response_json.result, ['products', 'topProducts', 'filter', 'availableSortTypes', 'searchCriterias']));
                 productsLoading.value += 1 / offerQueries.value.length * 100;
                 productsList.push(...response_json.result.products);
+                productsList.sort((a, b) => a.offers[0].price.amount - b.offers[0].price.amount);
             }
         });
     });

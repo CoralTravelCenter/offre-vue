@@ -82,7 +82,7 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
 const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ tourType.value === 'package' ? 1 : 2 }`;
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ isHotelOnly || tourType.value !== 'package' ? 2 : 1 }`;
 });
 
 const cashbackInfo = computed(() => {
@@ -93,13 +93,16 @@ const cashbackInfo = computed(() => {
         price: offerFinalPrice.value,
         checkInDate: offer.value.checkInDate,
         countryID: hotel.countryKey,
-        isOnlyHotel: tourType.value === 'hotel'
+        isOnlyHotel: isHotelOnly || tourType.value === 'hotel'
     });
 });
 
 const widgetHotelsList = inject('widget-hotels-list');
 const hotelUspsList = computed(() => {
     return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.usps;
+});
+const isHotelOnly = computed(() => {
+    return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.onlyhotel;
 });
 
 </script>
@@ -140,8 +143,8 @@ const hotelUspsList = computed(() => {
         </div>
         <div class="pricing">
             <div class="tour-type">
-                <button class="package" :class="{ selected: tourType === 'package' }" @click="tourType = 'package'">Тур с перелетом</button>
-                <button class="only-hotel" :class="{ selected: tourType === 'hotel' }" @click="tourType = 'hotel'">Только отель</button>
+                <button v-if="!isHotelOnly" class="package" :class="{ selected: tourType === 'package' }" @click="tourType = 'package'">Тур с перелетом</button>
+                <button class="only-hotel" :class="{ selected: isHotelOnly || tourType === 'hotel' }" @click="tourType = 'hotel'">Только отель</button>
             </div>
             <div class="tour-info" :class="{ blocked: fetchingHotelOffer }">
                 <div class="price-discount">
@@ -462,9 +465,9 @@ const hotelUspsList = computed(() => {
         }
         .tour-type {
             width: 100%;
-            display: grid;
-            grid-template-columns: minmax(0,1fr) 1px minmax(0,1fr);
+            display: flex;
             button {
+                flex: 1;
                 .interactive();
                 background: transparent;
                 font-size: inherit;
@@ -475,22 +478,22 @@ const hotelUspsList = computed(() => {
                 .transit(color);
                 cursor: pointer;
                 &.selected {
+                    position: relative;
+                    z-index: 1;
                     pointer-events: none;
                     color: @coral-main-blue;
                     border-color: currentColor;
-                    z-index: 1;
                 }
-
-                &.package {
-                    grid-row: 1;
-                    grid-column: 1 / span 2;
-                    border-radius: .5em 0 0 .5em;
+                &:nth-of-type(n+2) {
+                    margin-left: -1px;
                 }
-
-                &.only-hotel {
-                    grid-row: 1;
-                    grid-column: 2 / span 2;
-                    border-radius: 0 .5em .5em 0;
+                &:first-of-type {
+                    border-top-left-radius: .5em;
+                    border-bottom-left-radius: .5em;
+                }
+                &:last-of-type {
+                    border-top-right-radius: .5em;
+                    border-bottom-right-radius: .5em;
                 }
             }
         }

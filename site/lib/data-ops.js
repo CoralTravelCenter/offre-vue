@@ -60,7 +60,7 @@ function isStringsTuple(obj) {
 
 function monthlyTimeframes(since, until, hotel, options) {
     return [...(function* (since, until) {
-        let since_run = since;
+        let since_run = dayjs.max(dayjs(), since);
         let until_run = dayjs.min(since_run.endOf('month'), until);
         while (since_run.isBefore(until)) {
             yield {

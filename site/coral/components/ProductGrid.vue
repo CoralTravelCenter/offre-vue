@@ -1,12 +1,22 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, inject, onMounted, ref, watch, watchEffect } from "vue";
+import { computed, inject, onMounted, ref, shallowRef, watch, watchEffect } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
-import { toValue, useElementSize } from "@vueuse/core";
+import { invoke, toValue, until, useElementSize } from "@vueuse/core";
+
+import { createYmapsOptions, VueYandexMaps, YandexMap, YandexMapDefaultSchemeLayer } from "vue-yandex-maps";
 
 const instance_uuid = uuid_v4();
 
-const props = defineProps(['products','inProgress']);
+// const props = defineProps(['products','inProgress','viewMode']);
+const props = defineProps({
+    products: Array,
+    inProgress: Boolean,
+    viewMode: {
+        type: String,
+        default: 'list'
+    }
+});
 const emit = defineEmits(['updateLayout']);
 
 const $el = ref();
@@ -66,6 +76,13 @@ onMounted(() => {
     });
 });
 
+const map = shallowRef(null);
+
+invoke(async () => {
+    await until(() => props.viewMode).toBe('map');
+    createYmapsOptions({ apikey: '49de5080-fb39-46f1-924b-dee5ddbad2f1' });
+});
+
 </script>
 
 <template>
@@ -73,12 +90,12 @@ onMounted(() => {
         <Transition name="slide-inout">
             <el-progress v-if="inProgress && showProgress" :percentage="inProgress" :indeterminate="true" :show-text="false"></el-progress>
         </Transition>
-        <div class="offers-list">
+        <div v-if="viewMode === 'list'" class="offers-list">
             <TransitionGroup name="slide-inout">
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <el-affix ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" :target="`[data-instance-uuid='${ instance_uuid }']`">
+        <el-affix v-if="viewMode === 'list'" ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" :target="`[data-instance-uuid='${ instance_uuid }']`">
             <div class="pager">
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"
@@ -87,6 +104,18 @@ onMounted(() => {
                                background hide-on-single-page></el-pagination>
             </div>
         </el-affix>
+
+        <div v-if="viewMode === 'map'" class="map-view">
+            <yandex-map v-model="map" :settings="{
+                location: {
+                    center: [37.617644, 55.755819],
+                    zoom: 9
+                }
+            }">
+                <yandex-map-default-scheme-layer></yandex-map-default-scheme-layer>
+            </yandex-map>
+        </div>
+
     </div>
 </template>
 
@@ -128,6 +157,11 @@ onMounted(() => {
         &:not(:has(.el-pagination)) {
             display: none;
         }
+    }
+
+    .map-view {
+        .proportional(16/9);
+
     }
 
 }

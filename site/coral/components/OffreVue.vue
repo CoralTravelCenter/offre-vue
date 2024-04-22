@@ -17,6 +17,8 @@ import { omit, merge } from 'lodash';
 import { invoke, until, useElementVisibility, useEventListener } from "@vueuse/core";
 import { v4 as uuid_v4 } from 'uuid';
 
+import { VueYandexMaps } from "vue-yandex-maps";
+
 const instance_uuid = uuid_v4();
 
 const props = defineProps({
@@ -246,11 +248,18 @@ watchEffect(() => {
     window.controlsAffix = controlsAffix.value;
 });
 
+const gridViewMode = ref('list');
+
 onMounted(async () => {
 
     window.OffreVue ||= { version: '1.0.0' };
 
-    const next_data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
+    let next_data;
+    try {
+        next_data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
+    } catch (ex) {
+        next_data = window.__NEXT_DATA__;
+    }
 
     departures.value = next_data.props.pageProps.meta.departures;
     selectedDeparture.value = departures.value.find(d => d.isCurrent);
@@ -304,6 +313,16 @@ onMounted(async () => {
                                :value="timeframe">
                     </el-option>
                 </el-select>
+
+                <el-button-group>
+                    <el-button :type="gridViewMode === 'list' ? 'primary' : ''" @click="gridViewMode = 'list'">
+                        <template #icon><span class="icon-list-view"></span></template>
+                    </el-button>
+                    <el-button v-if="VueYandexMaps.isReadyToInit" :type="gridViewMode === 'map' ? 'primary' : ''" @click="gridViewMode = 'map'">
+                        <template #icon><span class="icon-map-view"></span></template>
+                    </el-button>
+                </el-button-group>
+
             </div>
         </el-affix>
         <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
@@ -317,6 +336,7 @@ onMounted(async () => {
             <div class="hint">Пожалуйста, подождите...</div>
         </div>
         <ProductGrid :products="productsList" :in-progress="productsLoading"
+                     :view-mode="gridViewMode"
                      @update-layout="e => { controlsAffix?.updateRoot(); controlsAffix?.update() }"></ProductGrid>
     </div>
 </template>
@@ -382,7 +402,7 @@ onMounted(async () => {
         display: grid;
         //grid-template-columns: repeat(auto-fit, minmax(0,auto));
         //grid-template-columns: 1fr minmax(min-content, max-content) minmax(min-content,max-content);
-        grid-template-columns: minmax(0,1fr) auto auto;
+        grid-template-columns: minmax(0,1fr) auto auto auto;
         align-items: center;
         gap: 1em;
         padding: .75em .5em;
@@ -400,6 +420,26 @@ onMounted(async () => {
         }
         .el-select {
             //flex: 0 0 auto;
+        }
+        .el-button--primary {
+            --el-button-active-bg-color: @coral-main-blue;
+            --el-button-hover-bg-color: @coral-main-blue;
+            --el-color-primary: @coral-main-blue;
+            :deep(.el-icon) {
+                filter: invert(1);
+            }
+        }
+        .icon-list-view {
+            display: inline-flex;
+            width: 1em;
+            height: 1em;
+            background: url("data-url:/site/coral/assets-inline/icon-list-view.svg") center / cover no-repeat;
+        }
+        .icon-map-view {
+            display: inline-flex;
+            width: 1em;
+            height: 1em;
+            background: url("data-url:/site/coral/assets-inline/icon-map-view.svg") center / cover no-repeat;
         }
     }
 

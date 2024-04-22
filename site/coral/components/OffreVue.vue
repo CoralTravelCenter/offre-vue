@@ -250,7 +250,12 @@ onMounted(async () => {
 
     window.OffreVue ||= { version: '1.0.0' };
 
-    const next_data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
+    let next_data;
+    try {
+        next_data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
+    } catch (ex) {
+        next_data = window.__NEXT_DATA__;
+    }
 
     departures.value = next_data.props.pageProps.meta.departures;
     selectedDeparture.value = departures.value.find(d => d.isCurrent);

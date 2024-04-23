@@ -1,10 +1,21 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, inject, onMounted, ref, shallowRef, watch, watchEffect } from "vue";
+import { computed, inject, onMounted, reactive, ref, shallowRef, watch, watchEffect } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
 import { invoke, toValue, until, useElementSize } from "@vueuse/core";
 
-import { createYmapsOptions, VueYandexMaps, YandexMap, YandexMapDefaultSchemeLayer } from "vue-yandex-maps";
+import {
+    createYmapsOptions,
+    YandexMap,
+    YandexMapDefaultSchemeLayer,
+    YandexMapDefaultFeaturesLayer,
+    YandexMapControls,
+    YandexMapZoomControl,
+    YandexMapClusterer,
+    YandexMapMarker,
+    getLocationFromBounds, getBoundsFromCoords
+} from "vue-yandex-maps";
+import ProductMarker from "./ProductMarker.vue";
 
 const instance_uuid = uuid_v4();
 
@@ -77,10 +88,37 @@ onMounted(() => {
 });
 
 const map = shallowRef(null);
+const map_settings = reactive({
+    location: {
+        center: [37.617644, 55.755819],
+        zoom: 9
+    }
+});
+const clusterer = shallowRef(null);
+const clustererGridSize = ref(90);
 
 invoke(async () => {
     await until(() => props.viewMode).toBe('map');
     createYmapsOptions({ apikey: '49de5080-fb39-46f1-924b-dee5ddbad2f1' });
+});
+
+watchEffect(async () => {
+    if (props.products.length > 1) {
+        map.value?.setLocation({
+            ...await getLocationFromBounds({
+                bounds: getBoundsFromCoords(props.products.map(p => [p.hotel.coordinates.longitude, p.hotel.coordinates.latitude])),
+                map: map.value,
+                roundZoom: true,
+                comfortZoomLevel: true
+            }),
+            duration: 750
+        });
+    } else if (props.products.length === 1) {
+        map_settings.location = {
+            center: [props.products[0].hotel.coordinates.longitude, props.products[0].hotel.coordinates.latitude],
+            zoom: 10
+        };
+    }
 });
 
 </script>
@@ -106,13 +144,29 @@ invoke(async () => {
         </el-affix>
 
         <div v-if="viewMode === 'map'" class="map-view">
-            <yandex-map v-model="map" :settings="{
-                location: {
-                    center: [37.617644, 55.755819],
-                    zoom: 9
-                }
-            }">
-                <yandex-map-default-scheme-layer></yandex-map-default-scheme-layer>
+            <yandex-map v-model="map" :settings="map_settings">
+                <yandex-map-default-scheme-layer/>
+                <yandex-map-default-features-layer/>
+                <yandex-map-controls :settings="{ position: 'right' }">
+                    <yandex-map-zoom-control/>
+                </yandex-map-controls>
+
+                <yandex-map-clusterer v-model="clusterer"
+                                      :grid-size="clustererGridSize"
+                                      zoom-on-cluster-click>
+                    <template #cluster="{ length }">
+                        <div class="cluster">{{ length }}</div>
+                    </template>
+                    <yandex-map-marker v-for="product in products"
+                                       :settings="{
+                                            coordinates: [product.hotel.coordinates.longitude, product.hotel.coordinates.latitude]
+                                       }"
+                                       :style="{ cursor: 'pointer' }"
+                                       :key="product.hotel.id">
+                        <ProductMarker :product="product"/>
+                    </yandex-map-marker>
+                </yandex-map-clusterer>
+
             </yandex-map>
         </div>
 
@@ -121,6 +175,7 @@ invoke(async () => {
 
 <style scoped lang="less">
 @import "../common/css/layout";
+@import "../common/css/coral-colors";
 .product-grid {
     display: flex;
     flex-direction: column;
@@ -161,6 +216,22 @@ invoke(async () => {
 
     .map-view {
         .proportional(16/9);
+
+        .cluster {
+            position: relative;
+            transform: translate(-50%,-50%);
+            font-size: 14px;
+            line-height: 1;
+            display: grid;
+            place-content: center;
+            background-color: @coral-main-blue;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 2.4em;
+            height: 2.4em;
+            box-shadow: 0 1px 2px fade(black, 20%);
+        }
 
     }
 

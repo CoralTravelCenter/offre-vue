@@ -121,6 +121,17 @@ watchEffect(async () => {
     }
 });
 
+function minmaxPriceFromFeatures(features) {
+    return features.reduce(([min, max], feature) => {
+        const price = feature.properties.offer.price.amount;
+        return [price < min ? price : min, price > max ? price : max];
+    }, [Infinity, -Infinity]);
+}
+
+function hoverZIndex(e) {
+    e.target.closest('ymaps').style.zIndex = { mouseenter: 1, mouseleave: 0 }[e.type];
+}
+
 </script>
 
 <template>
@@ -154,16 +165,25 @@ watchEffect(async () => {
                 <yandex-map-clusterer v-model="clusterer"
                                       :grid-size="clustererGridSize"
                                       zoom-on-cluster-click>
-                    <template #cluster="{ length }">
-                        <div class="cluster">{{ length }}</div>
+                    <template #cluster="{ length, clusterer }">
+                        <div class="cluster" style="cursor:pointer;"
+                             @mouseenter="hoverZIndex"
+                             @mouseleave="hoverZIndex">
+                            <div class="hud">{{ length }}</div>
+                            <div class="pricing">
+                                <span class="min">от {{ minmaxPriceFromFeatures(clusterer.features)[0].formatCurrency() }}</span>
+                                <span class="max">до {{ minmaxPriceFromFeatures(clusterer.features)[1].formatCurrency() }}</span>
+                            </div>
+                        </div>
                     </template>
                     <yandex-map-marker v-for="product in products"
                                        :settings="{
-                                            coordinates: [product.hotel.coordinates.longitude, product.hotel.coordinates.latitude]
+                                            coordinates: [product.hotel.coordinates.longitude, product.hotel.coordinates.latitude],
+                                            properties: { hotel: product.hotel, offer: product.offers[0] }
                                        }"
                                        :style="{ cursor: 'pointer' }"
                                        :key="product.hotel.id">
-                        <ProductMarker :product="product"/>
+                        <ProductMarker :product="product" @mouseenter="hoverZIndex" @mouseleave="hoverZIndex"/>
                     </yandex-map-marker>
                 </yandex-map-clusterer>
 
@@ -222,15 +242,50 @@ watchEffect(async () => {
             transform: translate(-50%,-50%);
             font-size: 14px;
             line-height: 1;
-            display: grid;
-            place-content: center;
-            background-color: @coral-main-blue;
-            color: white;
-            border: 2px solid white;
-            border-radius: 50%;
             width: 2.4em;
             height: 2.4em;
-            box-shadow: 0 1px 2px fade(black, 20%);
+            &:hover {
+                .pricing {
+                    text-indent: 0;
+                    opacity: 1;
+                    visibility: visible;
+                    box-shadow: 0 1px 2px fade(black, 20%);
+                }
+            }
+            .hud {
+                position: absolute;
+                inset: 0;
+                display: grid;
+                place-content: center;
+                background-color: @coral-main-blue;
+                color: white;
+                border: 2px solid white;
+                border-radius: 50%;
+                box-shadow: 0 1px 2px fade(black, 20%);
+            }
+            .pricing {
+                position: absolute;
+                z-index: -1;
+                top: 2px;
+                background: fade(white, 90%);
+                backdrop-filter: blur(4px);
+                border-radius: 100px 3em 3em 100px;
+                font-size: .75em;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: flex-end;
+                height: 2.8em;
+                padding: 0 0.5em 0 3.5em;
+                overflow: hidden;
+                text-indent: -10em;
+                opacity: 0;
+                visibility: hidden;
+                box-shadow: none;
+                .transit(text-indent, .25s);
+                .transit(opacity, .25s);
+                .transit(box-shadow, .25s);
+            }
         }
 
     }

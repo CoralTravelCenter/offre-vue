@@ -219,7 +219,9 @@ const isHotelOnly = computed(() => {
         padding: 0 .5em 0 2.2em;
         border-radius: 100px;
         left: 2px;
+        top: auto;
         bottom: 1em;
+        max-width: unset;
         box-shadow: 1px 1px 2px fade(black, 25%);
         background: fade(white, 90%);
         backdrop-filter: blur(4px);

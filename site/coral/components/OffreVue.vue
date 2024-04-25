@@ -314,7 +314,7 @@ onMounted(async () => {
                     </el-option>
                 </el-select>
 
-                <el-button-group>
+                <el-button-group v-if="layoutMode !== 'mobile'">
                     <el-button :type="gridViewMode === 'list' ? 'primary' : ''" @click="gridViewMode = 'list'">
                         <template #icon><span class="icon-list-view"></span></template>
                     </el-button>

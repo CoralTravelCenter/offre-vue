@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject, ref, watchEffect } from "vue";
+import { computed, getCurrentInstance, inject, ref, watchEffect } from "vue";
 import { hotelCommonSearchCriterias } from "../config/globals";
 import { OnlyHotelProduct } from "../../lib/b2c-api";
 
@@ -7,6 +7,10 @@ import icon_default from 'data-url:/site/coral/assets-inline/hotel-marker-defaul
 import icon_cfc from 'data-url:/site/coral/assets-inline/hotel-marker-cfc.svg';
 import icon_elite from 'data-url:/site/coral/assets-inline/hotel-marker-elite.svg';
 import dayjs from "dayjs";
+
+import { openedMapMarker } from "./global-state";
+
+const $this = getCurrentInstance();
 
 const props = defineProps(['product']);
 
@@ -60,6 +64,18 @@ const offerFinalPriceFormatted = computed(() => {
     }[pricing_option];
     return value_formatted + suffix;
 });
+const offerListPrice = computed(() => {
+    if (widgetOptions.pricing === 'per-person') {
+        return offer.value.price.oldAmount / offer.value.rooms[0].passengers.length;
+    } else if (widgetOptions.pricing === 'per-night') {
+        return offer.value.price.oldAmount / offer.value.stayNights;
+    } else {
+        return offer.value.price.oldAmount;
+    }
+});
+const offerListPriceFormatted = computed(() => {
+    return offerListPrice.value.formatCurrency(offer.value.price.currency);
+});
 
 const placemarkIconUrl = computed(() => {
     if (hotel.sunFamilyClub || hotel.coralFamilyClub) return icon_cfc;
@@ -68,6 +84,7 @@ const placemarkIconUrl = computed(() => {
 });
 
 const isOpen = ref(false);
+defineExpose({ hide: () => isOpen.value = false });
 
 const selectedDeparture = inject('selected-departure');
 const { getReferenceValueByKey } = inject('product-reference');
@@ -75,14 +92,30 @@ const { getReferenceValueByKey } = inject('product-reference');
 const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
+const offerHref = computed(() => {
+    const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
+    const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ isHotelOnly || tourType.value !== 'package' ? 2 : 1 }`;
+});
+
 const beginDate = computed(() => {
     return dayjs(offer.value.flight ? offer.value.flight.flightDate : offer.value.checkInDate).format('DD/MM/YYYY');
+});
+
+function handleClick() {
+    isOpen.value = !isOpen.value;
+    openedMapMarker.value = isOpen.value ? $this : null;
+}
+
+const widgetHotelsList = inject('widget-hotels-list');
+const isHotelOnly = computed(() => {
+    return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.onlyhotel;
 });
 
 </script>
 
 <template>
-    <div class="marker" :class="{ open: isOpen }" @click="isOpen = !isOpen">
+    <div class="marker" :class="{ open: isOpen }" @click="handleClick">
         <div class="placemark" :style="{ backgroundImage: `url(${ placemarkIconUrl })` }"></div>
         <div class="popover">
             <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }"></div>
@@ -108,7 +141,15 @@ const beginDate = computed(() => {
                     </ul>
                 </div>
                 <div class="pricing">
-                    <div class="final-price" v-html="offerFinalPriceFormatted"></div>
+                    <div class="tour-type">
+                        <button v-if="!isHotelOnly" class="package" :class="{ selected: tourType === 'package' }" @click.stop="tourType = 'package'">Тур с перелетом</button>
+                        <button class="only-hotel" :class="{ selected: isHotelOnly || tourType === 'hotel' }" @click.stop="tourType = 'hotel'">Только отель</button>
+                    </div>
+                    <div class="price" v-loading="fetchingHotelOffer">
+                        <div v-if="offer.price.oldAmount" class="list-price">{{ offerListPriceFormatted }}</div>
+                        <div class="final-price" v-html="offerFinalPriceFormatted"></div>
+                    </div>
+                    <a :href="offerHref" class="do-choose" target="_blank" @click.stop v-loading="fetchingHotelOffer">Выбрать</a>
                 </div>
             </div>
         </div>
@@ -134,8 +175,17 @@ const beginDate = computed(() => {
         .popover {
             padding: 0 1em 0 0;
             border-radius: .5em;
+            box-shadow: 2px -2px 16px fade(black, 20%);
             .info-pricing {
                 padding: 1em 0;
+                .pricing {
+                    gap: 1em;
+                    margin-top: .5em;
+                    .final-price {
+                        font-size: 1.2em;
+                        font-weight: bold;
+                    }
+                }
             }
         }
     }
@@ -145,6 +195,17 @@ const beginDate = computed(() => {
             .info-pricing {
                 padding: 0;
                 gap: 0;
+                .pricing {
+                    .tour-type {
+                        display: none;
+                    }
+                    .do-choose {
+                        display: none;
+                    }
+                    .list-price {
+                        display: none;
+                    }
+                }
             }
             .visual, .info {
                 font-size: 0;
@@ -160,22 +221,22 @@ const beginDate = computed(() => {
         left: 2px;
         bottom: 1em;
         box-shadow: 1px 1px 2px fade(black, 25%);
-        background: fade(white, 80%);
+        background: fade(white, 90%);
         backdrop-filter: blur(4px);
         display: flex;
         gap: 1em;
         overflow: hidden;
-        //.transit(all, .25s);
-        * {
-            //.transit(font-size, .25s)
-        }
+        .transit(box-shadow, .25s);
         .visual {
             .proportional(1/1);
             background: center / cover no-repeat;
-            width: 8em;
+            width: 9em;
             flex-shrink: 0;
         }
         .info-pricing {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             .info {
                 .category-concept {
                     font-size: (12/14em);
@@ -272,6 +333,72 @@ const beginDate = computed(() => {
                             background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
                         }
                     }
+                }
+            }
+            .pricing {
+                width: 100%;
+                display: flex;
+                gap: 0;
+                .tour-type {
+                    flex: 0 1;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    font-size: .66em;
+                    white-space: nowrap;
+                    button {
+                        flex: 1;
+                        .interactive();
+                        background: transparent;
+                        font-size: inherit;
+                        line-height: 1.4;
+                        //height: (32/14em);
+                        place-content: center;
+                        border: 1px solid fade(black, 15%);
+                        .transit(color);
+                        cursor: pointer;
+                        &.selected {
+                            position: relative;
+                            z-index: 1;
+                            pointer-events: none;
+                            color: @coral-main-blue;
+                            border-color: currentColor;
+                        }
+                        &:nth-of-type(n+2) {
+                            margin-top: -1px;
+                        }
+                        &:first-of-type {
+                            border-top-left-radius: .5em;
+                            border-top-right-radius: .5em;
+                        }
+                        &:last-of-type {
+                            border-bottom-left-radius: .5em;
+                            border-bottom-right-radius: .5em;
+                        }
+                    }
+                }
+                .price {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    .list-price {
+                        text-decoration: line-through @coral-red-error;
+                        font-size: .7em;
+                    }
+                }
+                .do-choose {
+                    .interactive();
+                    display: grid;
+                    place-content: center;
+                    font-size: (12/14em);
+                    font-weight: 300;
+                    text-decoration: none;
+                    //height: 3em;
+                    color: white;
+                    background: @coral-main-blue;
+                    border-radius: .5em;
+                    padding: 0 1em;
                 }
             }
         }

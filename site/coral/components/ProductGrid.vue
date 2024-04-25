@@ -19,7 +19,6 @@ import ProductMarker from "./ProductMarker.vue";
 
 const instance_uuid = uuid_v4();
 
-// const props = defineProps(['products','inProgress','viewMode']);
 const props = defineProps({
     products: Array,
     inProgress: Boolean,

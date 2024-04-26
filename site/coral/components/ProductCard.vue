@@ -82,7 +82,7 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
 const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ isHotelOnly || tourType.value !== 'package' ? 2 : 1 }`;
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ (isHotelOnly.value || tourType.value !== 'package') ? 2 : 1 }`;
 });
 
 const cashbackInfo = computed(() => {

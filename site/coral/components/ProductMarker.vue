@@ -12,7 +12,14 @@ import { openedMapMarker } from "./global-state";
 
 const $this = getCurrentInstance();
 
-const props = defineProps(['product']);
+// const props = defineProps(['product','initiallyOpen']);
+const props = defineProps({
+    product: Object,
+    initiallyOpen: {
+        type: Boolean,
+        default: false
+    }
+});
 
 const tourType = ref('package');
 
@@ -83,7 +90,7 @@ const placemarkIconUrl = computed(() => {
     return icon_default;
 });
 
-const isOpen = ref(false);
+const isOpen = ref(props.initiallyOpen);
 defineExpose({ hide: () => isOpen.value = false });
 
 const selectedDeparture = inject('selected-departure');

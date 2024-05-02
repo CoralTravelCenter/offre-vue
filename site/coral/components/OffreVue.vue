@@ -194,9 +194,12 @@ function getReferenceValueByKey(referenceField, key) {
     return productReference.value[referenceField][key];
 }
 provide('product-reference', { productReference, getReferenceValueByKey });
+const clickedLocationHotelId = ref();
+provide('clicked-location-hotel-id', clickedLocationHotelId);
 
 watchEffect(() => {
     productsList.splice(0);
+    clickedLocationHotelId.value = null;
     productReference.value = {};
     offerQueries.value.forEach(offerQuery => {
         offerQuery.then(response_json => {
@@ -249,6 +252,7 @@ watchEffect(() => {
 });
 
 const gridViewMode = ref('list');
+provide('grid-view-mode', gridViewMode);
 
 onMounted(async () => {
 
@@ -318,7 +322,7 @@ onMounted(async () => {
                     <el-button :type="gridViewMode === 'list' ? 'primary' : ''" @click="gridViewMode = 'list'">
                         <template #icon><span class="icon-list-view"></span></template>
                     </el-button>
-                    <el-button v-if="VueYandexMaps.isReadyToInit" :type="gridViewMode === 'map' ? 'primary' : ''" @click="gridViewMode = 'map'">
+                    <el-button v-if="VueYandexMaps.isReadyToInit" :type="gridViewMode === 'map' ? 'primary' : ''" @click="clickedLocationHotelId=null; gridViewMode = 'map'">
                         <template #icon><span class="icon-map-view"></span></template>
                     </el-button>
                 </el-button-group>

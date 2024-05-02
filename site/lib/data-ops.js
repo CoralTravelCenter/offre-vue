@@ -79,7 +79,7 @@ function monthlyTimeframes(since, until, hotel, options) {
 function conformNights(hotel, options, defaultValue = 7) {
     let nights = hotel.nights ?? options.nights ?? defaultValue;
     if (typeof nights === 'number') nights = [nights];
-    return nights;
+    return nights.sort((a, b) => a - b);
 }
 
 export function isHotelMatchesRegionAndTimeframeKey(hotel, regionKey, regionValue, timeframeKey) {

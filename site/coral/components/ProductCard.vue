@@ -98,12 +98,20 @@ const cashbackInfo = computed(() => {
 });
 
 const widgetHotelsList = inject('widget-hotels-list');
+const gridViewMode = inject('grid-view-mode');
+
 const hotelUspsList = computed(() => {
     return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.usps;
 });
 const isHotelOnly = computed(() => {
     return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.onlyhotel;
 });
+
+const clickedLocationHotelId = inject('clicked-location-hotel-id');
+function handleHotelLocationClick(hotel) {
+    clickedLocationHotelId.value = hotel.id;
+    gridViewMode.value = 'map';
+}
 
 </script>
 
@@ -117,7 +125,7 @@ const isHotelOnly = computed(() => {
                 </div>
             </div>
             <div class="details">
-                <div class="location">{{ hotel.locationSummary }}</div>
+                <div class="location" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
                         <span v-for="n in hotelStarCount" class="filled"></span>
@@ -329,9 +337,14 @@ const isHotelOnly = computed(() => {
             margin: 0;
         }
         .location {
+            .interactive();
+            align-self: flex-start;
             display: flex;
             align-items: center;
             font-weight: 300;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: .25em;
+            cursor: pointer;
             &:before {
                 content: '';
                 height: 1.2em;

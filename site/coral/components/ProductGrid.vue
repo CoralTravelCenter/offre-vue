@@ -16,6 +16,7 @@ import {
     getLocationFromBounds, getBoundsFromCoords
 } from "vue-yandex-maps";
 import ProductMarker from "./ProductMarker.vue";
+import { omit } from "lodash";
 
 const instance_uuid = uuid_v4();
 
@@ -101,6 +102,12 @@ invoke(async () => {
     createYmapsOptions({ apikey: '49de5080-fb39-46f1-924b-dee5ddbad2f1' });
 });
 
+watch(() => props.viewMode, (mode) => {
+    if (mode === 'map') {
+        $el.value?.scrollIntoView();
+    }
+});
+
 watchEffect(async () => {
     if (props.products.length > 1) {
         map.value?.setLocation({
@@ -128,8 +135,27 @@ function minmaxPriceFromFeatures(features) {
 }
 
 function hoverZIndex(e) {
-    e.target.closest('ymaps').style.zIndex = { mouseenter: 1, mouseleave: 0 }[e.type];
+    const zi = e.target.closest('ymaps').style.zIndex ?? 0;
+    if (e.type === 'mouseenter') {
+        e.target.closest('ymaps').style.zIndex = zi + 1;
+    } else if (e.type === 'mouseleave') {
+        e.target.closest('ymaps').style.zIndex = zi - 1;
+    }
 }
+
+const clickedLocationHotelId = inject('clicked-location-hotel-id');
+const gridVideMode = inject('grid-view-mode');
+
+const productsSelectedByLocation = computed(() => {
+    return clickedLocationHotelId.value ? [props.products.find(product => product.hotel.id == clickedLocationHotelId.value)] : [];
+});
+const productsExceptSelectedByLocation = computed(() => {
+    if (clickedLocationHotelId.value) {
+        return props.products.filter((product) => product.hotel.id != clickedLocationHotelId.value);
+    } else {
+        return props.products;
+    }
+});
 
 </script>
 
@@ -175,7 +201,7 @@ function hoverZIndex(e) {
                             </div>
                         </div>
                     </template>
-                    <yandex-map-marker v-for="product in products"
+                    <yandex-map-marker v-for="product in productsExceptSelectedByLocation"
                                        :settings="{
                                             coordinates: [product.hotel.coordinates.longitude, product.hotel.coordinates.latitude],
                                             properties: { hotel: product.hotel, offer: product.offers[0] }
@@ -185,6 +211,16 @@ function hoverZIndex(e) {
                         <ProductMarker :product="product" @mouseenter="hoverZIndex" @mouseleave="hoverZIndex"/>
                     </yandex-map-marker>
                 </yandex-map-clusterer>
+                <yandex-map-marker v-for="product in productsSelectedByLocation"
+                                   :settings="{
+                                            coordinates: [product.hotel.coordinates.longitude, product.hotel.coordinates.latitude],
+                                            properties: { hotel: product.hotel, offer: product.offers[0] },
+                                            zIndex: 100
+                                       }"
+                                   :style="{ cursor: 'pointer' }"
+                                   :key="product.hotel.id">
+                    <ProductMarker :product="product" initially-open @mouseenter="hoverZIndex" @mouseleave="hoverZIndex"/>
+                </yandex-map-marker>
 
             </yandex-map>
         </div>

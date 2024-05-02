@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watch, watchEffect } from "vue";
+import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent, OnlyHotelProduct, PackageTourHotelProduct } from "../../lib/b2c-api";
 import { hotelCommonSearchCriterias, packageCommonSearchCriterias } from "../config/globals";
@@ -149,8 +149,10 @@ watchEffect((onCleanup) => {
             termsSearchFields: JSON.parse(JSON.stringify(searchFields)),
             locationsSearchFields: new Set()
         };
-        const { location } = hotelInfos.value.find(info => info.id == id);
-        searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type })
+        try {
+            const { location } = hotelInfos.value.find(info => info.id == id);
+            searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type });
+        } catch (ex) {}
     }
     // console.log(searchFields_lut);
     offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
@@ -197,6 +199,24 @@ provide('product-reference', { productReference, getReferenceValueByKey });
 const clickedLocationHotelId = ref();
 provide('clicked-location-hotel-id', clickedLocationHotelId);
 
+function compareProducts(a, b) {
+    if (props.options.sortBy === 'source') {
+        // by order in source sheet
+        const a_idx = props.hotelsList.findIndex(hotel_id_or_descriptor => {
+            const a_id = typeof hotel_id_or_descriptor === 'number' ? hotel_id_or_descriptor : hotel_id_or_descriptor.id
+            return a_id == a.hotel.id;
+        });
+        const b_idx = props.hotelsList.findIndex(hotel_id_or_descriptor => {
+            const b_id = typeof hotel_id_or_descriptor === 'number' ? hotel_id_or_descriptor : hotel_id_or_descriptor.id
+            return b_id == b.hotel.id;
+        });
+        return a_idx - b_idx;
+    } else {
+        // default
+        return a.offers[0].price.amount - b.offers[0].price.amount;
+    }
+}
+
 watchEffect(() => {
     productsList.splice(0);
     clickedLocationHotelId.value = null;
@@ -208,7 +228,8 @@ watchEffect(() => {
                 merge(productReference.value, omit(response_json.result, ['products', 'topProducts', 'filter', 'availableSortTypes', 'searchCriterias']));
                 productsLoading.value += 1 / offerQueries.value.length * 100;
                 productsList.push(...response_json.result.products);
-                productsList.sort((a, b) => a.offers[0].price.amount - b.offers[0].price.amount);
+                // productsList.sort((a, b) => a.offers[0].price.amount - b.offers[0].price.amount);
+                productsList.sort(compareProducts);
             }
         });
     });

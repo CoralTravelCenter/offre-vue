@@ -5,10 +5,11 @@
     },
     contents: [
         '/site/coral/markup/app.html',
+        '/site/coral/markup/widget-ELITE.html',
 //        '/site/coral/markup/widget-sochi.html',
 //        '/site/coral/markup/widget-cuba.html',
 //        '/site/coral/markup/widget-TOP-TOURS.html',
-        '/site/coral/markup/widget-CFC.html',
+//        '/site/coral/markup/widget-CFC.html',
 //        '/site/coral/markup/widget-business.html',
 //        '/site/coral/markup/widget-TMP.html',
 //        '/site/coral/markup/widget-bahrain.html',

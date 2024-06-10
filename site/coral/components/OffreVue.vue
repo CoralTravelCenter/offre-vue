@@ -126,7 +126,7 @@ const matchedHotelsDirectory = computed(() => {
         }[props.options.groupBy];
         return hotelsDirectory.value.filter(hotel => {
             const hotel_info = hotelInfos.value.find(info => hotel.id == info.id);
-            return (selectedRegion.value === '*'
+            return !!hotel_info && (selectedRegion.value === '*'
                     || hotel_info[region_key] == [...Object.entries(regionsDirectory.value[props.options.groupBy])].find(([k, v]) => v.name === selectedRegion.value)[0])
                 && (!isTimeframeSelectable.value || hotel.timeframes.some(tf => tf.key === selectedTimeframe.value));
         });

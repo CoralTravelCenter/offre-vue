@@ -108,20 +108,22 @@ watch(() => props.viewMode, (mode) => {
     }
 });
 
+const productsWithCoordinates = computed(() => props.products.filter(product => !!product.hotel?.coordinates));
+
 watchEffect(async () => {
-    if (props.products.length > 1) {
+    if (productsWithCoordinates.value.length > 1) {
         map.value?.setLocation({
             ...await getLocationFromBounds({
-                bounds: getBoundsFromCoords(props.products.map(p => [p.hotel.coordinates.longitude, p.hotel.coordinates.latitude])),
+                bounds: getBoundsFromCoords(productsWithCoordinates.value.map(p => [p.hotel.coordinates.longitude, p.hotel.coordinates.latitude])),
                 map: map.value,
                 roundZoom: true,
                 comfortZoomLevel: true
             }),
             duration: 750
         });
-    } else if (props.products.length === 1) {
+    } else if (productsWithCoordinates.value.length === 1) {
         map_settings.location = {
-            center: [props.products[0].hotel.coordinates.longitude, props.products[0].hotel.coordinates.latitude],
+            center: [productsWithCoordinates.value[0].hotel.coordinates.longitude, productsWithCoordinates.value[0].hotel.coordinates.latitude],
             zoom: 10
         };
     }
@@ -149,11 +151,12 @@ const gridVideMode = inject('grid-view-mode');
 const productsSelectedByLocation = computed(() => {
     return clickedLocationHotelId.value ? [props.products.find(product => product.hotel.id == clickedLocationHotelId.value)] : [];
 });
+
 const productsExceptSelectedByLocation = computed(() => {
     if (clickedLocationHotelId.value) {
-        return props.products.filter((product) => product.hotel.id != clickedLocationHotelId.value);
+        return productsWithCoordinates.value.filter((product) => product.hotel.id != clickedLocationHotelId.value);
     } else {
-        return props.products;
+        return productsWithCoordinates.value;
     }
 });
 

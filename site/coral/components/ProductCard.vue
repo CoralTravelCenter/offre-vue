@@ -109,8 +109,10 @@ const isHotelOnly = computed(() => {
 
 const clickedLocationHotelId = inject('clicked-location-hotel-id');
 function handleHotelLocationClick(hotel) {
-    clickedLocationHotelId.value = hotel.id;
-    gridViewMode.value = 'map';
+    if (hotel.coordinates) {
+        clickedLocationHotelId.value = hotel.id;
+        gridViewMode.value = 'map';
+    }
 }
 
 </script>
@@ -125,7 +127,7 @@ function handleHotelLocationClick(hotel) {
                 </div>
             </div>
             <div class="details">
-                <div class="location" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
+                <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
                         <span v-for="n in hotelStarCount" class="filled"></span>
@@ -337,14 +339,17 @@ function handleHotelLocationClick(hotel) {
             margin: 0;
         }
         .location {
-            .interactive();
             align-self: flex-start;
             display: flex;
             align-items: center;
             font-weight: 300;
-            border-bottom: 1px solid #ccc;
             padding-bottom: .25em;
-            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            &.has-coordinates {
+                .interactive();
+                border-bottom-color: #ccc;
+                cursor: pointer;
+            }
             &:before {
                 content: '';
                 height: 1.2em;

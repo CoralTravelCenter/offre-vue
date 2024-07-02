@@ -3,9 +3,9 @@ import { computed, getCurrentInstance, inject, ref, watchEffect } from "vue";
 import { hotelCommonSearchCriterias } from "../config/globals";
 import { OnlyHotelProduct } from "../../lib/b2c-api";
 
-import icon_default from 'data-url:/site/coral/assets-inline/hotel-marker-default.svg';
-import icon_cfc from 'data-url:/site/coral/assets-inline/hotel-marker-cfc.svg';
-import icon_elite from 'data-url:/site/coral/assets-inline/hotel-marker-elite.svg';
+import icon_default from 'data-url:/site/sunmar/assets-inline/hotel-marker-default.svg';
+import icon_cfc from 'data-url:/site/sunmar/assets-inline/hotel-marker-cfc.svg';
+import icon_elite from 'data-url:/site/sunmar/assets-inline/hotel-marker-elite.svg';
 import dayjs from "dayjs";
 
 import { openedMapMarker } from "./global-state";
@@ -100,7 +100,7 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
 const offerHref = computed(() => {
-    const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
+    const host = location.hostname === 'localhost' ? '//new.sunmar.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
     return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ (isHotelOnly.value || tourType.value !== 'package') ? 2 : 1 }`;
 });
@@ -280,7 +280,7 @@ const isHotelOnly = computed(() => {
                             aspect-ratio: 153/35;
                             font-size: 1.25em;
                             height: 1em;
-                            background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
+                            background: url("data-url:/site/sunmar/assets-inline/coral-family-club.svg") center / cover no-repeat;
                         }
                     }
                 }
@@ -294,10 +294,10 @@ const isHotelOnly = computed(() => {
                         height: (96/101) * 1.2em;
                         background: center / cover no-repeat;
                         &.filled {
-                            background-image: url(data-url:/site/coral/assets-inline/rating-star-filled.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/rating-star-filled.svg);
                         }
                         &.empty {
-                            background-image: url(data-url:/site/coral/assets-inline/rating-star-empty.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/rating-star-empty.svg);
                         }
                     }
                 }
@@ -327,19 +327,19 @@ const isHotelOnly = computed(() => {
                         }
                         &.departure:before {
                             width: (42/33) * 1.2em;
-                            background-image: url(data-url:/site/coral/assets-inline/icon-flight.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/icon-flight.svg);
                         }
                         &.begin-date:before {
                             width: (32/33) * 1.2em;
-                            background-image: url(data-url:/site/coral/assets-inline/icon-cal.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/icon-cal.svg);
                         }
                         &.stay-nights:before {
                             width: (40/33) * 1.2em;
-                            background-image: url(data-url:/site/coral/assets-inline/icon-bed.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/icon-bed.svg);
                         }
                         &.meal-type:before {
                             width: (43/33) * 1.2em;
-                            background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
+                            background-image: url(data-url:/site/sunmar/assets-inline/icon-meal.svg);
                         }
                     }
                 }

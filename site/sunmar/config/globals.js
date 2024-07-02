@@ -4,9 +4,9 @@ const globals = {
     elementPlusStylesCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
     //
     devLocation: 'office',
-    productionAPIHost: '//b2capi.coral.ru',
+    productionAPIHost: '//b2capi.sunmar.ru',
     // devHomeAPIHost: 'http://localhost:8888',
-    devHomeAPIHost: 'https://localhost/site/coral/dev-api-cache',
+    devHomeAPIHost: 'https://localhost/site/sunmar/dev-api-cache',
     devOfficeAPIHost: 'http://localhost:8010/proxy',
     //
     timeframeDefaultKey: '*'

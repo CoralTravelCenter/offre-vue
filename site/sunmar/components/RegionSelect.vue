@@ -70,8 +70,9 @@ watchEffect(() => {
 @import "../common/css/layout";
 .region-select {
     //flex: 1 1 auto;
-    background: fade(@coral-main-blue, 5%);
-    border-radius: 100px;
+    //background: fade(@coral-main-blue, 5%);
+    background: #DFDFE8;
+    border-radius: .5em;
     @media screen and (max-width: @mobile-breakpoint) {
         grid-column: 1 / span 2;
     }
@@ -93,11 +94,11 @@ watchEffect(() => {
             flex: 1 1 auto;
             line-height: 1;
             height: 2.45em;
-            padding: 0 1em;
+            padding: 0 1.5em;
             display: inline-grid;
             place-content: center;
             cursor: pointer;
-            border-radius: 100px;
+            border-radius: .5em;
             white-space: nowrap;
             text-align: center;
             .transit(color, .25s);
@@ -108,7 +109,7 @@ watchEffect(() => {
                 right: 0;
                 pointer-events: none;
                 color: white;
-                background-color: @coral-main-blue;
+                background-color: #0F2755;
             }
         }
     }

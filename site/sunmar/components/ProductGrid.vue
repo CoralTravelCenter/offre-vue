@@ -50,7 +50,7 @@ watchEffect(() => {
 });
 
 const productListPageNumber = ref(1);
-const productListPageSize = ref(10);
+const productListPageSize = ref(6);
 const pagedProductList = computed(() => {
     const start = (productListPageNumber.value-1) * productListPageSize.value;
     return props.products.slice(start, start + productListPageSize.value);
@@ -245,7 +245,8 @@ const productsExceptSelectedByLocation = computed(() => {
     }
     .offers-list {
         display: grid;
-        gap: 1em;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2em;
     }
 
     .el-progress {

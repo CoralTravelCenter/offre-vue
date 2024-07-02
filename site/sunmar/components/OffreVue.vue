@@ -431,7 +431,7 @@ onMounted(async () => {
         grid-template-columns: minmax(0,1fr) auto auto auto;
         align-items: center;
         gap: 1em;
-        padding: .75em .5em;
+        padding: .75em 0;
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
         border-radius: 0 0 1em 1em;
@@ -459,13 +459,13 @@ onMounted(async () => {
             display: inline-flex;
             width: 1em;
             height: 1em;
-            background: url("data-url:/site/coral/assets-inline/icon-list-view.svg") center / cover no-repeat;
+            background: url("data-url:/site/sunmar/assets-inline/icon-list-view.svg") center / cover no-repeat;
         }
         .icon-map-view {
             display: inline-flex;
             width: 1em;
             height: 1em;
-            background: url("data-url:/site/coral/assets-inline/icon-map-view.svg") center / cover no-repeat;
+            background: url("data-url:/site/sunmar/assets-inline/icon-map-view.svg") center / cover no-repeat;
         }
     }
 

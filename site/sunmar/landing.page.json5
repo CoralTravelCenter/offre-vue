@@ -1,14 +1,14 @@
 {
     env: {
-        brand: 'coral-next',
+        brand: 'sunmar-next',
         cmsWidgetContainer: '<div>{{{ widget_markup }}}</div>'
     },
     contents: [
-        '/site/coral/markup/app.html',
-        '/site/coral/markup/widget-ELITE.html',
-//        '/site/coral/markup/widget-CFC.html',
-//        '/site/coral/markup/widget-TMP.html',
-//        '/site/coral/markup/widget-mockup.html',
-//        '/site/coral/markup/widget-placeholder.html'
+        '/site/sunmar/markup/app.html',
+//        '/site/sunmar/markup/widget-ELITE.html',
+        '/site/sunmar/markup/widget-CFC.html',
+//        '/site/sunmar/markup/widget-TMP.html',
+//        '/site/sunmar/markup/widget-mockup.html',
+//        '/site/sunmar/markup/widget-placeholder.html'
     ]
 }

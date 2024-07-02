@@ -80,7 +80,7 @@ const { name: hotelCategoryName, starCount: hotelStarCount } = getReferenceValue
 const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
 
 const offerHref = computed(() => {
-    const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
+    const host = location.hostname === 'localhost' ? '//new.sunmar.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
     return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ (isHotelOnly.value || tourType.value !== 'package') ? 2 : 1 }`;
 });
@@ -127,7 +127,6 @@ function handleHotelLocationClick(hotel) {
                 </div>
             </div>
             <div class="details">
-                <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
                         <span v-for="n in hotelStarCount" class="filled"></span>
@@ -140,6 +139,7 @@ function handleHotelLocationClick(hotel) {
                     </div>
                 </div>
                 <h3 class="name">{{ hotel.name }}</h3>
+                <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <ul class="terms">
                     <li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
                     <li class="begin-date">{{ beginDate }}</li>
@@ -266,11 +266,12 @@ function handleHotelLocationClick(hotel) {
 @import "../common/css/layout";
 .product-card {
     display: flex;
+    flex-direction: column;
     background-color: white;
-    border-radius: 1em;
+    border-radius: .5em;
     box-shadow: 0 0 0 1px fade(black, 6%);
     color: black;
-    max-height: 20em;
+    //max-height: 20em;
     .transit(opacity);
     .transit(max-height);
     @media screen and (max-width: @mobile-breakpoint) {
@@ -278,11 +279,12 @@ function handleHotelLocationClick(hotel) {
         max-height: none;
     }
     >* {
-        padding: .5em;
+        //padding: .5em;
     }
     .visual-details {
-        width: 70%;
+        width: 100%;
         display: flex;
+        flex-direction: column;
         @media screen and (max-width: @mobile-breakpoint) {
             width: 100%;
             flex-direction: column;
@@ -290,10 +292,10 @@ function handleHotelLocationClick(hotel) {
     }
     .visual {
         flex-shrink: 0;
-        width: 38%;
-        .proportional(4/3);
+        width: 100%;
+        .proportional(16/9);
         background: center / cover no-repeat;
-        border-radius: .7em;
+        border-radius: .5em .5em 0 0;
         @media screen and (max-width: @mobile-breakpoint) {
             .proportional(16/9);
             width: 100%;
@@ -318,7 +320,7 @@ function handleHotelLocationClick(hotel) {
                     line-height: 2.1;
                 }
                 &.exclusive {
-                    background-color: #e84f0e;
+                    background-color: #C20E1A;
                     color: white;
                 }
             }
@@ -330,7 +332,7 @@ function handleHotelLocationClick(hotel) {
         flex-direction: column;
         justify-content: center;
         gap: 1em;
-        padding: 0 2em;
+        padding: 1em;
         @media screen and (max-width: @mobile-breakpoint) {
             padding: 2em 1em 1em;
         }
@@ -414,6 +416,7 @@ function handleHotelLocationClick(hotel) {
         }
         ul.terms {
             display: flex;
+            flex-wrap: wrap;
             align-items: baseline;
             gap: 1em;
             list-style: none;
@@ -453,33 +456,36 @@ function handleHotelLocationClick(hotel) {
             padding: 1em 0 0;
             font-size: (12/14em);
             display: grid;
-            grid-template-rows: repeat(auto-fill, minmax(1.2em, min-content));
+            //grid-template-rows: repeat(auto-fill, minmax(1.2em, min-content));
             /* grid-template-columns: repeat(auto-fill, minmax(50%, max-content)); */
-            grid-auto-flow: column;
-            gap: .5em 2em;
+            //grid-auto-flow: column;
+            gap: .5em;
             max-height: 10em;
-            border-top: 1px solid fade(@coral-main-blue, 25%);
+            //border-top: 1px solid fade(@coral-main-blue, 25%);
+            border-top: 1px solid fade(black, 6%);
             >li {
                 display: flex;
                 &:before {
                     content: '\2022';
                     margin-right: .5em;
-                    color: @coral-main-blue;
+                    //color: @coral-main-blue;
+                    color: black;
                 }
             }
         }
     }
     .pricing {
-        width: 30%;
-        border-left: 1px solid fade(black, 10%);
+        margin-top: auto;
+        width: 100%;
+        //border-left: 1px solid fade(black, 10%);
         display: grid;
         grid-template-rows: auto 1fr;
         gap: 1em;
-        padding: 1em;
+        padding: 0 1em 1em;
         @media screen and (max-width: @mobile-breakpoint) {
             width: 100%;
             border-left: 0;
-            border-top: 1px solid fade(black, 10%);
+            //border-top: 1px solid fade(black, 10%);
         }
         .tour-type {
             width: 100%;
@@ -499,25 +505,27 @@ function handleHotelLocationClick(hotel) {
                     position: relative;
                     z-index: 1;
                     pointer-events: none;
-                    color: @coral-main-blue;
-                    border-color: currentColor;
+                    color: white;
+                    background: #254F97;
+                    border-color: #254F97;
                 }
                 &:nth-of-type(n+2) {
                     margin-left: -1px;
                 }
                 &:first-of-type {
-                    border-top-left-radius: .5em;
-                    border-bottom-left-radius: .5em;
+                    border-top-left-radius: 100px;
+                    border-bottom-left-radius: 100px;
                 }
                 &:last-of-type {
-                    border-top-right-radius: .5em;
-                    border-bottom-right-radius: .5em;
+                    border-top-right-radius: 100px;
+                    border-bottom-right-radius: 100px;
                 }
             }
         }
         .tour-info {
             display: flex;
             flex-direction: column;
+            gap: 1em;
             .transit(opacity, .25s);
             .transit(filter, .25s);
             @media screen and (max-width: @mobile-breakpoint) {
@@ -534,6 +542,9 @@ function handleHotelLocationClick(hotel) {
                 position: relative;
                 align-items: flex-end;
                 .price {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: baseline;
                     line-height: 1;
                     white-space: nowrap;
                     .from-wording {
@@ -542,14 +553,18 @@ function handleHotelLocationClick(hotel) {
                         margin-bottom: 1em;
                     }
                     .list-price {
-                        text-decoration: line-through @coral-red-error;
-                        margin-bottom: .5em;
+                        //text-decoration: line-through @coral-red-error;
+                        text-decoration: line-through #c20e1a;
+                        //margin-bottom: .5em;
+                        margin-left: .5em;
                     }
                     .final-price {
                         //font-size: (24/14em);
+                        flex: 1 1 100%;
                         font-size: 2em;
                         font-weight: 600;
-                        color: @coral-main-blue;
+                        //color: @coral-main-blue;
+                        color: #2E3465;
                         :deep(.per-night) {
                             font-size: 62%;
                             font-weight: 300;
@@ -566,19 +581,19 @@ function handleHotelLocationClick(hotel) {
                     line-height: 1;
                     height: 2em;
                     padding: 0 1em;
-                    background: #52C41A;
+                    background: #D8242A;
                     color: white;
-                    border-radius: .5em .5em 0 .5em;
-                    transform: translateX(calc(1em + 10px));
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        top: 100%;
-                        right: 0;
-                        width: 10px;
-                        height: 7px;
-                        background: linear-gradient(to bottom right, darken(#52C41A, 10%) 50%, transparent 55%);
-                    }
+                    border-radius: 100px;
+                    //transform: translateX(calc(1em + 10px));
+                    //&:after {
+                    //    content: '';
+                    //    position: absolute;
+                    //    top: 100%;
+                    //    right: 0;
+                    //    width: 10px;
+                    //    height: 7px;
+                    //    background: linear-gradient(to bottom right, darken(#52C41A, 10%) 50%, transparent 55%);
+                    //}
                 }
             }
             .cashback {
@@ -624,8 +639,8 @@ function handleHotelLocationClick(hotel) {
                 text-decoration: none;
                 height: 3em;
                 color: white;
-                background: @coral-main-blue;
-                border-radius: .5em;
+                background: #0E2855;
+                border-radius: 100px;
             }
         }
     }

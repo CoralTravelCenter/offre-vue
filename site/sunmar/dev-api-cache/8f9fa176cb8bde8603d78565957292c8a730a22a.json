@@ -1,0 +1,3107 @@
+{
+    "result": {
+        "hotels": [
+            {
+                "id": 49757,
+                "name": "XANADU MAKADI BAY",
+                "giataCode": "1311753",
+                "friendlyUrl": "egypt/xanadu-makadi-bay-hurghada",
+                "countryId": "12",
+                "countryName": "Египет",
+                "regionId": "10",
+                "regionName": "Хургада",
+                "placeId": "171",
+                "placeName": "Макади-Бэй (Makadi Bay)",
+                "areaId": "70",
+                "areaName": "Хургада (Hurghada)",
+                "coordinates": {
+                    "latitude": "26.99496093655541",
+                    "longitude": "33.89313555307062"
+                },
+                "categoryId": 1,
+                "address": "Qesm Hurghada, Red Sea, Makadi bay Egypt",
+                "web": "www.xanaduhotels.com.tr",
+                "tripAdvisorCode": "23940505",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 620,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": true,
+                "isElite": true,
+                "distances": {
+                    "airport": {
+                        "name": "Hurghada INT-HRG",
+                        "value": "30",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Hurghada",
+                        "value": "35",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Makadi Bay",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 3815,
+                "name": "EFTALIA AQUA RESORT",
+                "giataCode": "229489",
+                "friendlyUrl": "turkey/eftalia-aqua-resort-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.597234501804884",
+                    "longitude": "31.82061195373535"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "2153290",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 3096,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 55032,
+                "name": "EFTALIA BLUE",
+                "giataCode": "",
+                "friendlyUrl": "turkey/eftalia-blue-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "3",
+                "placeName": "Alanya",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.5974329",
+                    "longitude": "31.8258402"
+                },
+                "categoryId": 1,
+                "address": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 11013,
+                "name": "EFTALIA MARIN RESORT",
+                "giataCode": "403253",
+                "friendlyUrl": "turkey/eftalia-marin-resort-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.59664877438577",
+                    "longitude": "31.817082166671753"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "7201164",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 2246,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 21601,
+                "name": "EFTALIA OCEAN",
+                "giataCode": "632778",
+                "friendlyUrl": "turkey/eftalia-ocean-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.59642481860927",
+                    "longitude": "31.81864857673645"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "12511899",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 2288,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 8028,
+                "name": "EFTALIA SPLASH RESORT",
+                "giataCode": "265509",
+                "friendlyUrl": "turkey/eftalia-splash-resort-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.601816804021134",
+                    "longitude": "31.813530921936035"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "4738813",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 2057,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "600",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 874,
+                "name": "EFTALIA VILLAGE HOTEL",
+                "giataCode": "70520",
+                "friendlyUrl": "turkey/eftalia-village-hotel-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.597940814249334",
+                    "longitude": "31.81666374206543"
+                },
+                "categoryId": 36,
+                "address": "TURKLER KASABASI BELEDIYE KARSISI-ALANYA-TURKIYE",
+                "web": "www.eftaliahotels.com",
+                "tripAdvisorCode": "647593",
+                "tripAdvisorPoint": 3.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/3.5.svg",
+                "tripAdvisorCommentCount": 1975,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Konakli",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 12879,
+                "name": "KAMELYA AISHEN CLUB",
+                "giataCode": "4913",
+                "friendlyUrl": "turkey/kamelya-aishen-club-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "127",
+                "placeName": "Чолаклы (Colakli)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.812301",
+                    "longitude": "31.33408399999996"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "9769099",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1946,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "55",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "50",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 13448,
+                "name": "KAMELYA FULYA HOTEL",
+                "giataCode": "4912",
+                "friendlyUrl": "turkey/kamelya-fulya-hotel-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "127",
+                "placeName": "Чолаклы (Colakli)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.8112718",
+                    "longitude": "31.33365290000006"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "304610",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 713,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "55",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "10",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 12880,
+                "name": "KAMELYA SELIN HOTEL",
+                "giataCode": "4915",
+                "friendlyUrl": "turkey/kamelya-selin-hotel-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "127",
+                "placeName": "Чолаклы (Colakli)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.80927799999999",
+                    "longitude": "31.33524299999999"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "1126844",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1303,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "55",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Side",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": ""
+                        }
+                    }
+                }
+            },
+            {
+                "id": 29449,
+                "name": "BALMY BEACH RESORT KEMER",
+                "giataCode": "5921",
+                "friendlyUrl": "turkey/balmy-beach-resort-kemer-kemer",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "107",
+                "placeName": "Бельдиби (Beldibi)",
+                "areaId": "8",
+                "areaName": "Кемер (Kemer)",
+                "coordinates": {
+                    "latitude": "36.73611170265521",
+                    "longitude": "30.56429124088129"
+                },
+                "categoryId": 2,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "40",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kemer",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Beldibi",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "5",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 793,
+                "name": "LONG BEACH ALANYA",
+                "giataCode": "1400605",
+                "friendlyUrl": "turkey/long-beach-alanya-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "2131",
+                "placeName": "Турклер (Turkler)",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.5997496337093",
+                    "longitude": "31.805307269096375"
+                },
+                "categoryId": 1,
+                "address": "Incekum-Alanya",
+                "web": "www.longbeach.com.tr",
+                "tripAdvisorCode": "647590",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 0,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Gazipasa-GZP",
+                        "value": "60",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "20",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Avsallar",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "50",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 3,
+                            "value": "Каменистый пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52527,
+                "name": "AQI HYDROS CLUB",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aqi-hydros-club-kemer",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "106",
+                "placeName": "Кемер (Kemer)",
+                "areaId": "8",
+                "areaName": "Кемер (Kemer)",
+                "coordinates": {
+                    "latitude": "36.60717590000001",
+                    "longitude": "30.5623691"
+                },
+                "categoryId": 1,
+                "address": "Yeni Mah. Şehit Cemal Ilgaz Caddesi. No:1 07980 Kemer/ANTALYA",
+                "web": "",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "65",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kemer",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kemer",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52524,
+                "name": "AQI PEGASOS CLUB",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aqi-pegasos-club-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "6",
+                "placeName": "Incekum",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.633403163820354",
+                    "longitude": "31.753063201904297"
+                },
+                "categoryId": 2,
+                "address": "İncekum Kasabası D-400 Karayolu 07470 İncekum / Alanya / ANTALYA",
+                "web": "",
+                "tripAdvisorCode": "1160937",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1345,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "94",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "25",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Avsallar",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 16482,
+                "name": "AQI PEGASOS RESORT HOTEL",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aqi-pegasos-resort-hotel-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "6",
+                "placeName": "Incekum",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.63495287017223",
+                    "longitude": "31.752376556396484"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "1129937",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/5.0.svg",
+                "tripAdvisorCommentCount": 3092,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "95",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "25",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Avsallar",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "50",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 16483,
+                "name": "AQI PEGASOS ROYAL HOTEL",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aqi-pegasos-royal-hotel-alanya",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "6",
+                "placeName": "Incekum",
+                "areaId": "3",
+                "areaName": "Аланья (Alanya)",
+                "coordinates": {
+                    "latitude": "36.6349486",
+                    "longitude": "31.7523853"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "1128010",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 3761,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "95",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Alanya",
+                        "value": "25",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Avsallar",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52525,
+                "name": "AQI PEGASOS WORLD",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aqi-pegasos-world-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "125",
+                "placeName": "Титреенгёль  (Titreyengol)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.7560182",
+                    "longitude": "31.4371944"
+                },
+                "categoryId": 2,
+                "address": "Sorgun Mah. Acısu Mevkii No:20, 07601 Titreyengöl-Manavgat / SİDE",
+                "web": "",
+                "tripAdvisorCode": "1144460",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 4295,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "70",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "6",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Manavgat",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 30303,
+                "name": "AQUAWORLD BELEK (MANAGED BY MP HOTELS) ",
+                "giataCode": "4720",
+                "friendlyUrl": "turkey/aquaworld-belek-managed-by-mp-hotels-belek",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "1950",
+                "placeName": "Искеле (Iskele)",
+                "areaId": "6",
+                "areaName": "Белек (Belek)",
+                "coordinates": {
+                    "latitude": "36.853773",
+                    "longitude": "31.047847"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "20239931",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1640,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "35",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Belek",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Belek",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 311,
+                "name": "ROX ROYAL HOTEL ( EX GRAND HABER)",
+                "giataCode": "",
+                "friendlyUrl": "turkey/rox-royal-hotel-kemer",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "106",
+                "placeName": "Кемер (Kemer)",
+                "areaId": "8",
+                "areaName": "Кемер (Kemer)",
+                "coordinates": {
+                    "latitude": "36.606722",
+                    "longitude": "30.560862000000043"
+                },
+                "categoryId": 1,
+                "address": "Şehit Polis Cemal Ilgaz Cad.70980 Kemer-Antalya",
+                "web": "www.roxroyal.com",
+                "tripAdvisorCode": "783271",
+                "tripAdvisorPoint": 3.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/3.5.svg",
+                "tripAdvisorCommentCount": 429,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "60",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kemer",
+                        "value": "500",
+                        "unit": "м"
+                    },
+                    "town": {
+                        "name": "Kemer",
+                        "value": "500",
+                        "unit": "м"
+                    },
+                    "beach": {
+                        "value": "150",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    },
+                    "skiCenter": {
+                        "value": "150",
+                        "unit": "м"
+                    }
+                }
+            },
+            {
+                "id": 30477,
+                "name": "SORGUN AKADIA LUXURY",
+                "giataCode": "1216103",
+                "friendlyUrl": "turkey/sorgun-akadia-luxury-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "125",
+                "placeName": "Титреенгёль  (Titreyengol)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.756474",
+                    "longitude": "31.45688949999999"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "23706381",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 368,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "65",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Manavgat",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "550",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 768,
+                "name": "SUENO HOTELS BEACH SIDE",
+                "giataCode": "70157",
+                "friendlyUrl": "turkey/sueno-hotels-beach-side-side",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "124",
+                "placeName": "Соргун (Sorgun)",
+                "areaId": "10",
+                "areaName": "Сиде (Side)",
+                "coordinates": {
+                    "latitude": "36.763105",
+                    "longitude": "31.410161000000016"
+                },
+                "categoryId": 1,
+                "address": "Antalya / Side-Sorgun",
+                "web": "www.sueno.com.tr",
+                "tripAdvisorCode": "952353",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 3344,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "60",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Side",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Manavgat",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 12914,
+                "name": "SUENO HOTELS DELUXE BELEK",
+                "giataCode": "816155",
+                "friendlyUrl": "turkey/sueno-hotels-deluxe-belek-belek",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "1951",
+                "placeName": "Ташлыбурун (Tasliburun)",
+                "areaId": "6",
+                "areaName": "Белек (Belek)",
+                "coordinates": {
+                    "latitude": "36.85660027618195",
+                    "longitude": "31.03388786315918"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "8006067",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 6718,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "30",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Belek",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kadriye",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "200",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    },
+                    "skiCenter": {
+                        "value": "200",
+                        "unit": "м"
+                    }
+                }
+            },
+            {
+                "id": 981,
+                "name": "SUENO HOTELS GOLF BELEK",
+                "giataCode": "90131",
+                "friendlyUrl": "turkey/sueno-hotels-golf-belek-belek",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "2",
+                "regionName": "Анталийское (Mediterranean)",
+                "placeId": "1951",
+                "placeName": "Ташлыбурун (Tasliburun)",
+                "areaId": "6",
+                "areaName": "Белек (Belek)",
+                "coordinates": {
+                    "latitude": "36.8603430538313",
+                    "longitude": "31.02961778640747"
+                },
+                "categoryId": 1,
+                "address": "Antalya/Kadriye-Belek",
+                "web": "www.sueno.com.tr",
+                "tripAdvisorCode": "807206",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/5.0.svg",
+                "tripAdvisorCommentCount": 4101,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Antalya-AYT",
+                        "value": "30",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Belek",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kadriye",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "400",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52520,
+                "name": "TUI BLUE SARIGERME PARK",
+                "giataCode": "",
+                "friendlyUrl": "turkey/tui-blue-sarigerme-park-dalaman",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "63",
+                "placeName": "Сарыгёрме (Sarigerme)",
+                "areaId": "3264",
+                "areaName": "Даламан (Dalaman)",
+                "coordinates": {
+                    "latitude": "36.705837",
+                    "longitude": "28.699841"
+                },
+                "categoryId": 2,
+                "address": "SaIigerme Mah. 48600 Sarıgerme, Ortaca/Muğla",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Dalaman",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Sarigerme",
+                        "value": "500",
+                        "unit": "м"
+                    }
+                }
+            },
+            {
+                "id": 52521,
+                "name": "TUI BLUE SENO",
+                "giataCode": "",
+                "friendlyUrl": "turkey/tui-blue-seno-dalaman",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "63",
+                "placeName": "Сарыгёрме (Sarigerme)",
+                "areaId": "3264",
+                "areaName": "Даламан (Dalaman)",
+                "coordinates": {
+                    "latitude": "36.7008264",
+                    "longitude": "28.68935569999999"
+                },
+                "categoryId": 2,
+                "address": "Sarıgerme Mah. 2077 Cad. No:11 48600  Sarıgerme, Ortaca/Muğla",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "16",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Dalaman",
+                        "value": "16",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Sarigerme",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52522,
+                "name": "TUI BLUE TROPICAL",
+                "giataCode": "",
+                "friendlyUrl": "turkey/tui-blue-tropical-dalaman",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "63",
+                "placeName": "Сарыгёрме (Sarigerme)",
+                "areaId": "3264",
+                "areaName": "Даламан (Dalaman)",
+                "coordinates": {
+                    "latitude": "36.7099914",
+                    "longitude": "28.7175807"
+                },
+                "categoryId": 2,
+                "address": "Fevziye Köyü Akçagöl Sarısu Mevkii No:361 48600  Sarıgerme, Ortaca/Muğla",
+                "web": "",
+                "tripAdvisorCode": "619821",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 3643,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "16",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Dalaman",
+                        "value": "16",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Sarigerme",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52528,
+                "name": "TUI MAGIC LIFE SARIGERME",
+                "giataCode": "",
+                "friendlyUrl": "turkey/tui-magic-life-sarigerme-dalaman",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "63",
+                "placeName": "Сарыгёрме (Sarigerme)",
+                "areaId": "3264",
+                "areaName": "Даламан (Dalaman)",
+                "coordinates": {
+                    "latitude": "36.70299360000001",
+                    "longitude": "28.6947045"
+                },
+                "categoryId": 1,
+                "address": "PK. 15 TR 48600  Sarıgerme, Ortaca/Muğla",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "20",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Dalaman",
+                        "value": "20",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Dalaman",
+                        "value": "20",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 565,
+                "name": "CLUB & HOTEL LETOONIA",
+                "giataCode": "4285",
+                "friendlyUrl": "turkey/club-hotel-letoonia-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "43",
+                "placeName": "Фетхие (Fethiye)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.6352343",
+                    "longitude": "29.099155600000017"
+                },
+                "categoryId": 36,
+                "address": "Paçarız Burnu Mevkii  48300 Fethiye Muğla",
+                "web": "www.letooniaresorts.com",
+                "tripAdvisorCode": "315007",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 0,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "57",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Fethiye",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 34337,
+                "name": "LIBERTY FABAY",
+                "giataCode": "1281837",
+                "friendlyUrl": "turkey/liberty-fabay-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "43",
+                "placeName": "Фетхие (Fethiye)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.68242306039881",
+                    "longitude": "29.078442912805"
+                },
+                "categoryId": 1,
+                "address": "Kargı Mah.202 Manolya SK. No:4/2 Fethiye / Muğla",
+                "web": "",
+                "tripAdvisorCode": "23242341",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1901,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "40",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "15",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Calis",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 10105,
+                "name": "LIBERTY HOTELS LYKIA",
+                "giataCode": "265648",
+                "friendlyUrl": "turkey/liberty-hotels-lykia-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "45",
+                "placeName": "Олюдениз (Oludeniz)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.52413070000001",
+                    "longitude": "29.128071099999943"
+                },
+                "categoryId": 36,
+                "address": "Uzunyurt Köyü Faralya Mah. Kıdrak Sk. No 1 Fethiye - Muğla",
+                "web": "",
+                "tripAdvisorCode": "300020",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 4121,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "62",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "17",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Oludeniz",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 10225,
+                "name": "LIBERTY HOTELS LYKIA ADULT ONLY",
+                "giataCode": "265649",
+                "friendlyUrl": "turkey/liberty-hotels-lykia-adult-only-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "45",
+                "placeName": "Олюдениз (Oludeniz)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.5255302",
+                    "longitude": "29.128063800000063"
+                },
+                "categoryId": 1,
+                "address": "Uzunyurt Köyü Faralya Mah. Kıdrak Sk. No 6 Fethiye-Muğla",
+                "web": "",
+                "tripAdvisorCode": "6206482",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/5.0.svg",
+                "tripAdvisorCommentCount": 1606,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "62",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "17",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Oludeniz",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "20",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 56305,
+                "name": "LIBERTY SIGNA",
+                "giataCode": "1390032",
+                "friendlyUrl": "turkey/liberty-signa-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "43",
+                "placeName": "Фетхие (Fethiye)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.6849806",
+                    "longitude": "29.0784432"
+                },
+                "categoryId": 1,
+                "address": "Kargı Mah. Manolya Sok. No.: 4/3 Fethiye / Muğla",
+                "web": "httpwww.libertysigna.com",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "40",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "15",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Fethiye",
+                        "value": "15",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "220",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 33418,
+                "name": "SUNDIA BY LIBERTY OLUDENIZ",
+                "giataCode": "28226",
+                "friendlyUrl": "turkey/sundia-by-liberty-oludeniz-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "45",
+                "placeName": "Олюдениз (Oludeniz)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.5490086",
+                    "longitude": "29.1250653"
+                },
+                "categoryId": 5,
+                "address": "Belceğiz Mevkii 226. Sok. No: 10 48340 Ölüdeniz Mahallesi Fethiye / Muğla",
+                "web": "www.sundiaoludeniz.com",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "68",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "12",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Fethiye",
+                        "value": "12",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "150",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 58251,
+                "name": "SUNDIA BY LIBERTY SUNCITY",
+                "giataCode": "6071",
+                "friendlyUrl": "turkey/sundia-by-liberty-suncity-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "45",
+                "placeName": "Олюдениз (Oludeniz)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.5475635",
+                    "longitude": "29.1259618"
+                },
+                "categoryId": 2,
+                "address": "Belceğiz Mevkii Ölüdeniz Fethiye",
+                "web": "",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "70",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "15",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Fethiye",
+                        "value": "15",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 56394,
+                "name": "SUNDIA EXCLUSIVE BY LIBERTY FETHIYE",
+                "giataCode": "1272651",
+                "friendlyUrl": "turkey/sundia-exclusive-by-liberty-fethiye-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "43",
+                "placeName": "Фетхие (Fethiye)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.6650867",
+                    "longitude": "29.1070264"
+                },
+                "categoryId": 1,
+                "address": "Çalış Mh. Cahit Beğenç Blv. 1085",
+                "web": "www.sundiafethiye.com",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "43",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Calis",
+                        "value": "0",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    },
+                    "skiCenter": {
+                        "value": "0",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 17847,
+                "name": "TUANA CLUB FETHIYE",
+                "giataCode": "4309",
+                "friendlyUrl": "turkey/tuana-club-fethiye-fethiye",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "2130",
+                "placeName": "Яныклар (Yaniklar)",
+                "areaId": "25",
+                "areaName": "Фетхие (Fethiye)",
+                "coordinates": {
+                    "latitude": "36.689758",
+                    "longitude": "29.045512700000018"
+                },
+                "categoryId": 36,
+                "address": "Yanıklar Mah. Mezargediği Sok. no: 61 Fethiye/MUĞLA",
+                "web": "",
+                "tripAdvisorCode": "553651",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 4585,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "42",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Fethiye",
+                        "value": "17",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Fethiye",
+                        "value": "17",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "5",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 722,
+                "name": "FLAMINGO HOTEL",
+                "giataCode": "4389",
+                "friendlyUrl": "turkey/flamingo-hotel-marmaris",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "60",
+                "placeName": "Мармарис Сителер (Marmaris Siteler)",
+                "areaId": "30",
+                "areaName": "Мармарис (Marmaris)",
+                "coordinates": {
+                    "latitude": "36.832353626988436",
+                    "longitude": "28.244328796863556"
+                },
+                "categoryId": 2,
+                "address": "Kenan Evren Bul. Marmaris, 48700",
+                "web": "www.flamingohotel.net",
+                "tripAdvisorCode": "316151",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 200,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "95",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Marmaris",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Marmaris Siteler",
+                        "value": "10",
+                        "unit": "м"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 4407,
+                "name": "PRIME BEACH HOTEL (EX. IDEAL PRIME BEACH)",
+                "giataCode": "13484",
+                "friendlyUrl": "turkey/prime-beach-hotel-marmaris",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "60",
+                "placeName": "Мармарис Сителер (Marmaris Siteler)",
+                "areaId": "30",
+                "areaName": "Мармарис (Marmaris)",
+                "coordinates": {
+                    "latitude": "36.834166865384766",
+                    "longitude": "28.244782699999973"
+                },
+                "categoryId": 1,
+                "address": "CUMHURIYET BULVARI  NO:35 SITELER/ MARMARIS",
+                "web": "",
+                "tripAdvisorCode": "2136580",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 4695,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "110",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Marmaris",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "İçmeler",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 30730,
+                "name": "PREMIER NERGIS BEACH HOTEL & SPA",
+                "giataCode": "4423",
+                "friendlyUrl": "turkey/premier-nergis-beach-hotel-spa-marmaris",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "60",
+                "placeName": "Мармарис Сителер (Marmaris Siteler)",
+                "areaId": "30",
+                "areaName": "Мармарис (Marmaris)",
+                "coordinates": {
+                    "latitude": "36.84602658299713",
+                    "longitude": "28.257519900798798"
+                },
+                "categoryId": 5,
+                "address": "Çıldır Mah. 232. Sk. Nergis 1 Apt. No:3         MARMARIS / MUGLA",
+                "web": "",
+                "tripAdvisorCode": "20175216",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 203,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "95",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Marmaris",
+                        "value": "200",
+                        "unit": "м"
+                    },
+                    "town": {
+                        "name": "Marmaris",
+                        "value": "54",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "10",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 52523,
+                "name": "TUI BLUE GRAND AZUR",
+                "giataCode": "",
+                "friendlyUrl": "turkey/tui-blue-grand-azur-marmaris",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "130",
+                "placeName": "Мармарис (Marmaris)",
+                "areaId": "30",
+                "areaName": "Мармарис (Marmaris)",
+                "coordinates": {
+                    "latitude": "36.8388241",
+                    "longitude": "28.24803379999999"
+                },
+                "categoryId": 1,
+                "address": "Cumhuriyet Bul. No: 17 48700 Marmaris / Muğla",
+                "web": "",
+                "tripAdvisorCode": "300032",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1465,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Dalaman-DLM",
+                        "value": "100",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Marmaris",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Marmaris",
+                        "value": "2",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 16396,
+                "name": "AQUASIS DE LUXE RESORT & SPA",
+                "giataCode": "",
+                "friendlyUrl": "turkey/aquasis-de-luxe-resort-spa-didim",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "8653",
+                "placeName": "Алтынкум (Altinkum)",
+                "areaId": "24",
+                "areaName": "Дидим (Didim)",
+                "coordinates": {
+                    "latitude": "37.34639849078592",
+                    "longitude": "27.23564386367798"
+                },
+                "categoryId": 1,
+                "address": "",
+                "tripAdvisorCode": "9733093",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 4733,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "84",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Didim",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Altinkum",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 358,
+                "name": "ARMONIA HOLIDAY VILLAGE & SPA",
+                "giataCode": "4161",
+                "friendlyUrl": "turkey/armonia-holiday-village-spa-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "29",
+                "placeName": "Акьярлар (Akyarlar)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "36.96360906817851",
+                    "longitude": "27.269268035888672"
+                },
+                "categoryId": 36,
+                "address": "Kemer Mevkii Akyarlar Turgutreis, Mugla",
+                "web": "www.clubarmonia.com",
+                "tripAdvisorCode": "1097054",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1467,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "53",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "24",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Bodrum",
+                        "value": "24",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "1",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 25495,
+                "name": "AYAZ AQUA BEACH HOTEL",
+                "giataCode": "8369",
+                "friendlyUrl": "turkey/ayaz-aqua-beach-hotel-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "19",
+                "placeName": "Гюмбет (Gumbet)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.02978699999999",
+                    "longitude": "27.394947300000013"
+                },
+                "categoryId": 2,
+                "address": "Asarlık Mevki Metin Akman Sokak No:4 Gümbet - Bodrum",
+                "web": "",
+                "tripAdvisorCode": "314621",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 958,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "35",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Bodrum",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "30",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 799,
+                "name": "BLUE DREAMS RESORT",
+                "giataCode": "4173",
+                "friendlyUrl": "turkey/blue-dreams-resort-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "32",
+                "placeName": "Кайнар (Kaynar)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.09244",
+                    "longitude": "27.486350300000026"
+                },
+                "categoryId": 36,
+                "address": "Zeytinli Kahve Mevkii Bodrum - Turkey",
+                "web": "www.clubbluedreams.com",
+                "tripAdvisorCode": "502827",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 0,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "25",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "10",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Torba",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 4233,
+                "name": "BODRUM HOLIDAY RESORT & SPA",
+                "giataCode": "63319",
+                "friendlyUrl": "turkey/bodrum-holiday-resort-spa-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "21",
+                "placeName": "Ичмелер (Icmeler)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.00495799999999",
+                    "longitude": "27.46200799999997"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "296160",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 4620,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "35",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Bodrum",
+                        "value": "4",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 50385,
+                "name": "HOLIDAY INN RESORT BODRUM HOTEL",
+                "giataCode": "70285",
+                "friendlyUrl": "turkey/holiday-inn-resort-bodrum-hotel-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "210",
+                "placeName": "Бодрум (Bodrum)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.02331476769339",
+                    "longitude": "27.415861783991993"
+                },
+                "categoryId": 1,
+                "address": "Eskiçeşme, Haremtan Sk. No:1, 48400 Bodrum/Muğla",
+                "web": "",
+                "tripAdvisorCode": "6678203",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 197,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "38",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Bodrum",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 800,
+                "name": "SAMARA HOTEL",
+                "giataCode": "4243",
+                "friendlyUrl": "turkey/hotel-samara-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "32",
+                "placeName": "Кайнар (Kaynar)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.08696343530327",
+                    "longitude": "27.47860299627382"
+                },
+                "categoryId": 1,
+                "address": "Kaynar Mevkii, PK.65 - Bodrum",
+                "web": "www.hotelsamara.com",
+                "tripAdvisorCode": "295823",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1878,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "25",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "8",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Bodrum",
+                        "value": "8",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 6936,
+                "name": "LAUR HOTEL EXPERIENCE & LAUR HOTELS ELEGANCE",
+                "giataCode": "38165",
+                "friendlyUrl": "turkey/laur-hotel-experience-laur-hotels-elegance-didim",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "8653",
+                "placeName": "Алтынкум (Altinkum)",
+                "areaId": "24",
+                "areaName": "Дидим (Didim)",
+                "coordinates": {
+                    "latitude": "37.34512762375215",
+                    "longitude": "27.264268398284912"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "447584",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1066,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "90",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Didim",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Didim",
+                        "value": "140",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 30897,
+                "name": "MAXERIA BLUE DIDYMA",
+                "giataCode": "1211801",
+                "friendlyUrl": "turkey/maxeria-blue-didyma-didim",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "40",
+                "placeName": "Дидим (Didim)",
+                "areaId": "24",
+                "areaName": "Дидим (Didim)",
+                "coordinates": {
+                    "latitude": "37.41692770318479",
+                    "longitude": "27.417722940444946"
+                },
+                "categoryId": 1,
+                "address": "sales@maxeriahotel.com info@maxeriahotel.com                                                 AKBUK / DIDIM",
+                "web": "www.maxeriahotel.com",
+                "tripAdvisorCode": "20865125",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 2014,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "50",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Didim",
+                        "value": "20",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Didim",
+                        "value": "20",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "100",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 12520,
+                "name": "TIANA BEACH HOTEL",
+                "giataCode": "36241",
+                "friendlyUrl": "turkey/tiana-beach-hotel-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "22",
+                "placeName": "Кадикалеси (Kadikalesi)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.027985087496",
+                    "longitude": "27.249840795993805"
+                },
+                "categoryId": 2,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "12337700",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/5.0.svg",
+                "tripAdvisorCommentCount": 174,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "55",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "18",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Turgutreis",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 8213,
+                "name": "VOGUE HOTEL SUPREME BODRUM",
+                "giataCode": "296527",
+                "friendlyUrl": "turkey/vogue-hotel-supreme-bodrum-bodrum",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "1",
+                "regionName": "Muğla",
+                "placeId": "32",
+                "placeName": "Кайнар (Kaynar)",
+                "areaId": "1",
+                "areaName": "Бодрум (Bodrum)",
+                "coordinates": {
+                    "latitude": "37.08150988580939",
+                    "longitude": "27.475926876068115"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "3700591",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 6437,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": true,
+                "distances": {
+                    "airport": {
+                        "name": "Bodrum Milas-BJV",
+                        "value": "27",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Bodrum",
+                        "value": "8",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Torba",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 6975,
+                "name": "ARIA CLAROS BEACH SPA & RESORT",
+                "giataCode": "135417",
+                "friendlyUrl": "turkey/aria-claros-beach-spa-resort-ozdere",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "11817",
+                "regionName": "Izmir",
+                "placeId": "68",
+                "placeName": "Оздере (Ozdere)",
+                "areaId": "32",
+                "areaName": "Оздере (Ozdere)",
+                "coordinates": {
+                    "latitude": "37.9899872",
+                    "longitude": "27.138274499999966"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "1412046",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 2647,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "45",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Ozdere",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Ozdere",
+                        "value": "4",
+                        "unit": "км"
+                    },
+                    "skiCenter": {
+                        "value": "Нет"
+                    }
+                }
+            },
+            {
+                "id": 5205,
+                "name": "INFINITY BY YELKEN KUSADASI",
+                "giataCode": "4339",
+                "friendlyUrl": "turkey/infinity-by-yelken-kusadasi-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "8655",
+                "placeName": "Кадынлар Денизи (Kadinlar Denizi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.84104647811454",
+                    "longitude": "27.2400963306427"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "www.infinitybyyelken.com",
+                "tripAdvisorCode": "15617422",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 1418,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "70",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "3",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kadinlar Denizi",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 5217,
+                "name": "LADONIA HOTELS ADAKULE",
+                "giataCode": "4322",
+                "friendlyUrl": "turkey/ladonia-hotels-adakule-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "51",
+                "placeName": "Кушадасы (Kusadasi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.88506412998938",
+                    "longitude": "27.267228761901833"
+                },
+                "categoryId": 1,
+                "address": "ERDE OTELCİLİK A.Ş. \nGÜMÜŞLÜK MAH. 1120 SK. NO:4   \nBODRUM/MUĞLA\nBODRUM V.D. 343 052 81 83",
+                "web": "",
+                "tripAdvisorCode": "550997",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 1279,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "75",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "1",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "2",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "5",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 0,
+                            "value": "Галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 5174,
+                "name": "PINE BAY HOLIDAY RESORT",
+                "giataCode": "4355",
+                "friendlyUrl": "turkey/pine-bay-holiday-resort-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "51",
+                "placeName": "Кушадасы (Kusadasi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.9119392",
+                    "longitude": "27.26564869999993"
+                },
+                "categoryId": 36,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "300857",
+                "tripAdvisorPoint": 4,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 3769,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": true,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "60",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "7",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "5",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчано-галечный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 9408,
+                "name": "SEALIGHT RESORT HOTEL",
+                "giataCode": "93152",
+                "friendlyUrl": "turkey/sealight-resort-hotel-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "8655",
+                "placeName": "Кадынлар Денизи (Kadinlar Denizi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.857913",
+                    "longitude": "27.261015000000043"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "668119",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 0,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "75",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 15254,
+                "name": "SEALIGHT FAMILY CLUB",
+                "giataCode": "42278",
+                "friendlyUrl": "turkey/sealight-family-club-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "8655",
+                "placeName": "Кадынлар Денизи (Kadinlar Denizi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.8335168",
+                    "longitude": "27.24186899999995"
+                },
+                "categoryId": 2,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "14938701",
+                "tripAdvisorPoint": 4.5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.5.svg",
+                "tripAdvisorCommentCount": 270,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "75",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "500",
+                        "unit": "м",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            },
+            {
+                "id": 6659,
+                "name": "TUSAN BEACH RESORT",
+                "giataCode": "4365",
+                "friendlyUrl": "turkey/tusan-beach-resort-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "51",
+                "placeName": "Кушадасы (Kusadasi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.906747",
+                    "longitude": "27.270435099999986"
+                },
+                "categoryId": 1,
+                "address": "",
+                "web": "",
+                "tripAdvisorCode": "508157",
+                "tripAdvisorPoint": 5,
+                "tripAdvisorImage": "https://static.tacdn.com/img2/brand_refresh/ratings/traveler/4.0.svg",
+                "tripAdvisorCommentCount": 0,
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": true,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "70",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "6",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "6",
+                        "unit": "км"
+                    }
+                }
+            },
+            {
+                "id": 58222,
+                "name": "LIBERTY GOLF & RESORT KUSADASI (ex. SEVEN SEAS SEALIGHT ELITE)",
+                "giataCode": "411463",
+                "friendlyUrl": "turkey/liberty-golf-resort-kusadasi-kusadasi",
+                "countryId": "1",
+                "countryName": "Турция",
+                "regionId": "15012",
+                "regionName": "Aydın",
+                "placeId": "51",
+                "placeName": "Кушадасы (Kusadasi)",
+                "areaId": "28",
+                "areaName": "Кушадасы (Kusadasi)",
+                "coordinates": {
+                    "latitude": "37.8267294",
+                    "longitude": "27.2536685"
+                },
+                "categoryId": 1,
+                "address": "Yavansu, Hüseyin Can Cd. No:40, 09400 Kuşadası/Aydın",
+                "web": "www.libertyhotels.com",
+                "tripAdvisorCode": "",
+                "dontShowTripAdvisorComments": false,
+                "isExclusive": false,
+                "isSunFamilyClub": false,
+                "isElite": false,
+                "distances": {
+                    "airport": {
+                        "name": "Adnan Menderes-ADB",
+                        "value": "75",
+                        "unit": "км"
+                    },
+                    "city": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "town": {
+                        "name": "Kusadasi",
+                        "value": "5",
+                        "unit": "км"
+                    },
+                    "beach": {
+                        "value": "0",
+                        "unit": "км",
+                        "materialOfTheBeach": {
+                            "type": 1,
+                            "value": "Песчаный пляж"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "meta": {
+        "responseDateTime": "2024-02-27T11:18:33.6905327Z",
+        "elapsedTime": "00:00:00",
+        "statusCode": 200,
+        "correlation": "340269be-b964-4264-9fa4-806f74c67178"
+    }
+}

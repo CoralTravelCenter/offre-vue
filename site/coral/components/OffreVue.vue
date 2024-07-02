@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watch, watchEffect } from "vue";
+import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watchEffect } from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent, OnlyHotelProduct, PackageTourHotelProduct } from "../../lib/b2c-api";
 import { hotelCommonSearchCriterias, packageCommonSearchCriterias } from "../config/globals";
@@ -16,6 +16,8 @@ dayjs.locale(locale_ru);
 import { omit, merge } from 'lodash';
 import { invoke, until, useElementVisibility, useEventListener } from "@vueuse/core";
 import { v4 as uuid_v4 } from 'uuid';
+
+import { VueYandexMaps } from "vue-yandex-maps";
 
 const instance_uuid = uuid_v4();
 
@@ -33,7 +35,8 @@ provide('widget-hotels-list', props.hotelsList);
 const $el = ref();
 
 const calcCashbackFn = ref(()=>{});
-useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
+// useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
+useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.txt?2', () => {
     calcCashbackFn.value = window._get_CBonuses;
 });
 provide('calc-cashback', { calcCashbackFn });
@@ -123,7 +126,7 @@ const matchedHotelsDirectory = computed(() => {
         }[props.options.groupBy];
         return hotelsDirectory.value.filter(hotel => {
             const hotel_info = hotelInfos.value.find(info => hotel.id == info.id);
-            return (selectedRegion.value === '*'
+            return !!hotel_info && (selectedRegion.value === '*'
                     || hotel_info[region_key] == [...Object.entries(regionsDirectory.value[props.options.groupBy])].find(([k, v]) => v.name === selectedRegion.value)[0])
                 && (!isTimeframeSelectable.value || hotel.timeframes.some(tf => tf.key === selectedTimeframe.value));
         });
@@ -147,8 +150,10 @@ watchEffect((onCleanup) => {
             termsSearchFields: JSON.parse(JSON.stringify(searchFields)),
             locationsSearchFields: new Set()
         };
-        const { location } = hotelInfos.value.find(info => info.id == id);
-        searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type })
+        try {
+            const { location } = hotelInfos.value.find(info => info.id == id);
+            searchFields_lut[terms_hash].locationsSearchFields.add({ id: location.id, type: location.type });
+        } catch (ex) {}
     }
     // console.log(searchFields_lut);
     offerQueryParams.value = Object.values(searchFields_lut).map(terms_and_locations => {
@@ -192,9 +197,30 @@ function getReferenceValueByKey(referenceField, key) {
     return productReference.value[referenceField][key];
 }
 provide('product-reference', { productReference, getReferenceValueByKey });
+const clickedLocationHotelId = ref();
+provide('clicked-location-hotel-id', clickedLocationHotelId);
+
+function compareProducts(a, b) {
+    if (props.options.sortBy === 'source') {
+        // by order in source sheet
+        const a_idx = props.hotelsList.findIndex(hotel_id_or_descriptor => {
+            const a_id = typeof hotel_id_or_descriptor === 'number' ? hotel_id_or_descriptor : hotel_id_or_descriptor.id
+            return a_id == a.hotel.id;
+        });
+        const b_idx = props.hotelsList.findIndex(hotel_id_or_descriptor => {
+            const b_id = typeof hotel_id_or_descriptor === 'number' ? hotel_id_or_descriptor : hotel_id_or_descriptor.id
+            return b_id == b.hotel.id;
+        });
+        return a_idx - b_idx;
+    } else {
+        // default
+        return a.offers[0].price.amount - b.offers[0].price.amount;
+    }
+}
 
 watchEffect(() => {
     productsList.splice(0);
+    clickedLocationHotelId.value = null;
     productReference.value = {};
     offerQueries.value.forEach(offerQuery => {
         offerQuery.then(response_json => {
@@ -203,7 +229,8 @@ watchEffect(() => {
                 merge(productReference.value, omit(response_json.result, ['products', 'topProducts', 'filter', 'availableSortTypes', 'searchCriterias']));
                 productsLoading.value += 1 / offerQueries.value.length * 100;
                 productsList.push(...response_json.result.products);
-                productsList.sort((a, b) => a.offers[0].price.amount - b.offers[0].price.amount);
+                // productsList.sort((a, b) => a.offers[0].price.amount - b.offers[0].price.amount);
+                productsList.sort(compareProducts);
             }
         });
     });
@@ -245,6 +272,9 @@ const controlsAffix = ref();
 watchEffect(() => {
     window.controlsAffix = controlsAffix.value;
 });
+
+const gridViewMode = ref('list');
+provide('grid-view-mode', gridViewMode);
 
 onMounted(async () => {
 
@@ -309,6 +339,16 @@ onMounted(async () => {
                                :value="timeframe">
                     </el-option>
                 </el-select>
+
+                <el-button-group v-if="layoutMode !== 'mobile'">
+                    <el-button :type="gridViewMode === 'list' ? 'primary' : ''" @click="gridViewMode = 'list'">
+                        <template #icon><span class="icon-list-view"></span></template>
+                    </el-button>
+                    <el-button v-if="VueYandexMaps.isReadyToInit" :type="gridViewMode === 'map' ? 'primary' : ''" @click="clickedLocationHotelId=null; gridViewMode = 'map'">
+                        <template #icon><span class="icon-map-view"></span></template>
+                    </el-button>
+                </el-button-group>
+
             </div>
         </el-affix>
         <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
@@ -322,6 +362,7 @@ onMounted(async () => {
             <div class="hint">Пожалуйста, подождите...</div>
         </div>
         <ProductGrid :products="productsList" :in-progress="productsLoading"
+                     :view-mode="gridViewMode"
                      @update-layout="e => { controlsAffix?.updateRoot(); controlsAffix?.update() }"></ProductGrid>
     </div>
 </template>
@@ -387,7 +428,7 @@ onMounted(async () => {
         display: grid;
         //grid-template-columns: repeat(auto-fit, minmax(0,auto));
         //grid-template-columns: 1fr minmax(min-content, max-content) minmax(min-content,max-content);
-        grid-template-columns: minmax(0,1fr) auto auto;
+        grid-template-columns: minmax(0,1fr) auto auto auto;
         align-items: center;
         gap: 1em;
         padding: .75em .5em;
@@ -405,6 +446,26 @@ onMounted(async () => {
         }
         .el-select {
             //flex: 0 0 auto;
+        }
+        .el-button--primary {
+            --el-button-active-bg-color: @coral-main-blue;
+            --el-button-hover-bg-color: @coral-main-blue;
+            --el-color-primary: @coral-main-blue;
+            :deep(.el-icon) {
+                filter: invert(1);
+            }
+        }
+        .icon-list-view {
+            display: inline-flex;
+            width: 1em;
+            height: 1em;
+            background: url("data-url:/site/coral/assets-inline/icon-list-view.svg") center / cover no-repeat;
+        }
+        .icon-map-view {
+            display: inline-flex;
+            width: 1em;
+            height: 1em;
+            background: url("data-url:/site/coral/assets-inline/icon-map-view.svg") center / cover no-repeat;
         }
     }
 

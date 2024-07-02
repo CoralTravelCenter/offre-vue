@@ -82,7 +82,7 @@ const { name: mealType } = getReferenceValueByKey('meals', offer.value.rooms[0].
 const offerHref = computed(() => {
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
     const url_fix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ isHotelOnly || tourType.value !== 'package' ? 2 : 1 }`;
+    return `${ host }${ url_fix }${ offer.value.link.redirectionUrl }/?qp=${ offer.value.link.queryParam }&p=${ (isHotelOnly.value || tourType.value !== 'package') ? 2 : 1 }`;
 });
 
 const cashbackInfo = computed(() => {
@@ -98,12 +98,22 @@ const cashbackInfo = computed(() => {
 });
 
 const widgetHotelsList = inject('widget-hotels-list');
+const gridViewMode = inject('grid-view-mode');
+
 const hotelUspsList = computed(() => {
     return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.usps;
 });
 const isHotelOnly = computed(() => {
     return widgetHotelsList.find(hotel_setup => hotel_setup.id == hotel.id)?.onlyhotel;
 });
+
+const clickedLocationHotelId = inject('clicked-location-hotel-id');
+function handleHotelLocationClick(hotel) {
+    if (hotel.coordinates) {
+        clickedLocationHotelId.value = hotel.id;
+        gridViewMode.value = 'map';
+    }
+}
 
 </script>
 
@@ -117,7 +127,7 @@ const isHotelOnly = computed(() => {
                 </div>
             </div>
             <div class="details">
-                <div class="location">{{ hotel.locationSummary }}</div>
+                <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
                         <span v-for="n in hotelStarCount" class="filled"></span>
@@ -329,9 +339,17 @@ const isHotelOnly = computed(() => {
             margin: 0;
         }
         .location {
+            align-self: flex-start;
             display: flex;
             align-items: center;
             font-weight: 300;
+            padding-bottom: .25em;
+            border-bottom: 1px solid transparent;
+            &.has-coordinates {
+                .interactive();
+                border-bottom-color: #ccc;
+                cursor: pointer;
+            }
             &:before {
                 content: '';
                 height: 1.2em;

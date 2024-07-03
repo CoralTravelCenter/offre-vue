@@ -177,17 +177,17 @@ function handleHotelLocationClick(hotel) {
                             </template>
                             <div class="info-action">
                                 <div class="info">Для начисления бонусов, укажите номер карты в поле "Примечание к заказу"</div>
-                                <a href="https://coralbonus.ru/registration?promo=R3R5VO93GKG8N1PGQC1UP0G6EICQLRWEN3Z64WZGC4YBYIKHFJV55IND5O20WUJ" class="action" target="_blank">Активировать</a>
+                                <a href="http://sunmarbonus.ru/" class="action" target="_blank">Активировать</a>
                             </div>
                         </div>
                     </div>
                     <template #reference>
                         <div class="cashback">
                             <div class="info">
-                                <span class="up-to">Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span>
-                                <span class="to-coral-bonus-card">на карту CoralBonus</span>
+                                <span class="up-to"><span>Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span></span>
+                                <span class="to-coral-bonus-card">на карту SunmarBonus</span>
                             </div>
-                            <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
+<!--                            <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">-->
                         </div>
                     </template>
                 </el-popover>
@@ -254,8 +254,9 @@ function handleHotelLocationClick(hotel) {
             height: 2.5em;
             padding: 0 1em;
             border-radius: .5em;
+            text-decoration: none;
             color: white;
-            background: @coral-main-blue;
+            background: #0E2855;
         }
     }
 }
@@ -275,8 +276,12 @@ function handleHotelLocationClick(hotel) {
     .transit(opacity);
     .transit(max-height);
     @media screen and (max-width: @mobile-breakpoint) {
+        font-size: 1.5vw;
         flex-direction: column;
         max-height: none;
+    }
+    @media screen and (max-width: @narrow-breakpoint) {
+        font-size: 3vw;
     }
     >* {
         //padding: .5em;
@@ -356,7 +361,7 @@ function handleHotelLocationClick(hotel) {
                 content: '';
                 height: 1.2em;
                 width: (10/16) * 1.2em;
-                background: url("data-url:/site/coral/assets-inline/location-placemark.svg") center / cover no-repeat;
+                background: url("data-url:/site/sunmar/assets-inline/location-placemark.svg") center / cover no-repeat;
                 margin-right: .3em;
             }
         }
@@ -390,7 +395,7 @@ function handleHotelLocationClick(hotel) {
                     aspect-ratio: 153/35;
                     font-size: 1.25em;
                     height: 1em;
-                    background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
+                    background: url("data-url:/site/sunmar/assets-inline/coral-family-club.svg") center / cover no-repeat;
                 }
             }
         }
@@ -407,10 +412,10 @@ function handleHotelLocationClick(hotel) {
                 height: (96/101) * 1.2em;
                 background: center / cover no-repeat;
                 &.filled {
-                    background-image: url(data-url:/site/coral/assets-inline/rating-star-filled.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/rating-star-filled.svg);
                 }
                 &.empty {
-                    background-image: url(data-url:/site/coral/assets-inline/rating-star-empty.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/rating-star-empty.svg);
                 }
             }
         }
@@ -434,19 +439,19 @@ function handleHotelLocationClick(hotel) {
                 }
                 &.departure:before {
                     width: (42/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-flight.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/icon-flight.svg);
                 }
                 &.begin-date:before {
                     width: (32/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-cal.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/icon-cal.svg);
                 }
                 &.stay-nights:before {
                     width: (40/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-bed.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/icon-bed.svg);
                 }
                 &.meal-type:before {
                     width: (43/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
+                    background-image: url(data-url:/site/sunmar/assets-inline/icon-meal.svg);
                 }
             }
         }
@@ -601,23 +606,34 @@ function handleHotelLocationClick(hotel) {
                 margin: auto;
                 display: grid;
                 grid-template-columns: 1fr auto;
-                background: #FEEFCD;
+                background: #DFDFE8;
                 border-radius: .5em;
-                padding: .5em .5em .5em 1em;
+                padding: .7em;
                 cursor: pointer;
+                @media screen and (max-width: @mobile-breakpoint) {
+                    font-size: 85%;
+                }
+                @media screen and (max-width: @narrow-breakpoint) {
+                    font-size: unset;
+                }
                 .card-visual {
                     width: (81/14em);
                 }
                 .info {
                     display: flex;
-                    flex-direction: column;
+                    //flex-direction: column;
                     justify-content: center;
+                    align-items: baseline;
+                    gap: .5em;
                     .up-to {
                         font-size: (16/14em);
                         font-weight: 600;
+                        background: linear-gradient(to top right, #E7317D, #D8242A);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
                     }
                     .to-coral-bonus-card {
-                        font-size: (12/14em);
+                        font-size: (14/14em);
                         display: flex;
                         align-items: center;
                         &:after {
@@ -625,7 +641,7 @@ function handleHotelLocationClick(hotel) {
                             width: 1.5em;
                             height: 1.5em;
                             margin-left: .5em;
-                            background: url("data-url:/site/coral/assets-inline/icon-help.svg") center / cover no-repeat;
+                            background: url("data-url:/site/sunmar/assets-inline/icon-help.svg") center / cover no-repeat;
                         }
                     }
                 }

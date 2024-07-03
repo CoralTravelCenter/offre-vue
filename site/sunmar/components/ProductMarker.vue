@@ -370,8 +370,9 @@ const isHotelOnly = computed(() => {
                             position: relative;
                             z-index: 1;
                             pointer-events: none;
-                            color: @coral-main-blue;
-                            border-color: currentColor;
+                            color: white;
+                            background: #0E2855;
+                            border-color: #0E2855;
                         }
                         &:nth-of-type(n+2) {
                             margin-top: -1px;
@@ -405,7 +406,8 @@ const isHotelOnly = computed(() => {
                     text-decoration: none;
                     //height: 3em;
                     color: white;
-                    background: @coral-main-blue;
+                    //background: @coral-main-blue;
+                    background: #0E2855;
                     border-radius: .5em;
                     padding: 0 1em;
                 }

@@ -247,6 +247,12 @@ const productsExceptSelectedByLocation = computed(() => {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 2em;
+        @media screen and (max-width: @mobile-breakpoint) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (max-width: @narrow-breakpoint) {
+            grid-template-columns: 1fr;
+        }
     }
 
     .el-progress {
@@ -268,6 +274,7 @@ const productsExceptSelectedByLocation = computed(() => {
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
         border-radius: 1em 1em 0 0;
+        --el-color-primary: #0E2855;
         &:not(:has(.el-pagination)) {
             display: none;
         }
@@ -296,7 +303,8 @@ const productsExceptSelectedByLocation = computed(() => {
                 inset: 0;
                 display: grid;
                 place-content: center;
-                background-color: @coral-main-blue;
+                //background-color: #0E2855;
+                background-color: #254F97;
                 color: white;
                 border: 2px solid white;
                 border-radius: 50%;

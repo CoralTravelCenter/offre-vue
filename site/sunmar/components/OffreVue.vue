@@ -34,11 +34,20 @@ provide('widget-hotels-list', props.hotelsList);
 
 const $el = ref();
 
-const calcCashbackFn = ref(()=>{});
-// useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
-useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.txt?2', () => {
-    calcCashbackFn.value = window._get_CBonuses;
+const calcCashbackFn = ref((hotel_info)=>{
+    const { id, night, star, price, checkInDate, countryID, isOnlyHotel } = hotel_info;
+    return {
+        listOfPromos: [{
+            content_result: price / 100,
+            content_link: null,
+            content_txt: '1% от стоимости тура на следующее путешествие'
+        }],
+        finalBonus: price / 100
+    }
 });
+// useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.txt', () => {
+//     calcCashbackFn.value = window._get_CBonuses;
+// });
 provide('calc-cashback', { calcCashbackFn });
 
 const layoutMode = ref('');
@@ -340,7 +349,7 @@ onMounted(async () => {
                     </el-option>
                 </el-select>
 
-                <el-button-group v-if="layoutMode !== 'mobile'">
+                <el-button-group v-if="layoutMode !== 'mobile'" class="view-mode-switch">
                     <el-button :type="gridViewMode === 'list' ? 'primary' : ''" @click="gridViewMode = 'list'">
                         <template #icon><span class="icon-list-view"></span></template>
                     </el-button>
@@ -382,17 +391,24 @@ onMounted(async () => {
 .el-select-dropdown, .el-progress-bar {
     font-family: inherit;
     //font-weight: 400;
-    --el-color-primary: @coral-main-blue;
+    --el-color-primary: #0E2855;
+    --el-fill-color-light: #DFDFE8;
     //--el-text-color-regular: black;
 }
 
 .offre-vue {
     .el-select {
         --el-select-width: unset;
-        --el-select-border-color-hover: @coral-main-blue;
+        //--el-select-border-color-hover: @coral-main-blue;
+        --el-select-border-color: fade(black, 15%);
+        --el-select-border-color-hover: #C20E1A;
         .el-input__wrapper {
-            --el-input-border-color: @coral-page-bg;
-            box-shadow: inset 0 0 0 2px var(--el-input-border-color);
+            //--el-input-border-color: @coral-page-bg;
+            --el-input-border-color: fade(black, 15%);
+            --el-input-focus-border-color: #C20E1A;
+            --el-input-border-radius: .5em;
+            --el-select-input-focus-border-color: #C20E1A;
+            box-shadow: inset 0 0 0 1px var(--el-input-border-color);
         }
         .el-select__wrapper {
             font-size: unset;
@@ -447,13 +463,38 @@ onMounted(async () => {
         .el-select {
             //flex: 0 0 auto;
         }
-        .el-button--primary {
-            --el-button-active-bg-color: @coral-main-blue;
-            --el-button-hover-bg-color: @coral-main-blue;
-            --el-color-primary: @coral-main-blue;
-            :deep(.el-icon) {
-                filter: invert(1);
+        .view-mode-switch {
+            :deep(.el-button) {
+                --el-color-primary: white;
+                --el-button-active-bg-color: white;
+                --el-button-hover-bg-color: white;
+                --el-button-border-color: fade(black, 15%);
+                --el-button-active-border-color: #C20E1A;
+                --el-button-divide-border-color: #C20E1A;
+                --el-button-hover-border-color: #C20E1A;
+                border-radius: .5em;
+                padding: 10px;
+                &:not(:last-child) {
+                    margin-right: .5em;
+                }
+                &.el-button--primary {
+                    --el-button-border-color: #C20E1A;
+                    .el-icon {
+                        filter: none;
+                    }
+                }
+                .el-icon {
+                    filter: grayscale(1) brightness(0);
+                }
             }
+            //.el-button.el-button--primary {
+            //    --el-button-active-bg-color: @coral-main-blue;
+            //    --el-button-hover-bg-color: @coral-main-blue;
+            //    --el-color-primary: @coral-main-blue;
+            //    :deep(.el-icon) {
+            //        filter: invert(1);
+            //    }
+            //}
         }
         .icon-list-view {
             display: inline-flex;
@@ -504,10 +545,10 @@ onMounted(async () => {
         height: 4em;
         background: center / cover no-repeat;
         &.warning {
-            background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
+            background-image: url("data-url:/site/sunmar/assets-inline/icon-warning.svg");
         }
         &.info {
-            background-image: url("data-url:/site/coral/assets-inline/icon-info.svg");
+            background-image: url("data-url:/site/sunmar/assets-inline/icon-info.svg");
         }
     }
 

@@ -353,7 +353,7 @@ onMounted(async () => {
         </el-affix>
         <div v-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
             <div class="icon warning"></div>
-            <div class="reason">В данной подборке отелей нет подходящих вариантов.</div>
+            <div class="reason">Из {{ $cityGenitiveCase(selectedDeparture.name) }} в данной подборке отелей нет подходящих вариантов.</div>
             <div class="hint">Пожалуйста, попробуйте поменять условия выбора &mdash; регион / город вылета / период путешествия</div>
         </div>
         <div v-if="initialLoading" class="message-hint initial-loading">

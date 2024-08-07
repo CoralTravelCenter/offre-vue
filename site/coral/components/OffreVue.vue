@@ -35,8 +35,7 @@ provide('widget-hotels-list', props.hotelsList);
 const $el = ref();
 
 const calcCashbackFn = ref(()=>{});
-// useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
-useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.txt?2', () => {
+useScriptTag('https://cdn.coral.ru/content/cms/russia/cb24/getbonus.txt', () => {
     calcCashbackFn.value = window._get_CBonuses;
 });
 provide('calc-cashback', { calcCashbackFn });

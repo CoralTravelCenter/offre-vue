@@ -187,7 +187,8 @@ function handleHotelLocationClick(hotel) {
                                 <span class="up-to">Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span>
                                 <span class="to-coral-bonus-card">на карту CoralBonus</span>
                             </div>
-                            <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
+<!--                            <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">-->
+                            <img class="x3" src="https://b2ccdn.coral.ru/content/new_images_r/cashback/x3.webp" alt="">
                         </div>
                     </template>
                 </el-popover>
@@ -592,6 +593,12 @@ function handleHotelLocationClick(hotel) {
                 cursor: pointer;
                 .card-visual {
                     width: (81/14em);
+                }
+                .card-visual {
+                    width: (81/14em);
+                }
+                .x3 {
+                    width: (53/14em);
                 }
                 .info {
                     display: flex;

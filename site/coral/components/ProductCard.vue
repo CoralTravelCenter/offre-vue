@@ -313,6 +313,7 @@ function handleHotelLocationClick(hotel) {
                 color: black;
                 background: white;
                 border-radius: 100px;
+                font-size: unset;
                 line-height: 2;
                 padding: 0 1em;
                 @media screen and (max-width: @narrow-breakpoint) {

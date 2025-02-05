@@ -4,7 +4,7 @@ import { computed, getCurrentInstance, onMounted, provide, reactive, ref, watchE
 import RegionSelect from "./RegionSelect.vue";
 import { HotelContent, OnlyHotelProduct, PackageTourHotelProduct } from "../../lib/b2c-api";
 import { hotelCommonSearchCriterias, packageCommonSearchCriterias } from "../config/globals";
-import { hotelSearchTimeframes } from "../../lib/data-ops";
+import { additionalFiltersWithTerms, hotelSearchTimeframes } from "../../lib/data-ops";
 import { useScriptTag } from "@vueuse/core/index";
 
 import dayjs from "dayjs";
@@ -161,13 +161,15 @@ watchEffect((onCleanup) => {
             nights:             terms_and_locations.termsSearchFields.nights.map(n => ({ value: n })),
             arrivalLocations:   [...terms_and_locations.locationsSearchFields],
             paging:             { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
+            additionalFilters:  additionalFiltersWithTerms(props.options)
         }) : Object.assign({}, packageCommonSearchCriterias, {
             beginDates:         terms_and_locations.termsSearchFields.beginDates,
             nights:             terms_and_locations.termsSearchFields.nights.map(n => ({ value: n })),
             departureLocations: [selectedDeparture.value],
             arrivalLocations:   [...terms_and_locations.locationsSearchFields],
             paging:             { pageNumber: 1, pageSize: terms_and_locations.locationsSearchFields.size, sortType: 0 },
-            flightType:         props.options.chartersOnly ? 0 : 2
+            flightType:         props.options.chartersOnly ? 0 : 2,
+            additionalFilters:  additionalFiltersWithTerms(props.options)
         });
     });
     // console.log('=== offerQueries: %o', offerQueryParams.value);

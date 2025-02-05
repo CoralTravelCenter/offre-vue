@@ -82,6 +82,19 @@ function conformNights(hotel, options, defaultValue = 7) {
     return nights.sort((a, b) => a - b);
 }
 
+export function additionalFiltersWithTerms(terms) {
+    const additionalFilters = [];
+    const max_price = Number(terms.maxPrice);
+    if (max_price) {
+        additionalFilters.push({
+            type: 15,
+            values: [{ id: '', value: `0-${ max_price.toFixed(0) }` }],
+            providers: []
+        });
+    }
+    return additionalFilters;
+}
+
 export function isHotelMatchesRegionAndTimeframeKey(hotel, regionKey, regionValue, timeframeKey) {
 
 }

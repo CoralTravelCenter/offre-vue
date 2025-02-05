@@ -5,8 +5,9 @@
     },
     contents: [
         '/site/sunmar/markup/app.html',
+        '/site/sunmar/markup/widget-MAX-PRICE.html',
 //        '/site/sunmar/markup/widget-ELITE.html',
-        '/site/sunmar/markup/widget-CFC.html',
+//        '/site/sunmar/markup/widget-CFC.html',
 //        '/site/sunmar/markup/widget-TMP.html',
 //        '/site/sunmar/markup/widget-mockup.html',
 //        '/site/sunmar/markup/widget-placeholder.html'

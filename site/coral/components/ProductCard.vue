@@ -3,6 +3,8 @@ import { computed, inject, ref, watchEffect } from "vue";
 import dayjs from "dayjs";
 import { OnlyHotelProduct } from "../../lib/b2c-api";
 import { hotelCommonSearchCriterias } from "../config/globals";
+import { useElementVisibility, whenever } from "@vueuse/core";
+import { trackAnyProductCardVisible } from "./global-state";
 
 const props = defineProps(['product']);
 
@@ -15,6 +17,8 @@ const { hotel, offers: packageOffers } = props.product;
 const hotelOffer = ref();
 const fetchingHotelOffer = ref(false);
 const offer = ref();
+
+const $el = ref();
 
 watchEffect(() => {
     if (tourType.value === 'package') {
@@ -115,10 +119,15 @@ function handleHotelLocationClick(hotel) {
     }
 }
 
+const isProductCardVisible = useElementVisibility($el);
+whenever(isProductCardVisible, () => {
+    trackAnyProductCardVisible();
+});
+
 </script>
 
 <template>
-    <div class="product-card">
+    <div ref="$el" class="product-card">
         <div class="visual-details">
             <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
                 <div class="badge-grid">

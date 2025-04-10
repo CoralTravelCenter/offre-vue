@@ -3,8 +3,6 @@ import { computed, inject, ref, watchEffect } from "vue";
 import dayjs from "dayjs";
 import { OnlyHotelProduct } from "../../lib/b2c-api";
 import { hotelCommonSearchCriterias } from "../config/globals";
-import { useElementVisibility, whenever } from "@vueuse/core";
-import { trackAnyProductCardVisible } from "./global-state";
 
 const props = defineProps(['product']);
 
@@ -118,11 +116,6 @@ function handleHotelLocationClick(hotel) {
         gridViewMode.value = 'map';
     }
 }
-
-const isProductCardVisible = useElementVisibility($el);
-whenever(isProductCardVisible, () => {
-    trackAnyProductCardVisible();
-});
 
 </script>
 
@@ -365,7 +358,7 @@ whenever(isProductCardVisible, () => {
                 content: '';
                 height: 1.2em;
                 width: (10/16) * 1.2em;
-                background: url("data-url:/site/coral/assets-inline/location-placemark.svg") center / cover no-repeat;
+                background: url("data-url:/site/coral-by/assets-inline/location-placemark.svg") center / cover no-repeat;
                 margin-right: .3em;
             }
         }
@@ -399,7 +392,7 @@ whenever(isProductCardVisible, () => {
                     aspect-ratio: 153/35;
                     font-size: 1.25em;
                     height: 1em;
-                    background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
+                    background: url("data-url:/site/coral-by/assets-inline/coral-family-club.svg") center / cover no-repeat;
                 }
             }
         }
@@ -416,10 +409,10 @@ whenever(isProductCardVisible, () => {
                 height: (96/101) * 1.2em;
                 background: center / cover no-repeat;
                 &.filled {
-                    background-image: url(data-url:/site/coral/assets-inline/rating-star-filled.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/rating-star-filled.svg);
                 }
                 &.empty {
-                    background-image: url(data-url:/site/coral/assets-inline/rating-star-empty.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/rating-star-empty.svg);
                 }
             }
         }
@@ -442,19 +435,19 @@ whenever(isProductCardVisible, () => {
                 }
                 &.departure:before {
                     width: (42/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-flight.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/icon-flight.svg);
                 }
                 &.begin-date:before {
                     width: (32/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-cal.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/icon-cal.svg);
                 }
                 &.stay-nights:before {
                     width: (40/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-bed.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/icon-bed.svg);
                 }
                 &.meal-type:before {
                     width: (43/33) * 1.2em;
-                    background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
+                    background-image: url(data-url:/site/coral-by/assets-inline/icon-meal.svg);
                 }
             }
         }
@@ -627,7 +620,7 @@ whenever(isProductCardVisible, () => {
                             width: 1.5em;
                             height: 1.5em;
                             margin-left: .5em;
-                            background: url("data-url:/site/coral/assets-inline/icon-help.svg") center / cover no-repeat;
+                            background: url("data-url:/site/coral-by/assets-inline/icon-help.svg") center / cover no-repeat;
                         }
                     }
                 }

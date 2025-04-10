@@ -460,13 +460,13 @@ onMounted(async () => {
             display: inline-flex;
             width: 1em;
             height: 1em;
-            background: url("data-url:/site/coral/assets-inline/icon-list-view.svg") center / cover no-repeat;
+            background: url("data-url:/site/coral-by/assets-inline/icon-list-view.svg") center / cover no-repeat;
         }
         .icon-map-view {
             display: inline-flex;
             width: 1em;
             height: 1em;
-            background: url("data-url:/site/coral/assets-inline/icon-map-view.svg") center / cover no-repeat;
+            background: url("data-url:/site/coral-by/assets-inline/icon-map-view.svg") center / cover no-repeat;
         }
     }
 
@@ -505,10 +505,10 @@ onMounted(async () => {
         height: 4em;
         background: center / cover no-repeat;
         &.warning {
-            background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
+            background-image: url("data-url:/site/coral-by/assets-inline/icon-warning.svg");
         }
         &.info {
-            background-image: url("data-url:/site/coral/assets-inline/icon-info.svg");
+            background-image: url("data-url:/site/coral-by/assets-inline/icon-info.svg");
         }
     }
 

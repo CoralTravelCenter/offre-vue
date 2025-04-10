@@ -4,9 +4,9 @@ const globals = {
     elementPlusStylesCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
     //
     devLocation: 'office',
-    productionAPIHost: '//b2capi.coral.ru',
+    productionAPIHost: '//b2capi.coral.by',
     // devHomeAPIHost: 'http://localhost:8888',
-    devHomeAPIHost: 'https://localhost/site/coral/dev-api-cache',
+    devHomeAPIHost: 'https://localhost/site/coral-by/dev-api-cache',
     devOfficeAPIHost: 'http://localhost:8010/proxy',
     //
     timeframeDefaultKey: '*'
@@ -43,8 +43,9 @@ Number.prototype.formatPrice = function(prefix, suffix) {
     return `${ prefix ? (prefix + ' ') : '' }${ sum }${ suffix ? (' ' + suffix) : '' }`;
 };
 
-Number.prototype.formatCurrency = function (code = 'RUB') {
+Number.prototype.formatCurrency = function (code = 'BYN') {
     return {
+        BYN: this.formatPrice('', 'BYN'),
         RUB: this.formatPrice('', '₽'),
         EUR: this.formatPrice('€', ''),
         USD: this.formatPrice('$', '')

@@ -169,6 +169,7 @@ function handleHotelLocationClick(hotel) {
                         {{ offer.price.discountPercent }}% Скидка
                     </div>
                 </div>
+<!--
                 <el-popover placement="top" width="30em" trigger="click" :teleported="false">
                     <div class="offre-vue-cashback-popover">
                         <div class="promos-grid">
@@ -190,10 +191,11 @@ function handleHotelLocationClick(hotel) {
                                 <span class="to-coral-bonus-card">на карту CoralBonus</span>
                             </div>
                             <img class="card-visual" src="https://cdn.coral.ru/content/cms/russia/cb_bonus_24/cb_card.png" alt="">
-<!--                            <img class="x3" src="https://b2ccdn.coral.ru/content/new_images_r/cashback/x3.webp" alt="">-->
+&lt;!&ndash;                            <img class="x3" src="https://b2ccdn.coral.ru/content/new_images_r/cashback/x3.webp" alt="">&ndash;&gt;
                         </div>
                     </template>
                 </el-popover>
+-->
                 <a :href="offerHref" class="do-choose" target="_blank">Выбрать</a>
             </div>
         </div>

@@ -1,0 +1,204 @@
+{
+    "result": {
+        "locations": [
+            {
+                "id": "2671-5--",
+                "type": 5,
+                "name": "Москва",
+                "friendlyUrl": "moskva"
+            },
+            {
+                "id": "2449-5--",
+                "type": 5,
+                "name": "Екатеринбург",
+                "friendlyUrl": "ekaterinburg"
+            },
+            {
+                "id": "2529-5--",
+                "type": 5,
+                "name": "Казань",
+                "friendlyUrl": "kazan"
+            },
+            {
+                "id": "2817-5--",
+                "type": 5,
+                "name": "Санкт-Петербург",
+                "friendlyUrl": "sanktpeterburg"
+            },
+            {
+                "id": "2512-5--",
+                "type": 5,
+                "name": "Калининград",
+                "friendlyUrl": "kaliningrad"
+            },
+            {
+                "id": "2662-5--",
+                "type": 5,
+                "name": "Минеральные воды",
+                "friendlyUrl": "mineralynyevody"
+            },
+            {
+                "id": "2724-5--",
+                "type": 5,
+                "name": "Новосибирск",
+                "friendlyUrl": "novosibirsk"
+            },
+            {
+                "id": "2763-5--",
+                "type": 5,
+                "name": "Пермь",
+                "friendlyUrl": "perm"
+            },
+            {
+                "id": "2349-5--",
+                "type": 5,
+                "name": "Архангельск",
+                "friendlyUrl": "arhangelysk"
+            },
+            {
+                "id": "2370-5--",
+                "type": 5,
+                "name": "Барнаул",
+                "friendlyUrl": "barnaul"
+            },
+            {
+                "id": "2984-5--",
+                "type": 5,
+                "name": "Владивосток",
+                "friendlyUrl": "vladivostok"
+            },
+            {
+                "id": "2989-5--",
+                "type": 5,
+                "name": "Волгоград",
+                "friendlyUrl": "volgograd"
+            },
+            {
+                "id": "2504-5--",
+                "type": 5,
+                "name": "Ижевск",
+                "friendlyUrl": "izhevsk"
+            },
+            {
+                "id": "2498-5--",
+                "type": 5,
+                "name": "Иркутск",
+                "friendlyUrl": "irkutsk"
+            },
+            {
+                "id": "2531-5--",
+                "type": 5,
+                "name": "Кемерово",
+                "friendlyUrl": "kemerovo"
+            },
+            {
+                "id": "2586-5--",
+                "type": 5,
+                "name": "Красноярск",
+                "friendlyUrl": "krasnoyarsk"
+            },
+            {
+                "id": "8995-5--",
+                "type": 5,
+                "name": "Махачкала",
+                "friendlyUrl": "mahachkala"
+            },
+            {
+                "id": "2679-5--",
+                "type": 5,
+                "name": "Н. Новгород",
+                "friendlyUrl": "nnovgorod"
+            },
+            {
+                "id": "2707-5--",
+                "type": 5,
+                "name": "Нижневартовск",
+                "friendlyUrl": "nizhnevartovsk"
+            },
+            {
+                "id": "2705-5--",
+                "type": 5,
+                "name": "Нижнекамск",
+                "friendlyUrl": "nizhnekamsk"
+            },
+            {
+                "id": "2739-5--",
+                "type": 5,
+                "name": "Омск",
+                "friendlyUrl": "omsk"
+            },
+            {
+                "id": "2743-5--",
+                "type": 5,
+                "name": "Оренбург",
+                "friendlyUrl": "orenburg"
+            },
+            {
+                "id": "2823-5--",
+                "type": 5,
+                "name": "Самара",
+                "friendlyUrl": "samara"
+            },
+            {
+                "id": "2827-5--",
+                "type": 5,
+                "name": "Саратов",
+                "friendlyUrl": "saratov"
+            },
+            {
+                "id": "2873-5--",
+                "type": 5,
+                "name": "Сочи",
+                "friendlyUrl": "sochi"
+            },
+            {
+                "id": "2897-5--",
+                "type": 5,
+                "name": "Сургут",
+                "friendlyUrl": "surgut"
+            },
+            {
+                "id": "2861-5--",
+                "type": 5,
+                "name": "Сыктывкар",
+                "friendlyUrl": "syktyvkar"
+            },
+            {
+                "id": "2927-5--",
+                "type": 5,
+                "name": "Тюмень",
+                "friendlyUrl": "tyumen"
+            },
+            {
+                "id": "2935-5--",
+                "type": 5,
+                "name": "Уфа",
+                "friendlyUrl": "ufa"
+            },
+            {
+                "id": "2533-5--",
+                "type": 5,
+                "name": "Хабаровск",
+                "friendlyUrl": "habarovsk"
+            },
+            {
+                "id": "2416-5--",
+                "type": 5,
+                "name": "Челябинск",
+                "friendlyUrl": "chelyabinsk"
+            },
+            {
+                "id": "3012-5--",
+                "type": 5,
+                "name": "Ярославль",
+                "friendlyUrl": "yaroslavl"
+            }
+        ]
+    },
+    "meta": {
+        "responseDateTime": "2024-02-14T11:39:04.4667088Z",
+        "elapsedTime": "00:00:00",
+        "statusCode": 200,
+        "correlation": "3bca21bd-c458-479b-854e-fdb1119456c8"
+    }
+}

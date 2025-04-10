@@ -1,0 +1,10 @@
+{
+    env: {
+        brand: 'coral-next',
+        cmsWidgetContainer: '<div>{{{ widget_markup }}}</div>'
+    },
+    contents: [
+        '/site/coral/markup/app.html',
+        '/site/coral-by/markup/widget-turkey-by.html',
+    ]
+}

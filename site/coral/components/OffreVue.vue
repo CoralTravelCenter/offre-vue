@@ -48,6 +48,13 @@ onMounted(() => {
     layoutMode.value = layout.matches ? 'mobile' : 'desktop';
 });
 
+const breakpoint992 = ref(false);
+onMounted(() => {
+    const layout = matchMedia('(max-width:992px)');
+    layout.addEventListener('change', e => breakpoint992.value = e.matches);
+    breakpoint992.value = layout.matches;
+});
+
 const hotelsDirectory = ref([]);
 watchEffect(() => {
     hotelsDirectory.value = props.hotelsList.map(hotel => {
@@ -309,7 +316,7 @@ onMounted(async () => {
 
 <template>
     <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
-        <el-affix ref="controlsAffix" :target="`[data-instance-uuid='${ instance_uuid }']`" :offset="layoutMode === 'mobile' ? 54 : 0">
+        <el-affix ref="controlsAffix" :target="`[data-instance-uuid='${ instance_uuid }']`" :offset="breakpoint992 ? 54 : 0">
             <div class="controls">
                 <RegionSelect v-model="selectedRegion"
                               :options-list="regionOptions"

@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
 import duration from 'dayjs/plugin/duration'
 import min_max from 'dayjs/plugin/minMax'
-import globals from "../coral-by/config/globals";
+import globals from "../coral/config/globals";
+// import globals from "../coral-by/config/globals";
 
 dayjs.extend(duration);
 dayjs.extend(min_max);

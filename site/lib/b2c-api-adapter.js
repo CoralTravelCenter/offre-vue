@@ -1,5 +1,6 @@
 import hash from 'object-hash';
-import globals, { devAPIHost } from "../coral-by/config/globals";
+import globals, { devAPIHost } from "../coral/config/globals";
+// import globals, { devAPIHost } from "../coral-by/config/globals";
 export async function consultApi(endpoint, method = 'post', params = {}) {
     const request_hash = hash({ endpoint, method, params });
     console.log('+++ consultApi: params: %o; hash: %o', params, request_hash);

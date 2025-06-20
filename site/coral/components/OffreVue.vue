@@ -48,11 +48,25 @@ onMounted(() => {
     layoutMode.value = layout.matches ? 'mobile' : 'desktop';
 });
 
-const breakpoint992 = ref(false);
+const controlsAffixOffset = ref(0);
 onMounted(() => {
-    const layout = matchMedia('(max-width:992px)');
-    layout.addEventListener('change', e => breakpoint992.value = e.matches);
-    breakpoint992.value = layout.matches;
+    const small_layout = matchMedia('(max-width: 768px)');
+    small_layout.addEventListener('change', e => {
+        if (e.matches) controlsAffixOffset.value = 54;
+    });
+    if (small_layout.matches) controlsAffixOffset.value = 54;
+    //
+    const medium_layout = matchMedia('(min-width: 769px) and (max-width:992px)');
+    medium_layout.addEventListener('change', e => {
+        if (e.matches) controlsAffixOffset.value = 40;
+    });
+    if (medium_layout.matches) controlsAffixOffset.value = 40;
+    //
+    const wide_layout = matchMedia('(min-width: 993px)');
+    wide_layout.addEventListener('change', e => {
+        if (e.matches) controlsAffixOffset.value = 0;
+    });
+    if (wide_layout.matches) controlsAffixOffset.value = 0;
 });
 
 const hotelsDirectory = ref([]);
@@ -316,7 +330,7 @@ onMounted(async () => {
 
 <template>
     <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
-        <el-affix ref="controlsAffix" :target="`[data-instance-uuid='${ instance_uuid }']`" :offset="breakpoint992 ? 54 : 0">
+        <el-affix ref="controlsAffix" :target="`[data-instance-uuid='${ instance_uuid }']`" :offset="controlsAffixOffset">
             <div class="controls">
                 <RegionSelect v-model="selectedRegion"
                               :options-list="regionOptions"

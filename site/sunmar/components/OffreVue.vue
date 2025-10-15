@@ -34,8 +34,12 @@ provide('widget-hotels-list', props.hotelsList);
 
 const $el = ref();
 
-const calcCashbackFn = ref((hotel_info)=>{
+const calcCashbackFn = ref((hotel_info) => {
     const { id, night, star, price, checkInDate, countryID, isOnlyHotel } = hotel_info;
+    if ([3, 7, 8, 19, 49, 73, 74, 10, 5].includes(Number(countryID))) {
+        // No Cashback for Russia & UIS
+        return null;
+    }
     return {
         listOfPromos: [{
             content_result: price / 100,
@@ -43,7 +47,7 @@ const calcCashbackFn = ref((hotel_info)=>{
             content_txt: '1% от стоимости тура на следующее путешествие'
         }],
         finalBonus: price / 100
-    }
+    };
 });
 // useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.txt', () => {
 //     calcCashbackFn.value = window._get_CBonuses;

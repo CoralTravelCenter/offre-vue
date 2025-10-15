@@ -182,7 +182,7 @@ function handleHotelLocationClick(hotel) {
                         </div>
                     </div>
                     <template #reference>
-                        <div class="cashback">
+                        <div class="cashback" v-if="cashbackInfo">
                             <div class="info">
                                 <span class="up-to"><span>Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span></span>
                                 <span class="to-coral-bonus-card">на карту SunmarBonus</span>
@@ -480,6 +480,7 @@ function handleHotelLocationClick(hotel) {
         }
     }
     .pricing {
+        flex-grow: 1;
         margin-top: auto;
         width: 100%;
         //border-left: 1px solid fade(black, 10%);

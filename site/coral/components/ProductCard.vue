@@ -191,7 +191,7 @@ whenever(isProductCardVisible, () => {
                         </div>
                     </div>
                     <template #reference>
-                        <div class="cashback">
+                        <div class="cashback" v-if="cashbackInfo">
                             <div class="info">
                                 <span class="up-to">Кешбэк до {{ cashbackInfo?.finalBonus.formatCurrency() }}</span>
                                 <span class="to-coral-bonus-card">на карту CoralBonus</span>

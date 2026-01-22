@@ -120,12 +120,12 @@ function handleHotelLocationClick(hotel) {
 <template>
     <div class="product-card">
         <div class="visual-details">
-            <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
+            <a target="_blank" :href="offerHref" class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
                 <div class="badge-grid">
                     <div v-if="hotel.recommended" class="badge">Рекомендуем</div>
                     <div v-if="hotel.exclusive" class="badge exclusive">Эксклюзив</div>
                 </div>
-            </div>
+            </a>
             <div class="details">
                 <div class="category-concept">
                     <div v-if="hotelStarCount" class="stars">
@@ -138,7 +138,9 @@ function handleHotelLocationClick(hotel) {
                         <span v-if="hotel.sunFamilyClub || hotel.coralFamilyClub" class="cfc-badge"></span>
                     </div>
                 </div>
-                <h3 class="name">{{ hotel.name }}</h3>
+                <a class="hotel-name" :href="offerHref" target="_blank">
+                    <h3 class="name">{{ hotel.name }}</h3>
+                </a>
                 <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <ul class="terms">
                     <li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
@@ -296,6 +298,7 @@ function handleHotelLocationClick(hotel) {
         }
     }
     .visual {
+        display: block;
         flex-shrink: 0;
         width: 100%;
         .proportional(16/9);
@@ -399,9 +402,17 @@ function handleHotelLocationClick(hotel) {
                 }
             }
         }
+        a.hotel-name {
+            color: unset;
+            text-decoration: none;
+        }
+        a.hotel-name:hover {
+            text-decoration: underline;
+        }
         h3.name {
             font-size: (20/14em);
             font-weight: bold;
+            margin: 0;
         }
         .stars {
             display: inline-grid;

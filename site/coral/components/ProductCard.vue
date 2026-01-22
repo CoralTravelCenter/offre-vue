@@ -129,12 +129,12 @@ whenever(isProductCardVisible, () => {
 <template>
     <div ref="$el" class="product-card">
         <div class="visual-details">
-            <div class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
+            <a target="_blank" :href="offerHref" class="visual" :style="{ backgroundImage: `url(${ hotel.images[0].sizes.find(s => s.type===4).url })` }">
                 <div class="badge-grid">
                     <div v-if="hotel.recommended" class="badge">Рекомендуем</div>
                     <div v-if="hotel.exclusive" class="badge exclusive">Эксклюзив</div>
                 </div>
-            </div>
+            </a>
             <div class="details">
                 <div class="location" :class="{ 'has-coordinates': !!hotel.coordinates }" @click="handleHotelLocationClick(hotel)">{{ hotel.locationSummary }}</div>
                 <div class="category-concept">
@@ -148,7 +148,9 @@ whenever(isProductCardVisible, () => {
                         <span v-if="hotel.sunFamilyClub || hotel.coralFamilyClub" class="cfc-badge"></span>
                     </div>
                 </div>
-                <h3 class="name">{{ hotel.name }}</h3>
+                <a :href="offerHref" target="_blank" class="hotel-name">
+                    <h3 class="name">{{ hotel.name }}</h3>
+                </a>
                 <ul class="terms">
                     <li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDeparture.name) }}</li>
                     <li class="begin-date">{{ beginDate }}</li>
@@ -299,6 +301,7 @@ whenever(isProductCardVisible, () => {
         }
     }
     .visual {
+        display: block;
         flex-shrink: 0;
         width: 38%;
         .proportional(4/3);
@@ -402,6 +405,13 @@ whenever(isProductCardVisible, () => {
                     background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
                 }
             }
+        }
+        a.hotel-name {
+            color: unset;
+            text-decoration: none;
+        }
+        a.hotel-name:hover {
+            text-decoration: underline;
         }
         h3.name {
             font-size: (20/14em);

@@ -177,7 +177,7 @@ const productsExceptSelectedByLocation = computed(() => {
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"
                                :page-size="productListPageSize"
-                               layout="prev, pager, next"
+                               layout="pager"
                                background hide-on-single-page></el-pagination>
             </div>
         </el-affix>
@@ -237,15 +237,10 @@ const productsExceptSelectedByLocation = computed(() => {
 .product-grid {
     display: flex;
     flex-direction: column;
-    @media screen and (max-width: @mobile-breakpoint) {
-        font-size: 2vw!important;
-    }
-    @media screen and (max-width: @narrow-breakpoint) {
-        font-size: 2.5vw!important;
-    }
+    font-size: 16px;
     .offers-list {
         display: grid;
-        gap: 1em;
+        gap: 8px;
     }
 
     .el-progress {

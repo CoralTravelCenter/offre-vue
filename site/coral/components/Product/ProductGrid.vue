@@ -1,6 +1,6 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, inject, onMounted, reactive, ref, shallowRef, watch, watchEffect } from "vue";
+import { computed, inject, reactive, ref, shallowRef, watch, watchEffect } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
 import { invoke, toValue, until, useElementSize } from "@vueuse/core";
 
@@ -16,7 +16,6 @@ import {
     getLocationFromBounds, getBoundsFromCoords
 } from "vue-yandex-maps";
 import ProductMarker from "./ProductMarker.vue";
-import { omit } from "lodash";
 
 const instance_uuid = uuid_v4();
 
@@ -28,8 +27,6 @@ const props = defineProps({
         default: 'list'
     }
 });
-const emit = defineEmits(['updateLayout']);
-
 const $el = ref();
 
 const layoutMode = inject('layout-mode');
@@ -56,14 +53,13 @@ const pagedProductList = computed(() => {
     return props.products.slice(start, start + productListPageSize.value);
 });
 
-const pagerAffix = ref();
-watch(pagedProductList, () => {
-    setTimeout(() => {
-        pagerAffix.value?.updateRoot();
-        pagerAffix.value?.update();
-        emit('updateLayout');
-    }, 600);
-});
+const pagerBottomOffset = computed(() => layoutMode?.value === 'mobile' ? 64 : 0);
+const pagerStickyOffset = computed(() => ({ top: 0, bottom: pagerBottomOffset.value }));
+const pagerStickyOptions = computed(() => ({
+    ...pagerStickyOffset.value,
+    side: 'bottom',
+    zIndex: 20
+}));
 
 let widgetWidth = ref();
 watchEffect(() => {
@@ -75,16 +71,6 @@ watchEffect(() => {
     if ($el.value) {
         $el.value.style.fontSize = (toValue(widgetWidth.value) / 1370) * 14 + 'px';
     }
-});
-
-watchEffect(() => {
-    window.pagerAffix = pagerAffix.value;
-});
-
-onMounted(() => {
-    window.addEventListener('scroll', (e) => {
-        pagerAffix.value?.updateRoot();
-    });
 });
 
 const map = shallowRef(null);
@@ -136,6 +122,10 @@ function minmaxPriceFromFeatures(features) {
     }, [Infinity, -Infinity]);
 }
 
+function formatClusterPrice(value) {
+    return value?.formatCurrency?.() ?? '';
+}
+
 function hoverZIndex(e) {
     const zi = e.target.closest('ymaps').style.zIndex ?? 0;
     if (e.type === 'mouseenter') {
@@ -172,7 +162,9 @@ const productsExceptSelectedByLocation = computed(() => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <el-affix v-if="viewMode === 'list'" ref="pagerAffix" position="bottom" :offset="layoutMode === 'mobile' ? 64 : 0" :target="`[data-instance-uuid='${ instance_uuid }']`">
+        <div v-show="viewMode === 'list'"
+             class="pager-sticky"
+             v-sticky="pagerStickyOptions">
             <div class="pager">
                 <el-pagination v-model:current-page="productListPageNumber"
                                :total="products.length"
@@ -180,7 +172,7 @@ const productsExceptSelectedByLocation = computed(() => {
                                layout="pager"
                                background hide-on-single-page></el-pagination>
             </div>
-        </el-affix>
+        </div>
 
         <div v-if="viewMode === 'map'" class="map-view">
             <yandex-map v-model="map" :settings="map_settings">
@@ -199,8 +191,8 @@ const productsExceptSelectedByLocation = computed(() => {
                              @mouseleave="hoverZIndex">
                             <div class="hud">{{ length }}</div>
                             <div class="pricing">
-                                <span class="min">от {{ minmaxPriceFromFeatures(clusterer.features)[0].formatCurrency() }}</span>
-                                <span class="max">до {{ minmaxPriceFromFeatures(clusterer.features)[1].formatCurrency() }}</span>
+                                <span class="min">от {{ formatClusterPrice(minmaxPriceFromFeatures(clusterer.features)[0]) }}</span>
+                                <span class="max">до {{ formatClusterPrice(minmaxPriceFromFeatures(clusterer.features)[1]) }}</span>
                             </div>
                         </div>
                     </template>
@@ -232,8 +224,8 @@ const productsExceptSelectedByLocation = computed(() => {
 </template>
 
 <style scoped lang="less">
-@import "../common/css/layout";
-@import "../common/css/coral-colors";
+@import "../../common/css/layout";
+@import "../../common/css/coral-colors";
 .product-grid {
     display: flex;
     flex-direction: column;
@@ -269,6 +261,9 @@ const productsExceptSelectedByLocation = computed(() => {
 
     .map-view {
         .proportional(16/9);
+        min-height: 440px;
+        border-radius: 16px;
+        overflow: hidden;
 
         .cluster {
             position: relative;

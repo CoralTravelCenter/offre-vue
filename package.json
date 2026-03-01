@@ -4,6 +4,9 @@
         "b2c-proxy": "b2c-proxy --coral"
     },
     "devDependencies": {
+        "@parcel/optimizer-data-url": "^2.12.0",
+        "@parcel/transformer-inline-string": "^2.12.0",
+        "@parcel/transformer-vue": "^2.12.0",
         "autoprefixer": "^10.4.27",
         "local-cors-proxy": "^1.1.0",
         "parcel": "^2.12.0",
@@ -18,21 +21,29 @@
         "process": false,
         "element-plus": {
             "global": "ElementPlus"
-        }
+        },
+        "app": "./site/coral",
+        "ohash": "./node_modules/ohash/dist/index.mjs",
+        "ohash/crypto": "./node_modules/ohash/dist/crypto/js/index.mjs",
+        "ohash/utils": "./node_modules/ohash/dist/utils/index.mjs"
     },
     "dependencies": {
-        "@vueuse/core": "^10.9.0",
+        "@tailwindcss/postcss": "^4.2.1",
+        "@vueuse/core": "^10.11.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "dayjs": "^1.11.10",
         "element-plus": "^2.4.4",
+        "less": "^4.5.1",
         "lodash": "^4.17.21",
         "lucide-vue-next": "^0.575.0",
         "object-hash": "^3.0.0",
+        "reka-ui": "^2.8.2",
         "tailwind-merge": "^3.5.0",
         "tw-animate-css": "^1.4.0",
         "uuid": "^9.0.1",
-        "vue": "^3.4.15",
-        "vue-yandex-maps": "^2.1.2"
+        "vue": "^3.5.29",
+        "vue-yandex-maps": "^2.1.2",
+        "vue3-sticky-directive": "^0.0.2"
     }
 }

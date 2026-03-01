@@ -1,3 +1,6 @@
+import {clsx} from 'clsx'
+import {twMerge} from 'tailwind-merge'
+
 export async function preloadScript(url, cb) {
     return new Promise(resolve => {
         const script_el = document.createElement('script');
@@ -74,4 +77,9 @@ export async function asap(cb) {
             resolve();
         });
     });
+}
+
+
+export function cn(...inputs) {
+    return twMerge(clsx(inputs))
 }

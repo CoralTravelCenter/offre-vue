@@ -20,7 +20,7 @@ import { globalDependency, hostReactAppReady } from "./usefuls";
     }
 })('[data-offre-vue]', {
         globalDependencies: {
-            Vue: ['https://unpkg.com/vue@3.4.15/dist/vue.runtime.global.prod.js'],
+            Vue: ['https://unpkg.com/vue@3.5.29/dist/vue.runtime.global.prod.js'],
             ElementPlus: [
                 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
                 'https://unpkg.com/element-plus@2.4.4/dist/index.full.min.js'

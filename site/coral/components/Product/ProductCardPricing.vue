@@ -106,7 +106,6 @@ function setTourTypeFromToggle(value) {
 					<div v-if="props.offer.price.oldAmount" class="list-price">{{ props.offerListPriceFormatted }}</div>
 					<div class="final-price">
 						<span class="final-price__value" v-html="props.offerFinalPriceFormatted"></span>
-						<span class="per-person">/ чел</span>
 					</div>
 				</div>
 				<div class="discount" v-if="props.offer.price.discountPercent">

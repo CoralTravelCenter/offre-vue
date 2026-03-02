@@ -1,5 +1,5 @@
 <script setup>
-import {computed, inject, ref} from "vue";
+import {computed, inject, ref, toRef} from "vue";
 import {useElementVisibility, whenever} from "@vueuse/core";
 import {trackAnyProductCardVisible} from "./global-state";
 import {useProductOffer} from "../../composables/useProductOffer";
@@ -26,7 +26,7 @@ const {
   offerHref,
   beginDate
 } = useProductOffer({
-  product: props.product,
+  product: toRef(props, 'product'),
   widgetOptions,
   widgetHotelsList,
   priceLabelMode: 'detailed'

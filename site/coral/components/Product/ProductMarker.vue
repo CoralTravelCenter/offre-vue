@@ -1,5 +1,5 @@
 <script setup>
-import {computed, getCurrentInstance, inject, ref} from "vue";
+import {computed, getCurrentInstance, inject, ref, toRef} from "vue";
 
 import icon_default from 'data-url:/site/coral/assets-inline/hotel-marker-default.svg';
 import icon_cfc from 'data-url:/site/coral/assets-inline/hotel-marker-cfc.svg';
@@ -34,7 +34,7 @@ const {
   offerHref,
   beginDate
 } = useProductOffer({
-  product: props.product,
+  product: toRef(props, 'product'),
   widgetOptions,
   widgetHotelsList,
   priceLabelMode: 'compact'

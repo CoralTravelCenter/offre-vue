@@ -1,5 +1,6 @@
 import hash from 'object-hash';
 import globals from "../coral/config/globals";
+import {getCache, setCache} from "./session-cache";
 // import globals, { devAPIHost } from "../coral-by/config/globals";
 
 async function fetchJson(url, options) {
@@ -24,13 +25,9 @@ async function fetchJson(url, options) {
 export async function consultApi(endpoint, method = 'post', params = {}) {
     const request_hash = hash({ endpoint, method, params });
     console.log('+++ consultApi: params: %o; hash: %o', params, request_hash);
-    const cached_response = sessionStorage.getItem(request_hash);
+    const cached_response = getCache(request_hash);
     if (cached_response) {
-        try {
-            return Promise.resolve(JSON.parse(cached_response));
-        } catch (error) {
-            sessionStorage.removeItem(request_hash);
-        }
+        return Promise.resolve(cached_response);
     }
     let apiHost;
     if (location.hostname === 'localhost') {
@@ -47,7 +44,7 @@ export async function consultApi(endpoint, method = 'post', params = {}) {
     }
     if (method.toUpperCase() === 'GET') {
         const api_data = await fetchJson(`${ apiHost }${ endpoint }?${ new URLSearchParams(params).toString() }`);
-        sessionStorage.setItem(request_hash, JSON.stringify(api_data));
+        setCache(request_hash, api_data);
         return api_data;
     } else if (method.toUpperCase() === 'POST') {
         const api_data = await fetchJson(`${ apiHost }${ endpoint }`, {
@@ -55,7 +52,7 @@ export async function consultApi(endpoint, method = 'post', params = {}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(params)
         });
-        sessionStorage.setItem(request_hash, JSON.stringify(api_data));
+        setCache(request_hash, api_data);
         return api_data;
     }
     throw new Error(`Unsupported method for consultApi: ${ method }`);

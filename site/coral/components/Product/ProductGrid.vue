@@ -1,8 +1,16 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import { computed, inject, reactive, ref, shallowRef, watch, watchEffect } from "vue";
+import { computed, inject, onUnmounted, reactive, ref, shallowRef, watch } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
-import { invoke, toValue, until, useElementSize } from "@vueuse/core";
+import { invoke, until } from "@vueuse/core";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious
+} from "app/components/ui/pagination";
 
 import {
     createYmapsOptions,
@@ -34,24 +42,42 @@ const layoutMode = inject('layout-mode');
 const showProgress = ref(false);
 let showProgressTimeout;
 
-watchEffect(() => {
-    if (props.inProgress) {
+watch(() => props.inProgress, (inProgress) => {
+    if (inProgress) {
         if (!showProgressTimeout) {
-            showProgressTimeout = setTimeout(() => showProgress.value = true);
+            showProgressTimeout = setTimeout(() => {
+                showProgress.value = true;
+            });
         }
-    } else {
-        clearTimeout(showProgressTimeout);
-        showProgressTimeout = null;
-        showProgress.value = false;
+        return;
     }
+    clearTimeout(showProgressTimeout);
+    showProgressTimeout = null;
+    showProgress.value = false;
+}, { immediate: true });
+
+onUnmounted(() => {
+    clearTimeout(showProgressTimeout);
+    showProgressTimeout = null;
 });
 
 const productListPageNumber = ref(1);
 const productListPageSize = ref(10);
+const totalPages = computed(() => Math.ceil(props.products.length / productListPageSize.value));
 const pagedProductList = computed(() => {
     const start = (productListPageNumber.value-1) * productListPageSize.value;
     return props.products.slice(start, start + productListPageSize.value);
 });
+
+watch(totalPages, (pages) => {
+    if (!pages) {
+        productListPageNumber.value = 1;
+        return;
+    }
+    if (productListPageNumber.value > pages) {
+        productListPageNumber.value = pages;
+    }
+}, { immediate: true });
 
 const pagerBottomOffset = computed(() => layoutMode?.value === 'mobile' ? 64 : 0);
 const pagerStickyOffset = computed(() => ({ top: 0, bottom: pagerBottomOffset.value }));
@@ -60,18 +86,6 @@ const pagerStickyOptions = computed(() => ({
     side: 'bottom',
     zIndex: 20
 }));
-
-let widgetWidth = ref();
-watchEffect(() => {
-    if ($el.value) {
-        widgetWidth = useElementSize($el.value.closest('.offre-vue')).width;
-    }
-});
-watchEffect(() => {
-    if ($el.value) {
-        $el.value.style.fontSize = (toValue(widgetWidth.value) / 1370) * 14 + 'px';
-    }
-});
 
 const map = shallowRef(null);
 const map_settings = reactive({
@@ -96,24 +110,38 @@ watch(() => props.viewMode, (mode) => {
 
 const productsWithCoordinates = computed(() => props.products.filter(product => !!product.hotel?.coordinates));
 
-watchEffect(async () => {
-    if (productsWithCoordinates.value.length > 1) {
-        map.value?.setLocation({
-            ...await getLocationFromBounds({
-                bounds: getBoundsFromCoords(productsWithCoordinates.value.map(p => [p.hotel.coordinates.longitude, p.hotel.coordinates.latitude])),
-                map: map.value,
-                roundZoom: true,
-                comfortZoomLevel: true
-            }),
+watch([productsWithCoordinates, map], async ([products], _prev, onCleanup) => {
+    let cancelled = false;
+    onCleanup(() => {
+        cancelled = true;
+    });
+
+    if (products.length > 1) {
+        if (!map.value) {
+            return;
+        }
+        const nextLocation = await getLocationFromBounds({
+            bounds: getBoundsFromCoords(products.map(p => [p.hotel.coordinates.longitude, p.hotel.coordinates.latitude])),
+            map: map.value,
+            roundZoom: true,
+            comfortZoomLevel: true
+        });
+        if (cancelled || !map.value) {
+            return;
+        }
+        map.value.setLocation({
+            ...nextLocation,
             duration: 750
         });
-    } else if (productsWithCoordinates.value.length === 1) {
+        return;
+    }
+    if (products.length === 1) {
         map_settings.location = {
-            center: [productsWithCoordinates.value[0].hotel.coordinates.longitude, productsWithCoordinates.value[0].hotel.coordinates.latitude],
+            center: [products[0].hotel.coordinates.longitude, products[0].hotel.coordinates.latitude],
             zoom: 10
         };
     }
-});
+}, { immediate: true });
 
 function minmaxPriceFromFeatures(features) {
     return features.reduce(([min, max], feature) => {
@@ -132,6 +160,14 @@ function formatClusterPrice(value) {
     return value?.formatCurrency?.() ?? '';
 }
 
+function getClusterPriceRange(features) {
+    const [minPrice, maxPrice] = minmaxPriceFromFeatures(features);
+    return {
+        min: formatClusterPrice(minPrice),
+        max: formatClusterPrice(maxPrice)
+    };
+}
+
 function hoverZIndex(e) {
     const zi = e.target.closest('ymaps').style.zIndex ?? 0;
     if (e.type === 'mouseenter') {
@@ -142,7 +178,6 @@ function hoverZIndex(e) {
 }
 
 const clickedLocationHotelId = inject('clicked-location-hotel-id');
-const gridVideMode = inject('grid-view-mode');
 
 const productsSelectedByLocation = computed(() => {
     if (!clickedLocationHotelId.value) {
@@ -172,15 +207,32 @@ const productsExceptSelectedByLocation = computed(() => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <div v-show="viewMode === 'list'"
+        <div v-show="viewMode === 'list' && totalPages > 1"
              class="pager-sticky"
              v-sticky="pagerStickyOptions">
             <div class="pager">
-                <el-pagination v-model:current-page="productListPageNumber"
-                               :total="products.length"
-                               :page-size="productListPageSize"
-                               layout="pager"
-                               background hide-on-single-page></el-pagination>
+                <Pagination
+                        v-model:page="productListPageNumber"
+                        :items-per-page="productListPageSize"
+                        :total="products.length"
+                        :sibling-count="1"
+                >
+                    <PaginationContent v-slot="{ items }">
+                        <PaginationPrevious class="h-9 w-9 p-0 [&>span]:hidden"/>
+                        <template v-for="(item, index) in items" :key="`page-item-${index}-${item.type}-${item.value ?? 'ellipsis'}`">
+                            <PaginationItem
+                                    v-if="item.type === 'page'"
+                                    :value="item.value"
+                                    :is-active="item.value === productListPageNumber"
+                                    class="h-9 min-w-9 px-0"
+                            >
+                                {{ item.value }}
+                            </PaginationItem>
+                            <PaginationEllipsis v-else :index="index" class="h-9 w-9"/>
+                        </template>
+                        <PaginationNext class="h-9 w-9 p-0 [&>span]:hidden"/>
+                    </PaginationContent>
+                </Pagination>
             </div>
         </div>
 
@@ -200,10 +252,12 @@ const productsExceptSelectedByLocation = computed(() => {
                              @mouseenter="hoverZIndex"
                              @mouseleave="hoverZIndex">
                             <div class="hud">{{ length }}</div>
-                            <div class="pricing">
-                                <span class="min">от {{ formatClusterPrice(minmaxPriceFromFeatures(clusterer.features)[0]) }}</span>
-                                <span class="max">до {{ formatClusterPrice(minmaxPriceFromFeatures(clusterer.features)[1]) }}</span>
-                            </div>
+                            <template v-for="(range, idx) in [getClusterPriceRange(clusterer.features)]" :key="idx">
+                                <div class="pricing">
+                                    <span class="min">от {{ range.min }}</span>
+                                    <span class="max">до {{ range.max }}</span>
+                                </div>
+                            </template>
                         </div>
                     </template>
                     <yandex-map-marker v-for="product in productsExceptSelectedByLocation"
@@ -264,9 +318,6 @@ const productsExceptSelectedByLocation = computed(() => {
         background: fade(white, 80%);
         backdrop-filter: blur(8px);
         border-radius: 1em 1em 0 0;
-        &:not(:has(.el-pagination)) {
-            display: none;
-        }
     }
 
     .map-view {

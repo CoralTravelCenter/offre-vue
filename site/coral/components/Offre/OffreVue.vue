@@ -1,6 +1,6 @@
 <script setup>
 
-import {computed, onMounted, provide, ref} from "vue";
+import {computed, onMounted, provide, ref, unref} from "vue";
 import {useMediaQuery, useScriptTag, useUrlSearchParams} from "@vueuse/core";
 import dayjs from "dayjs";
 import locale_ru from "dayjs/locale/ru";
@@ -70,6 +70,7 @@ const {
 	selectedTimeframe,
 	hotelInfos,
 	selectedDeparture,
+	regionsLoading,
 	reloadToken: productsReloadToken
 });
 
@@ -96,6 +97,8 @@ const controlsStickyOptions = computed(() => ({
 const gridViewMode = ref('list');
 provide('grid-view-mode', gridViewMode);
 
+const isMapReady = computed(() => Boolean(unref(VueYandexMaps.isReadyToInit)));
+
 const showProductSkeleton = computed(() => {
 	return initialLoading.value || (productsLoading.value > 0 && productsList.length === 0);
 });
@@ -121,10 +124,10 @@ onMounted(() => {
 					:departures="departures"
 					:selected-timeframe="selectedTimeframe"
 					:timeframe-options="timeframeOptions"
-					:is-timeframe-selectable="isTimeframeSelectable"
-					:grid-view-mode="gridViewMode"
-					:is-map-ready="VueYandexMaps.isReadyToInit"
-					@update:selected-region="selectedRegion = $event"
+						:is-timeframe-selectable="isTimeframeSelectable"
+						:grid-view-mode="gridViewMode"
+						:is-map-ready="isMapReady"
+						@update:selected-region="selectedRegion = $event"
 					@update:selected-departure-id="selectedDepartureId = $event"
 					@update:selected-timeframe="selectedTimeframe = $event"
 					@update:grid-view-mode="gridViewMode = $event"

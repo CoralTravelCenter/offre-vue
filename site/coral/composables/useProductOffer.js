@@ -1,12 +1,12 @@
-import {computed, ref, watchEffect} from "vue";
+import {computed, reactive, ref, unref, watch, watchEffect} from "vue";
 import dayjs from "dayjs";
 import {OnlyHotelProduct} from "../../lib/b2c-api";
 import {hotelCommonSearchCriterias} from "../config/globals";
 
 const priceSuffixMap = {
   detailed: {
-    'per-person': ' / чел.',
-    'per-night': '<span class="per-night"> за ночь</span>',
+    'per-person': '<span class="per-person"> / чел</span>',
+    'per-night': '<span class="per-night"> за ночь</span>',
     default: ''
   },
   compact: {
@@ -25,15 +25,40 @@ function formatCurrencySafe(value, currency) {
     : '';
 }
 
+function syncReactiveObject(target, source) {
+  for (const key of Object.keys(target)) {
+    if (!(key in source)) {
+      delete target[key];
+    }
+  }
+  Object.assign(target, source);
+}
+
 export function useProductOffer({product, widgetOptions, widgetHotelsList, priceLabelMode = 'detailed'}) {
   const tourType = ref('package');
-
-  const {hotel, offers: packageOffers} = product;
+  const productSource = computed(() => unref(product) || {});
+  const hotel = reactive({});
+  const packageOffers = ref([]);
+  watchEffect(() => {
+    syncReactiveObject(hotel, productSource.value?.hotel || {});
+    packageOffers.value = Array.isArray(productSource.value?.offers) ? productSource.value.offers : [];
+  });
+  const packageOffer = computed(() => packageOffers.value?.[0]);
   const hotelOffer = ref();
   const fetchingHotelOffer = ref(false);
-  const offer = ref(packageOffers?.[0]);
+  const offer = ref(packageOffer.value);
   const hotelOfferError = ref(null);
   const hotelOfferRequestId = ref(0);
+  watch(
+    [() => hotel.id, () => packageOffer.value?.checkInDate, () => packageOffer.value?.stayNights],
+    () => {
+      hotelOffer.value = undefined;
+      if (tourType.value === 'package') {
+        offer.value = packageOffer.value;
+      }
+    },
+    {immediate: true}
+  );
 
   watchEffect((onCleanup) => {
     const requestId = ++hotelOfferRequestId.value;
@@ -45,20 +70,22 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
     if (tourType.value === 'package') {
       fetchingHotelOffer.value = false;
       hotelOfferError.value = null;
-      offer.value = packageOffers?.[0];
+      offer.value = packageOffer.value;
     } else if (tourType.value === 'hotel') {
       if (hotelOffer.value) {
+        fetchingHotelOffer.value = false;
+        hotelOfferError.value = null;
         offer.value = hotelOffer.value;
       } else {
-        if (!packageOffers?.[0] || !hotel?.location?.id || !hotel?.location?.type) {
+        if (!packageOffer.value || !hotel?.location?.id || !hotel?.location?.type) {
           hotelOfferError.value = new Error('Hotel offer cannot be loaded: missing base package offer or hotel location');
-          offer.value = packageOffers?.[0];
+          offer.value = packageOffer.value;
           fetchingHotelOffer.value = false;
           return;
         }
         const searchCriterias = Object.assign({}, hotelCommonSearchCriterias, {
-          beginDates: [packageOffers[0].checkInDate],
-          nights: [{value: packageOffers[0].stayNights}],
+          beginDates: [packageOffer.value.checkInDate],
+          nights: [{value: packageOffer.value.stayNights}],
           arrivalLocations: [{id: hotel.location.id, type: hotel.location.type}]
         });
         hotelOfferError.value = null;
@@ -80,7 +107,7 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
               return;
             }
             hotelOfferError.value = error;
-            offer.value = packageOffers?.[0];
+            offer.value = packageOffer.value;
           })
           .finally(() => {
             if (cancelled || requestId !== hotelOfferRequestId.value) {
@@ -133,8 +160,20 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
     return formatCurrencySafe(offerListPrice.value, offer.value?.price?.currency);
   });
 
+  const widgetHotelsListSource = computed(() => {
+    const list = unref(widgetHotelsList);
+    return Array.isArray(list) ? list : [];
+  });
   const isHotelOnly = computed(() => {
-    return widgetHotelsList.find(hotelSetup => hotelSetup.id == hotel.id)?.onlyhotel;
+    const hotelId = hotel.id;
+    if (!hotelId) {
+      return false;
+    }
+    const hotelSetup = widgetHotelsListSource.value.find(hotelDescriptor => {
+      const id = typeof hotelDescriptor === 'number' ? hotelDescriptor : hotelDescriptor?.id;
+      return String(id) === String(hotelId);
+    });
+    return typeof hotelSetup === 'object' && Boolean(hotelSetup?.onlyhotel);
   });
 
   const offerHref = computed(() => {

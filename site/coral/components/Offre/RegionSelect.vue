@@ -62,10 +62,28 @@ async function selectOption(value) {
 }
 
 function scrollToValue(value, behavior = "smooth") {
-	if (!value) return;
-	const activeItem = [...(scroller.value?.children ?? [])]
+	const container = scroller.value;
+	if (!value || !container) {
+		return;
+	}
+	const activeItem = [...container.children]
 			.find((element) => element.dataset.value === value);
-	activeItem?.scrollIntoView({behavior, block: 'nearest', inline: 'start'});
+	if (!activeItem) {
+		requestAnimationFrame(syncScrollFade);
+		return;
+	}
+
+	const style = window.getComputedStyle(container);
+	const scrollPaddingStart = Number.parseFloat(style.scrollPaddingInlineStart || style.scrollPaddingLeft || '0');
+	const paddingStart = Number.parseFloat(style.paddingLeft || '0');
+	const inlineStartOffset = Number.isFinite(scrollPaddingStart) ? scrollPaddingStart : (Number.isFinite(paddingStart) ? paddingStart : 0);
+
+	const currentLeft = container.scrollLeft;
+	const nextLeft = Math.max(0, activeItem.offsetLeft - inlineStartOffset);
+
+	if (Math.abs(nextLeft - currentLeft) > 1) {
+		container.scrollTo({left: Math.max(0, nextLeft), behavior});
+	}
 	requestAnimationFrame(syncScrollFade);
 }
 

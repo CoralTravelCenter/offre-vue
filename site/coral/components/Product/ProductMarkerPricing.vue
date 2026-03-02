@@ -1,4 +1,6 @@
 <script setup>
+import {Skeleton} from "app/components/ui/skeleton";
+
 defineProps({
   isHotelOnly: {
     type: Boolean,
@@ -52,12 +54,19 @@ function setTourType(value) {
       </button>
     </div>
 
-    <div class="price" v-loading="fetchingHotelOffer">
-      <div v-if="offer.price.oldAmount" class="list-price">{{ offerListPriceFormatted }}</div>
-      <div class="final-price" v-html="offerFinalPriceFormatted"></div>
+    <div class="price">
+      <template v-if="fetchingHotelOffer">
+        <Skeleton v-if="offer.price.oldAmount" class="sk sk--list-price"/>
+        <Skeleton class="sk sk--final-price"/>
+      </template>
+      <template v-else>
+        <div v-if="offer.price.oldAmount" class="list-price">{{ offerListPriceFormatted }}</div>
+        <div class="final-price" v-html="offerFinalPriceFormatted"></div>
+      </template>
     </div>
 
-    <a :href="offerHref" class="do-choose" target="_blank" @click.stop v-loading="fetchingHotelOffer">Выбрать</a>
+    <a v-if="!fetchingHotelOffer" :href="offerHref" class="do-choose" target="_blank" @click.stop>Выбрать</a>
+    <Skeleton v-else class="sk sk--button"/>
   </div>
 </template>
 
@@ -143,10 +152,32 @@ function setTourType(value) {
     flex-direction: column;
     justify-content: space-evenly;
 
+    .sk {
+      display: block;
+      border-radius: .35em;
+    }
+
+    .sk--list-price {
+      width: 5.2em;
+      height: .72em;
+    }
+
+    .sk--final-price {
+      width: 7.6em;
+      height: 1.15em;
+      margin-top: .2em;
+    }
+
     .list-price {
       text-decoration: line-through @coral-red-error;
       font-size: .7em;
     }
+  }
+
+  .sk--button {
+    width: 100%;
+    height: 2.6em;
+    border-radius: .5em;
   }
 
   .do-choose {

@@ -28,6 +28,7 @@
         "ohash/utils": "./node_modules/ohash/dist/utils/index.mjs"
     },
     "dependencies": {
+        "@parcel/optimizer-svgo": "^2.16.4",
         "@tailwindcss/postcss": "^4.2.1",
         "@vueuse/core": "^10.11.1",
         "class-variance-authority": "^0.7.1",

@@ -31,36 +31,78 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
   const {hotel, offers: packageOffers} = product;
   const hotelOffer = ref();
   const fetchingHotelOffer = ref(false);
-  const offer = ref();
+  const offer = ref(packageOffers?.[0]);
+  const hotelOfferError = ref(null);
+  const hotelOfferRequestId = ref(0);
 
-  watchEffect(() => {
+  watchEffect((onCleanup) => {
+    const requestId = ++hotelOfferRequestId.value;
+    let cancelled = false;
+    onCleanup(() => {
+      cancelled = true;
+    });
+
     if (tourType.value === 'package') {
-      offer.value = packageOffers[0];
+      fetchingHotelOffer.value = false;
+      hotelOfferError.value = null;
+      offer.value = packageOffers?.[0];
     } else if (tourType.value === 'hotel') {
       if (hotelOffer.value) {
         offer.value = hotelOffer.value;
       } else {
+        if (!packageOffers?.[0] || !hotel?.location?.id || !hotel?.location?.type) {
+          hotelOfferError.value = new Error('Hotel offer cannot be loaded: missing base package offer or hotel location');
+          offer.value = packageOffers?.[0];
+          fetchingHotelOffer.value = false;
+          return;
+        }
         const searchCriterias = Object.assign({}, hotelCommonSearchCriterias, {
           beginDates: [packageOffers[0].checkInDate],
           nights: [{value: packageOffers[0].stayNights}],
           arrivalLocations: [{id: hotel.location.id, type: hotel.location.type}]
         });
+        hotelOfferError.value = null;
         fetchingHotelOffer.value = true;
-        OnlyHotelProduct.PriceSearchList({searchCriterias}).then(responseJson => {
-          offer.value = hotelOffer.value = responseJson.result.products[0].offers[0];
-          fetchingHotelOffer.value = false;
-        });
+        OnlyHotelProduct.PriceSearchList({searchCriterias})
+          .then(responseJson => {
+            if (cancelled || requestId !== hotelOfferRequestId.value) {
+              return;
+            }
+            const nextOffer = responseJson?.result?.products?.[0]?.offers?.[0];
+            if (!nextOffer) {
+              throw new Error('OnlyHotelProduct returned empty offers');
+            }
+            offer.value = nextOffer;
+            hotelOffer.value = nextOffer;
+          })
+          .catch(error => {
+            if (cancelled || requestId !== hotelOfferRequestId.value) {
+              return;
+            }
+            hotelOfferError.value = error;
+            offer.value = packageOffers?.[0];
+          })
+          .finally(() => {
+            if (cancelled || requestId !== hotelOfferRequestId.value) {
+              return;
+            }
+            fetchingHotelOffer.value = false;
+          });
       }
     }
   });
 
   const offerFinalPrice = computed(() => {
+    const amount = Number(offer.value?.price?.amount) || 0;
+    const passengers = offer.value?.rooms?.[0]?.passengers?.length || 1;
+    const stayNights = Number(offer.value?.stayNights) || 1;
+
     if (widgetOptions.pricing === 'per-person') {
-      return offer.value.price.amount / offer.value.rooms[0].passengers.length;
+      return amount / passengers;
     } else if (widgetOptions.pricing === 'per-night') {
-      return offer.value.price.amount / offer.value.stayNights;
+      return amount / stayNights;
     }
-    return offer.value.price.amount;
+    return amount;
   });
 
   const offerFinalPriceFormatted = computed(() => {
@@ -75,12 +117,16 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
   });
 
   const offerListPrice = computed(() => {
+    const oldAmount = Number(offer.value?.price?.oldAmount) || 0;
+    const passengers = offer.value?.rooms?.[0]?.passengers?.length || 1;
+    const stayNights = Number(offer.value?.stayNights) || 1;
+
     if (widgetOptions.pricing === 'per-person') {
-      return offer.value.price.oldAmount / offer.value.rooms[0].passengers.length;
+      return oldAmount / passengers;
     } else if (widgetOptions.pricing === 'per-night') {
-      return offer.value.price.oldAmount / offer.value.stayNights;
+      return oldAmount / stayNights;
     }
-    return offer.value.price.oldAmount;
+    return oldAmount;
   });
 
   const offerListPriceFormatted = computed(() => {
@@ -92,19 +138,29 @@ export function useProductOffer({product, widgetOptions, widgetHotelsList, price
   });
 
   const offerHref = computed(() => {
+    const redirectionUrl = offer.value?.link?.redirectionUrl;
+    if (!redirectionUrl) {
+      return '#';
+    }
     const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
-    const urlFix = ~offer.value.link.redirectionUrl.indexOf('/hotels') ? '' : '/hotels';
-    return `${host}${urlFix}${offer.value.link.redirectionUrl}/?qp=${offer.value.link.queryParam}&p=${(isHotelOnly.value || tourType.value !== 'package') ? 2 : 1}`;
+    const urlFix = redirectionUrl.includes('/hotels') ? '' : '/hotels';
+    const queryParam = offer.value?.link?.queryParam || '';
+    return `${host}${urlFix}${redirectionUrl}/?qp=${queryParam}&p=${(isHotelOnly.value || tourType.value !== 'package') ? 2 : 1}`;
   });
 
   const beginDate = computed(() => {
-    return dayjs(offer.value.flight ? offer.value.flight.flightDate : offer.value.checkInDate).format('DD/MM/YYYY');
+    const dateValue = offer.value?.flight?.flightDate || offer.value?.checkInDate;
+    if (!dateValue) {
+      return '';
+    }
+    return dayjs(dateValue).format('DD/MM/YYYY');
   });
 
   return {
     hotel,
     tourType,
     fetchingHotelOffer,
+    hotelOfferError,
     offer,
     offerFinalPrice,
     offerFinalPriceFormatted,

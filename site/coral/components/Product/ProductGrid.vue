@@ -117,12 +117,18 @@ watchEffect(async () => {
 
 function minmaxPriceFromFeatures(features) {
     return features.reduce(([min, max], feature) => {
-        const price = feature.properties.offer.price.amount;
+        const price = Number(feature?.properties?.offer?.price?.amount);
+        if (!Number.isFinite(price)) {
+            return [min, max];
+        }
         return [price < min ? price : min, price > max ? price : max];
     }, [Infinity, -Infinity]);
 }
 
 function formatClusterPrice(value) {
+    if (!Number.isFinite(value)) {
+        return '';
+    }
     return value?.formatCurrency?.() ?? '';
 }
 
@@ -139,7 +145,11 @@ const clickedLocationHotelId = inject('clicked-location-hotel-id');
 const gridVideMode = inject('grid-view-mode');
 
 const productsSelectedByLocation = computed(() => {
-    return clickedLocationHotelId.value ? [props.products.find(product => product.hotel.id == clickedLocationHotelId.value)] : [];
+    if (!clickedLocationHotelId.value) {
+        return [];
+    }
+    const matchedProduct = props.products.find(product => product.hotel.id == clickedLocationHotelId.value);
+    return matchedProduct ? [matchedProduct] : [];
 });
 
 const productsExceptSelectedByLocation = computed(() => {

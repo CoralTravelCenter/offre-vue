@@ -17,6 +17,7 @@ export function useOffreFilters({props, rootEl}) {
   const hotelsDirectory = ref([]);
   const regionOptions = ref([]);
   const selectedRegion = ref();
+  const regionsLoading = ref(true);
 
   const selectedTimeframe = ref();
   const timeframeOptions = computed(() => {
@@ -66,7 +67,9 @@ export function useOffreFilters({props, rootEl}) {
 
   watchEffect(() => {
     if (timeframeOptions.value.length) {
-      selectedTimeframe.value = timeframeOptions.value[0];
+      if (!timeframeOptions.value.includes(selectedTimeframe.value)) {
+        selectedTimeframe.value = timeframeOptions.value[0];
+      }
     }
   });
 
@@ -75,44 +78,51 @@ export function useOffreFilters({props, rootEl}) {
       return;
     }
 
+    regionsLoading.value = true;
     let aborted = false;
     onCleanup(() => {
       aborted = true;
     });
 
     (async () => {
-      const hotelIds = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
-      const {result: hotelsInfoResponse} = await HotelContent.ListHotelsInfo(hotelIds);
+      try {
+        const hotelIds = [...(new Set(props.hotelsList.map(hotel => typeof hotel === 'number' ? hotel : hotel.id)))];
+        const {result: hotelsInfoResponse} = await HotelContent.ListHotelsInfo(hotelIds);
 
-      if (aborted) {
-        return;
-      }
+        if (aborted) {
+          return;
+        }
 
-      const {hotels, countries, regions, areas, places} = hotelsInfoResponse;
-      hotelInfos.value = hotels;
-      regionsDirectory.value = {countries, regions, areas, places};
+        const {hotels, countries, regions, areas, places} = hotelsInfoResponse;
+        hotelInfos.value = hotels;
+        regionsDirectory.value = {countries, regions, areas, places};
 
-      const locationOptions = hotelsInfoResponse[props.options.groupBy] || {};
-      regionOptions.value = [...(new Set(Object.entries(locationOptions).map(([id, {name}]) => name)))];
+        const locationOptions = hotelsInfoResponse[props.options.groupBy] || {};
+        regionOptions.value = [...(new Set(Object.entries(locationOptions).map(([id, {name}]) => name)))];
 
-      if (props.options.regionsOrder) {
-        regionOptions.value.sort((a, b) => {
-          let aidx = props.options.regionsOrder.indexOf(a);
-          if (aidx < 0) {
-            aidx = Infinity;
-          }
-          let bidx = props.options.regionsOrder.indexOf(b);
-          if (bidx < 0) {
-            bidx = Infinity;
-          }
-          return aidx - bidx;
-        });
-      }
+        if (props.options.regionsOrder) {
+          regionOptions.value.sort((a, b) => {
+            let aidx = props.options.regionsOrder.indexOf(a);
+            if (aidx < 0) {
+              aidx = Infinity;
+            }
+            let bidx = props.options.regionsOrder.indexOf(b);
+            if (bidx < 0) {
+              bidx = Infinity;
+            }
+            return aidx - bidx;
+          });
+        }
 
-      if (props.options.preferRegion) {
-        selectedRegion.value = props.options.preferRegion;
-      } else {
-        selectedRegion.value = props.options.wildcardOption ? '*' : regionOptions.value[0];
+        if (props.options.preferRegion) {
+          selectedRegion.value = props.options.preferRegion;
+        } else {
+          selectedRegion.value = props.options.wildcardOption ? '*' : regionOptions.value[0];
+        }
+      } finally {
+        if (!aborted) {
+          regionsLoading.value = false;
+        }
       }
     })();
   });
@@ -125,13 +135,17 @@ export function useOffreFilters({props, rootEl}) {
         areas: 'areaKey',
         places: 'placeKey'
       }[props.options.groupBy];
+      const selectedRegionEntry = [...Object.entries(regionsDirectory.value[props.options.groupBy] || {})]
+        .find(([, value]) => value.name === selectedRegion.value);
+      const selectedRegionId = selectedRegionEntry?.[0];
 
       return hotelsDirectory.value.filter(hotel => {
         const hotelInfo = hotelInfos.value.find(info => hotel.id == info.id);
+        const hasTimeframe = hotel.timeframes.some(tf => tf.key === selectedTimeframe.value);
         return !!hotelInfo
           && (selectedRegion.value === '*'
-            || hotelInfo[regionKey] == [...Object.entries(regionsDirectory.value[props.options.groupBy])].find(([k, v]) => v.name === selectedRegion.value)[0])
-          && (!isTimeframeSelectable.value || hotel.timeframes.some(tf => tf.key === selectedTimeframe.value));
+            || (selectedRegionId && hotelInfo[regionKey] == selectedRegionId))
+          && (!isTimeframeSelectable.value || hasTimeframe);
       });
     }
 
@@ -154,6 +168,7 @@ export function useOffreFilters({props, rootEl}) {
 
   return {
     regionOptions,
+    regionsLoading,
     selectedRegion,
     selectedTimeframe,
     timeframeOptions,

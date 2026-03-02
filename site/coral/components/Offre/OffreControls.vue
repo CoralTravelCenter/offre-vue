@@ -3,6 +3,7 @@ import {computed} from "vue";
 import RegionSelect from "./RegionSelect.vue";
 import ViewModeToggle from "./ViewModeToggle.vue";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "app/components/ui/select";
+import {Skeleton} from "app/components/ui/skeleton";
 import {useViewportBreakpoints} from "app/composables/useViewportBreakpoints";
 
 const props = defineProps({
@@ -13,6 +14,10 @@ const props = defineProps({
   regionOptions: {
     type: Array,
     default: () => []
+  },
+  regionsLoading: {
+    type: Boolean,
+    default: false
   },
   wildcardOption: {
     type: [Boolean, String],
@@ -94,17 +99,29 @@ function setGridViewMode(mode) {
   }
   emit('update:gridViewMode', mode);
 }
+
+function capitalizeFirst(value) {
+  const text = String(value ?? "").trim();
+  if (!text) {
+    return "";
+  }
+  return text[0].toLocaleUpperCase() + text.slice(1);
+}
 </script>
 
 <template>
   <div class="controls"
-       :class="{ 'controls--without-timeframe': !isTimeframeSelectable }"
+       :class="{ 'controls--without-timeframe': !isTimeframeSelectable, 'controls--loading': regionsLoading }"
        :data-breakpoint="breakpointKey">
     <RegionSelect class="controls__region" v-model="selectedRegionModel"
+                  :loading="regionsLoading"
                   :options-list="regionOptions"
                   :wildcard-option="wildcardOption"></RegionSelect>
 
-    <Select v-model="selectedDepartureIdModel">
+    <div v-if="regionsLoading" class="controls__departure controls__slot-skeleton">
+      <Skeleton class="controls__skeleton controls__skeleton--select"/>
+    </div>
+    <Select v-else v-model="selectedDepartureIdModel">
       <SelectTrigger size="3" class="controls__departure capitalize h-10 bg-white shadow-none">
         <svg v-show="!breakpointKey" class="control-icon control-icon--flight" viewBox="0 0 20 20" fill="none"
              aria-hidden="true">
@@ -126,13 +143,16 @@ function setGridViewMode(mode) {
         <SelectItem v-for="departure in departures"
                     :key="departure.id"
                     :value="String(departure.id)"
-                    :text-value="$cityCorrectName(departure.name)">
-          {{ $cityCorrectName(departure.name) }}
+                    :text-value="capitalizeFirst($cityCorrectName(departure.name))">
+          {{ capitalizeFirst($cityCorrectName(departure.name)) }}
         </SelectItem>
       </SelectContent>
     </Select>
 
-    <Select v-if="isTimeframeSelectable" v-model="selectedTimeframeModel">
+    <div v-if="regionsLoading && isTimeframeSelectable" class="controls__timeframe controls__slot-skeleton">
+      <Skeleton class="controls__skeleton controls__skeleton--select"/>
+    </div>
+    <Select v-else-if="isTimeframeSelectable" v-model="selectedTimeframeModel">
       <SelectTrigger size="3" class="controls__timeframe capitalize h-10 bg-white shadow-none">
         <svg v-show="!breakpointKey" class="control-icon control-icon--calendar" viewBox="0 0 18 16" fill="none"
              aria-hidden="true">
@@ -147,12 +167,15 @@ function setGridViewMode(mode) {
         <SelectItem v-for="timeframe in timeframeOptions"
                     :key="timeframe"
                     :value="timeframe">
-          {{ timeframe }}
+          {{ capitalizeFirst(timeframe) }}
         </SelectItem>
       </SelectContent>
     </Select>
 
-    <ViewModeToggle class="controls__view-mode"
+    <div v-if="regionsLoading" class="controls__view-mode controls__slot-skeleton">
+      <Skeleton class="controls__skeleton controls__skeleton--toggle"/>
+    </div>
+    <ViewModeToggle v-else class="controls__view-mode"
                     :model-value="gridViewMode"
                     :is-map-ready="isMapReady"
                     @update:model-value="setGridViewMode"/>
@@ -218,5 +241,27 @@ function setGridViewMode(mode) {
     width: 18px;
     flex-basis: 18px;
   }
+
+  &.controls--loading {
+    pointer-events: none;
+  }
+}
+
+.controls__slot-skeleton {
+  min-width: 0;
+}
+
+.controls__skeleton {
+  border-radius: 8px;
+}
+
+.controls__skeleton--select {
+  width: 100%;
+  height: 40px;
+}
+
+.controls__skeleton--toggle {
+  width: 40px;
+  height: 40px;
 }
 </style>

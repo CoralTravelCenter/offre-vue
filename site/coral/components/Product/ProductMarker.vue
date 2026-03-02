@@ -56,8 +56,13 @@ defineExpose({hide: () => isOpen.value = false});
 const selectedDeparture = inject('selected-departure');
 const {getReferenceValueByKey} = inject('product-reference');
 
-const {name: hotelCategoryName, starCount: hotelStarCount} = getReferenceValueByKey('hotelCategories', hotel.categoryKey);
-const {name: mealType} = getReferenceValueByKey('meals', offer.value.rooms[0].mealKey)
+const hotelCategory = computed(() => getReferenceValueByKey('hotelCategories', hotel.categoryKey) || {});
+const hotelCategoryName = computed(() => hotelCategory.value.name || '');
+const hotelStarCount = computed(() => hotelCategory.value.starCount || 0);
+const mealType = computed(() => {
+  const mealKey = offer.value?.rooms?.[0]?.mealKey;
+  return getReferenceValueByKey('meals', mealKey)?.name || '';
+});
 
 function handleClick() {
   isOpen.value = !isOpen.value;

@@ -1,6 +1,6 @@
 <script setup>
 
-import {computed, onMounted, provide, ref, unref} from "vue";
+import {computed, nextTick, onMounted, onUnmounted, provide, ref, watch} from "vue";
 import {useMediaQuery, useScriptTag, useUrlSearchParams} from "@vueuse/core";
 import dayjs from "dayjs";
 import locale_ru from "dayjs/locale/ru";
@@ -8,8 +8,15 @@ import ProductGrid from "../Product";
 import ProductCardSkeleton from "../Product/ProductCardSkeleton.vue";
 import OffreControls from "./OffreControls.vue";
 import OffreHints from "./OffreHints.vue";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious
+} from "app/components/ui/pagination";
 import {v4 as uuid_v4} from "uuid";
-import {VueYandexMaps} from "vue-yandex-maps";
 import {useOffreLayout} from "../../composables/useOffreLayout";
 import {useOffreFilters} from "../../composables/useOffreFilters";
 import {useOffreProducts} from "../../composables/useOffreProducts";
@@ -19,11 +26,11 @@ dayjs.locale(locale_ru);
 const instance_uuid = uuid_v4();
 
 const props = defineProps({
-	options: {
-		type: Object,
-		default: {groupBy: 'countries', chartersOnly: true}
-	},
-	hotelsList: {type: Array, default: []}
+  options: {
+    type: Object,
+    default: {groupBy: 'countries', chartersOnly: true}
+  },
+  hotelsList: {type: Array, default: []}
 });
 
 provide('widget-options', props.options);
@@ -33,126 +40,245 @@ const $el = ref();
 const calcCashbackFn = ref(() => {
 });
 useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.js', () => {
-	calcCashbackFn.value = window._get_CBonuses;
+  calcCashbackFn.value = window._get_CBonuses;
 });
 provide('calc-cashback', {calcCashbackFn});
 
 const {layoutMode} = useOffreLayout();
 provide('layout-mode', layoutMode);
 const {
-	regionOptions,
-	regionsLoading,
-	selectedRegion,
-	selectedTimeframe,
-	timeframeOptions,
-	isTimeframeSelectable,
-	hotelInfos,
-	matchedHotelsDirectory,
-	departures,
-	selectedDeparture,
-	selectedDepartureId
+  regionOptions,
+  regionsLoading,
+  selectedRegion,
+  selectedTimeframe,
+  timeframeOptions,
+  isTimeframeSelectable,
+  hotelInfos,
+  matchedHotelsDirectory,
+  departures,
+  selectedDeparture,
+  selectedDepartureId
 } = useOffreFilters({props, rootEl: $el});
 provide('selected-departure', selectedDeparture);
 const productsReloadToken = ref(0);
 
 const {
-	initialLoading,
-	productsLoading,
-	productsList,
-	productReference,
-	noMatchedProducts,
-	productsError,
-	clickedLocationHotelId,
-	getReferenceValueByKey
+  initialLoading,
+  productsLoading,
+  productsList,
+  productReference,
+  noMatchedProducts,
+  productsError,
+  clickedLocationHotelId,
+  getReferenceValueByKey
 } = useOffreProducts({
-	props,
-	matchedHotelsDirectory,
-	selectedTimeframe,
-	hotelInfos,
-	selectedDeparture,
-	regionsLoading,
-	reloadToken: productsReloadToken
+  props,
+  matchedHotelsDirectory,
+  selectedTimeframe,
+  hotelInfos,
+  selectedDeparture,
+  regionsLoading,
+  reloadToken: productsReloadToken
 });
 
 function retryProductsFetch() {
-	productsReloadToken.value += 1;
+  productsReloadToken.value += 1;
 }
+
 provide('product-reference', {productReference, getReferenceValueByKey});
 provide('clicked-location-hotel-id', clickedLocationHotelId);
 
 const isLargeScreen = useMediaQuery('(min-width: 993px)')
 const searchParams = useUrlSearchParams('history')
 const isMvMode = computed(() => {
-	const raw = searchParams.mv
-	const value = Array.isArray(raw) ? raw[0] : raw
-	return String(value).toLowerCase() === 'true'
+  const raw = searchParams.mv
+  const value = Array.isArray(raw) ? raw[0] : raw
+  return String(value).toLowerCase() === 'true'
 })
 const controlsStickyOptions = computed(() => ({
-	top: isMvMode.value ? 100 : (isLargeScreen.value ? 16 : 74),
-	bottom: 16,
-	side: 'both',
-	zIndex: 20
+  top: isMvMode.value ? 100 : (isLargeScreen.value ? 16 : 74),
+  bottom: 16,
+  side: 'both',
+  zIndex: 30
 }))
 
 const gridViewMode = ref('list');
 provide('grid-view-mode', gridViewMode);
 
-const isMapReady = computed(() => Boolean(unref(VueYandexMaps.isReadyToInit)));
+const productListPageNumber = ref(1);
+const productListPageSize = ref(10);
+const totalPages = computed(() => Math.ceil(productsList.length / productListPageSize.value));
+const productGridRef = ref();
+const hasScrolledPastFirstCard = ref(false);
+let firstCardObserver = null;
+
+watch(totalPages, (pages) => {
+  if (!pages) {
+    productListPageNumber.value = 1;
+    return;
+  }
+  if (productListPageNumber.value > pages) {
+    productListPageNumber.value = pages;
+  }
+}, {immediate: true});
+
+const pagerStickyOptions = computed(() => ({
+  top: 0,
+  bottom: 16,
+  side: 'bottom',
+  zIndex: 20
+}));
 
 const showProductSkeleton = computed(() => {
-	return initialLoading.value || (productsLoading.value > 0 && productsList.length === 0);
+  return initialLoading.value || (productsLoading.value > 0 && productsList.length === 0);
 });
 
+function disconnectFirstCardObserver() {
+  if (firstCardObserver) {
+    firstCardObserver.disconnect();
+    firstCardObserver = null;
+  }
+}
+
+function observeFirstCard() {
+  disconnectFirstCardObserver();
+  hasScrolledPastFirstCard.value = false;
+
+  if (gridViewMode.value !== 'list' || showProductSkeleton.value || totalPages.value <= 1) {
+    return;
+  }
+
+  const gridRoot = productGridRef.value?.$el;
+  const firstCardEl = gridRoot?.querySelector('.offers-list > *');
+  if (!firstCardEl) {
+    return;
+  }
+
+  firstCardObserver = new IntersectionObserver(([entry]) => {
+    if (!entry) {
+      return;
+    }
+    hasScrolledPastFirstCard.value = entry.boundingClientRect.bottom <= 0;
+  }, {threshold: 0});
+
+  firstCardObserver.observe(firstCardEl);
+}
+
+const shouldShowPager = computed(() => {
+  return gridViewMode.value === 'list' && totalPages.value > 1 && hasScrolledPastFirstCard.value;
+});
+
+watch(
+    [() => productsList.length, gridViewMode, productListPageNumber, showProductSkeleton, totalPages],
+    async () => {
+      await nextTick();
+      observeFirstCard();
+    },
+    {immediate: true}
+);
+
 onMounted(() => {
-	window.OffreVue ||= {version: '1.0.0'};
+  window.OffreVue ||= {version: '1.0.0'};
+  nextTick(() => {
+    observeFirstCard();
+  });
+});
+
+onUnmounted(() => {
+  disconnectFirstCardObserver();
 });
 
 </script>
 
 <template>
-	<div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
-		<div
-				class="controls-sticky overflow-clip pb-2 rounded-2xl border border-[rgba(0,0,0,0.15)] data-[sticky=true]:shadow-md bg-white"
-				v-sticky="controlsStickyOptions"
-		>
-			<OffreControls
-					:selected-region="selectedRegion"
-					:region-options="regionOptions"
-					:regions-loading="regionsLoading"
-					:wildcard-option="options.wildcardOption"
-					:selected-departure-id="selectedDepartureId"
-					:departures="departures"
-					:selected-timeframe="selectedTimeframe"
-					:timeframe-options="timeframeOptions"
-						:is-timeframe-selectable="isTimeframeSelectable"
-						:grid-view-mode="gridViewMode"
-						:is-map-ready="isMapReady"
-						@update:selected-region="selectedRegion = $event"
-					@update:selected-departure-id="selectedDepartureId = $event"
-					@update:selected-timeframe="selectedTimeframe = $event"
-					@update:grid-view-mode="gridViewMode = $event"
-					@request-map-mode="clickedLocationHotelId = null"
-			/>
-		</div>
+  <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
+    <div
+        class="controls-sticky offre-sticky-shadow overflow-clip pb-2 rounded-2xl border border-[rgba(0,0,0,0.15)] bg-white"
+        v-sticky="controlsStickyOptions"
+    >
+      <OffreControls
+          :selected-region="selectedRegion"
+          :region-options="regionOptions"
+          :regions-loading="regionsLoading"
+          :wildcard-option="options.wildcardOption"
+          :selected-departure-id="selectedDepartureId"
+          :departures="departures"
+          :selected-timeframe="selectedTimeframe"
+          :timeframe-options="timeframeOptions"
+          :is-timeframe-selectable="isTimeframeSelectable"
+          :grid-view-mode="gridViewMode"
+          @update:selected-region="selectedRegion = $event"
+          @update:selected-departure-id="selectedDepartureId = $event"
+          @update:selected-timeframe="selectedTimeframe = $event"
+          @update:grid-view-mode="gridViewMode = $event"
+          @request-map-mode="clickedLocationHotelId = null"
+      />
+    </div>
 
-		<OffreHints
-				:initial-loading="initialLoading"
-				:products-loading="productsLoading"
-				:no-matched-products="noMatchedProducts"
-				:products-error="productsError"
-				:selected-region="selectedRegion"
-				:selected-departure="selectedDeparture"
-				@retry-products="retryProductsFetch"
-		/>
+    <OffreHints
+        :initial-loading="initialLoading"
+        :products-loading="productsLoading"
+        :no-matched-products="noMatchedProducts"
+        :products-error="productsError"
+        :selected-region="selectedRegion"
+        :selected-departure="selectedDeparture"
+        @retry-products="retryProductsFetch"
+    />
 
-		<div v-if="showProductSkeleton" class="product-skeleton-list" aria-hidden="true">
-			<ProductCardSkeleton/>
-			<ProductCardSkeleton/>
-		</div>
+    <div v-if="showProductSkeleton" class="product-skeleton-list" aria-hidden="true">
+      <ProductCardSkeleton/>
+      <ProductCardSkeleton/>
+    </div>
 
-		<ProductGrid :products="productsList" :in-progress="productsLoading"
-								 :view-mode="gridViewMode"></ProductGrid>
-	</div>
+    <ProductGrid
+        ref="productGridRef"
+        :products="productsList"
+        :in-progress="productsLoading"
+        :view-mode="gridViewMode"
+        :page-number="productListPageNumber"
+        :page-size="productListPageSize"
+    />
+
+    <div
+        v-show="shouldShowPager"
+        class="pager-sticky offre-sticky-shadow mx-auto w-fit overflow-clip rounded-2xl border border-[rgba(0,0,0,0.15)] bg-white"
+        v-sticky="pagerStickyOptions"
+    >
+      <div class="p-2">
+        <Pagination
+            v-model:page="productListPageNumber"
+            :items-per-page="productListPageSize"
+            :total="productsList.length"
+            :sibling-count="1"
+            class="w-auto"
+        >
+          <PaginationContent v-slot="{ items }" class="gap-2">
+            <PaginationPrevious
+                class="h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+            />
+            <template v-for="(item, index) in items"
+                      :key="`pager-item-${index}-${item.type}-${item.value ?? 'ellipsis'}`">
+              <PaginationItem
+                  v-if="item.type === 'page'"
+                  :value="item.value"
+                  :is-active="item.value === productListPageNumber"
+                  :class="[
+                    'h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60',
+                    item.value === productListPageNumber ? 'bg-[#0d98d9] border-[#0d98d9] text-white' : ''
+                  ]"
+              >
+                {{ item.value }}
+              </PaginationItem>
+              <PaginationEllipsis v-else :index="index" class="h-10 w-10 text-[#1f2227]"/>
+            </template>
+            <PaginationNext
+                class="h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+            />
+          </PaginationContent>
+        </Pagination>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style lang="less">
@@ -160,42 +286,42 @@ onMounted(() => {
 @import "../../common/css/layout";
 
 :root {
-	--el-font-family: inherit !important;
-	--el-fill-color-light: fade(@coral-main-blue, 8%) !important;
-	--el-color-primary: @coral-main-blue;
+  --el-font-family: inherit !important;
+  --el-fill-color-light: fade(@coral-main-blue, 8%) !important;
+  --el-color-primary: @coral-main-blue;
 }
 
 .el-progress-bar {
-	font-family: inherit;
-	--el-color-primary: @coral-main-blue;
+  font-family: inherit;
+  --el-color-primary: @coral-main-blue;
 }
 
 .offre-vue {
-	.el-button-group {
-		display: flex;
-		justify-content: end;
-		gap: 8px;
+  .el-button-group {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
 
-		&:after, &:before {
-			display: none;
-		}
-	}
+    &:after, &:before {
+      display: none;
+    }
+  }
 }
 
 .offre-vue {
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	.bbox();
-	font-size: 16px;
-	font-weight: normal;
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  .bbox();
+  font-size: 16px;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .product-skeleton-list {
-	display: grid;
-	gap: 8px;
+  display: grid;
+  gap: 8px;
 }
 </style>

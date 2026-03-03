@@ -46,10 +46,6 @@ const props = defineProps({
   gridViewMode: {
     type: String,
     default: 'list'
-  },
-  isMapReady: {
-    type: Boolean,
-    default: false
   }
 });
 
@@ -177,7 +173,6 @@ function capitalizeFirst(value) {
     </div>
     <ViewModeToggle v-else class="controls__view-mode"
                     :model-value="gridViewMode"
-                    :is-map-ready="isMapReady"
                     @update:model-value="setGridViewMode"/>
 
   </div>

@@ -1,4 +1,6 @@
 <script setup>
+import {Button} from "app/components/ui/button";
+
 const emit = defineEmits(['retry-products']);
 
 defineProps({
@@ -37,10 +39,16 @@ function retryProducts() {
 	<div v-if="!productsLoading && productsError" class="message-hint products-error">
 		<div class="icon warning"></div>
 		<div class="reason">Не удалось загрузить варианты туров.</div>
-		<div class="hint">
-			Проверьте подключение к сети или повторите попытку чуть позже.
-			<button type="button" class="retry-action" @click="retryProducts">Повторить</button>
-		</div>
+		<div class="hint">Проверьте подключение к сети или повторите попытку чуть позже.</div>
+		<Button
+				type="button"
+				variant="outline"
+				size="sm"
+				class="retry-action !h-8 !rounded-[8px] !border-[#0092D0]/35 !bg-white !text-[#0092D0] hover:!border-[#0092D0] hover:!bg-white hover:!text-[#0092D0]"
+				@click="retryProducts"
+		>
+			Повторить
+		</Button>
 	</div>
 
 	<div v-else-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
@@ -61,7 +69,8 @@ function retryProducts() {
 
 .message-hint {
 	display: grid;
-	grid-template: auto auto / min-content auto;
+	grid-template-columns: min-content auto;
+	grid-template-rows: auto auto auto;
 	gap: 8px;
 	padding: 16px;
 	border-radius: 16px;
@@ -87,6 +96,7 @@ function retryProducts() {
 	.reason {
 		grid-area: 1 / 2;
 		font-weight: 600;
+		font-size: 16px;
 		align-self: end;
 		line-height: 1;
 	}
@@ -94,15 +104,21 @@ function retryProducts() {
 	.hint {
 		grid-area: 2 / 2;
 		font-weight: 300;
+		font-size: 14px;
 		align-self: start;
 		line-height: 1;
+	}
+
+	.retry-action {
+		grid-area: 3 / 2;
+		justify-self: start;
 	}
 }
 
 .icon {
-	width: 44px;
-	height: 44px;
-	background: center / cover no-repeat;
+	width: 40px;
+	height: 40px;
+	background: center / contain no-repeat;
 
 	&.warning {
 		background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
@@ -113,15 +129,4 @@ function retryProducts() {
 	}
 }
 
-.retry-action {
-	margin-left: 8px;
-	padding: 2px 8px;
-	font-size: 12px;
-	line-height: 1.2;
-	color: #0092D0;
-	border: 1px solid fade(#0092D0, 35%);
-	border-radius: 6px;
-	background: #FFFFFF;
-	cursor: pointer;
-}
 </style>

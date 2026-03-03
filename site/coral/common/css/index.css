@@ -122,3 +122,24 @@
         @apply bg-background text-foreground;
     }
 }
+
+#header-sticky-bar {
+    display: none !important
+}
+
+.header-mobile {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    width: 100%;
+}
+
+@layer utilities {
+    .offre-shadow-ring {
+        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
+    }
+
+    .offre-sticky-shadow[data-sticky="true"] {
+        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
+    }
+}

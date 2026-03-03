@@ -3,14 +3,6 @@ import ProductCard from "./ProductCard.vue";
 import { computed, inject, onUnmounted, reactive, ref, shallowRef, watch } from "vue";
 import { v4 as uuid_v4 } from 'uuid';
 import { invoke, until } from "@vueuse/core";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationNext,
-    PaginationPrevious
-} from "app/components/ui/pagination";
 
 import {
     createYmapsOptions,
@@ -30,14 +22,20 @@ const instance_uuid = uuid_v4();
 const props = defineProps({
     products: Array,
     inProgress: Boolean,
+    pageNumber: {
+        type: Number,
+        default: 1
+    },
+    pageSize: {
+        type: Number,
+        default: 10
+    },
     viewMode: {
         type: String,
         default: 'list'
     }
 });
 const $el = ref();
-
-const layoutMode = inject('layout-mode');
 
 const showProgress = ref(false);
 let showProgressTimeout;
@@ -61,31 +59,12 @@ onUnmounted(() => {
     showProgressTimeout = null;
 });
 
-const productListPageNumber = ref(1);
-const productListPageSize = ref(10);
-const totalPages = computed(() => Math.ceil(props.products.length / productListPageSize.value));
 const pagedProductList = computed(() => {
-    const start = (productListPageNumber.value-1) * productListPageSize.value;
-    return props.products.slice(start, start + productListPageSize.value);
+    const pageNumber = Number.isFinite(props.pageNumber) ? Math.max(1, props.pageNumber) : 1;
+    const pageSize = Number.isFinite(props.pageSize) ? Math.max(1, props.pageSize) : 10;
+    const start = (pageNumber - 1) * pageSize;
+    return props.products.slice(start, start + pageSize);
 });
-
-watch(totalPages, (pages) => {
-    if (!pages) {
-        productListPageNumber.value = 1;
-        return;
-    }
-    if (productListPageNumber.value > pages) {
-        productListPageNumber.value = pages;
-    }
-}, { immediate: true });
-
-const pagerBottomOffset = computed(() => layoutMode?.value === 'mobile' ? 64 : 0);
-const pagerStickyOffset = computed(() => ({ top: 0, bottom: pagerBottomOffset.value }));
-const pagerStickyOptions = computed(() => ({
-    ...pagerStickyOffset.value,
-    side: 'bottom',
-    zIndex: 20
-}));
 
 const map = shallowRef(null);
 const map_settings = reactive({
@@ -207,34 +186,6 @@ const productsExceptSelectedByLocation = computed(() => {
                 <ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
             </TransitionGroup>
         </div>
-        <div v-show="viewMode === 'list' && totalPages > 1"
-             class="pager-sticky"
-             v-sticky="pagerStickyOptions">
-            <div class="pager">
-                <Pagination
-                        v-model:page="productListPageNumber"
-                        :items-per-page="productListPageSize"
-                        :total="products.length"
-                        :sibling-count="1"
-                >
-                    <PaginationContent v-slot="{ items }">
-                        <PaginationPrevious class="h-9 w-9 p-0 [&>span]:hidden"/>
-                        <template v-for="(item, index) in items" :key="`page-item-${index}-${item.type}-${item.value ?? 'ellipsis'}`">
-                            <PaginationItem
-                                    v-if="item.type === 'page'"
-                                    :value="item.value"
-                                    :is-active="item.value === productListPageNumber"
-                                    class="h-9 min-w-9 px-0"
-                            >
-                                {{ item.value }}
-                            </PaginationItem>
-                            <PaginationEllipsis v-else :index="index" class="h-9 w-9"/>
-                        </template>
-                        <PaginationNext class="h-9 w-9 p-0 [&>span]:hidden"/>
-                    </PaginationContent>
-                </Pagination>
-            </div>
-        </div>
 
         <div v-if="viewMode === 'map'" class="map-view">
             <yandex-map v-model="map" :settings="map_settings">
@@ -309,15 +260,6 @@ const productsExceptSelectedByLocation = computed(() => {
             max-height: 0;
         }
 
-    }
-
-    .pager {
-        display: grid;
-        place-content: center;
-        padding: 1em .5em;
-        background: fade(white, 80%);
-        backdrop-filter: blur(8px);
-        border-radius: 1em 1em 0 0;
     }
 
     .map-view {

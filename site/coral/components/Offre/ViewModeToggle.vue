@@ -5,32 +5,21 @@ const props = defineProps({
   modelValue: {
     type: String,
     default: 'list'
-  },
-  isMapReady: {
-    type: Boolean,
-    default: false
   }
 });
 
 const emit = defineEmits(['update:modelValue']);
 
 const isMapMode = computed(() => props.modelValue === 'map');
-const isToggleDisabled = computed(() => !props.isMapReady && !isMapMode.value);
 
 const ariaLabel = computed(() => {
   if (isMapMode.value) {
     return 'Показать список';
   }
-  if (isToggleDisabled.value) {
-    return 'Карта недоступна';
-  }
   return 'Показать карту';
 });
 
 function toggleMode() {
-  if (isToggleDisabled.value) {
-    return;
-  }
   emit('update:modelValue', isMapMode.value ? 'list' : 'map');
 }
 </script>
@@ -42,14 +31,13 @@ function toggleMode() {
         :aria-pressed="isMapMode"
         :aria-label="ariaLabel"
         :data-state="isMapMode ? 'on' : 'off'"
-        :disabled="isToggleDisabled"
         :class="[
           'inline-flex h-10 w-10 items-center justify-center rounded-[8px] border bg-white transition-colors duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd]',
           isMapMode
               ? 'border-[#0d98d9] text-[#0d98d9]'
               : 'border-[#d4d9df] text-[#1f2227]',
-          isToggleDisabled ? 'cursor-not-allowed opacity-60' : 'hover:border-[#0d98d9] hover:text-[#0d98d9]'
+          'hover:border-[#0d98d9] hover:text-[#0d98d9]'
         ]"
         @click="toggleMode"
     >

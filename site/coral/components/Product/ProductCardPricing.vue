@@ -113,22 +113,21 @@ function setTourTypeFromToggle(value) {
 				</div>
 			</div>
 
-			<div v-if="props.cashbackInfo" class="cashback">
-				<div class="info">
-					<span class="up-to">Кешбэк до {{ props.cashbackInfo?.finalBonus?.formatCurrency?.() ?? '' }}</span>
-					<span class="to-coral-bonus-card">на карту CoralBonus</span>
-				</div>
-				<Popover>
-					<PopoverTrigger as-child>
-						<button type="button" class="cashback-trigger" aria-label="Показать условия кешбэка CoralBonus">
-							<img class="card-visual" src="https://b2ccdn.coral.ru/content/cb_24.png" alt="">
-						</button>
-					</PopoverTrigger>
+			<Popover v-if="props.cashbackInfo">
+				<PopoverTrigger as-child>
+					<button type="button" class="cashback cashback-trigger" aria-label="Показать условия кешбэка CoralBonus">
+						<div class="info">
+							<span class="up-to">Кешбэк до {{ props.cashbackInfo?.finalBonus?.formatCurrency?.() ?? '' }}</span>
+							<span class="to-coral-bonus-card">на карту CoralBonus</span>
+						</div>
+						<img class="card-visual" src="https://b2ccdn.coral.ru/content/cb_24.png" alt="">
+					</button>
+				</PopoverTrigger>
 					<PopoverContent
 							side="top"
-							align="end"
-							:align-offset="-16"
-							class="offre-vue-cashback-popover-content shadow-xl border-0 rounded-xl px-3 py-0 w-max max-w-[calc(100vw-32px)]"
+							align="center"
+							:align-offset="0"
+							class="offre-vue-cashback-popover-content offre-shadow-ring border-0 rounded-xl px-3 py-0 w-max max-w-[calc(100vw-32px)]"
 							show-arrow
 							:arrow-width="16"
 							:arrow-height="8"
@@ -153,8 +152,7 @@ function setTourTypeFromToggle(value) {
 							</div>
 						</div>
 					</PopoverContent>
-				</Popover>
-			</div>
+			</Popover>
 
 			<Button as="a" :href="props.offerHref" class="do-choose" target="_blank">Выбрать</Button>
 		</div>
@@ -320,20 +318,18 @@ function setTourTypeFromToggle(value) {
 	border-radius: 8px;
 }
 
-.pricing .cashback .cashback-trigger {
-	align-self: center;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+.pricing .cashback-trigger {
+	appearance: none;
 	margin: 0;
-	padding: 0;
+	font: inherit;
+	color: inherit;
 	border: 0;
-	border-radius: 6px;
-	background: transparent;
+	border-radius: 8px;
+	background: #FEEFCD;
 	cursor: pointer;
 }
 
-.pricing .cashback .cashback-trigger:focus-visible {
+.pricing .cashback-trigger:focus-visible {
 	outline: 2px solid fade(@coral-main-blue, 45%);
 	outline-offset: 2px;
 }

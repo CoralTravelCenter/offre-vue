@@ -10,6 +10,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
+// The single button toggles list <-> map mode.
 const isMapMode = computed(() => props.modelValue === 'map');
 
 const ariaLabel = computed(() => {

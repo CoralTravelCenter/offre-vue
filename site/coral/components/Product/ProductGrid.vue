@@ -40,6 +40,7 @@ const $el = ref();
 const showProgress = ref(false);
 let showProgressTimeout;
 
+// Keep progress bar hidden for very short requests to avoid UI flicker.
 watch(() => props.inProgress, (inProgress) => {
     if (inProgress) {
         if (!showProgressTimeout) {
@@ -76,6 +77,7 @@ const map_settings = reactive({
 const clusterer = shallowRef(null);
 const clustererGridSize = ref(90);
 
+// Yandex maps options are initialized only when user actually opens map mode.
 invoke(async () => {
     await until(() => props.viewMode).toBe('map');
     createYmapsOptions({ apikey: '49de5080-fb39-46f1-924b-dee5ddbad2f1' });
@@ -89,6 +91,7 @@ watch(() => props.viewMode, (mode) => {
 
 const productsWithCoordinates = computed(() => props.products.filter(product => !!product.hotel?.coordinates));
 
+// Re-fit map bounds whenever list of mappable products changes.
 watch([productsWithCoordinates, map], async ([products], _prev, onCleanup) => {
     let cancelled = false;
     onCleanup(() => {

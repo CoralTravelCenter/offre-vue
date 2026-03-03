@@ -49,6 +49,7 @@ function setTourType(value) {
 const selectedTourType = computed(() => (props.isHotelOnly ? 'hotel' : props.tourType));
 
 function setTourTypeFromToggle(value) {
+	// Ignore empty payload and duplicate updates from toggle-group.
 	if (!value || value === props.tourType) {
 		return;
 	}
@@ -115,6 +116,7 @@ function setTourTypeFromToggle(value) {
 
 			<Popover v-if="props.cashbackInfo">
 				<PopoverTrigger as-child>
+					<!-- Entire cashback banner acts as popover trigger. -->
 					<button type="button" class="cashback cashback-trigger" aria-label="Показать условия кешбэка CoralBonus">
 						<div class="info">
 							<span class="up-to">Кешбэк до {{ props.cashbackInfo?.finalBonus?.formatCurrency?.() ?? '' }}</span>
@@ -123,35 +125,35 @@ function setTourTypeFromToggle(value) {
 						<img class="card-visual" src="https://b2ccdn.coral.ru/content/cb_24.png" alt="">
 					</button>
 				</PopoverTrigger>
-					<PopoverContent
-							side="top"
-							align="center"
-							:align-offset="0"
-							class="offre-vue-cashback-popover-content offre-shadow-ring border-0 rounded-xl px-3 py-0 w-max max-w-[calc(100vw-32px)]"
-							show-arrow
-							:arrow-width="16"
-							:arrow-height="8"
-							arrow-rounded
-							arrow-class="fill-white stroke-none"
-					>
-						<div class="offre-vue-cashback-popover">
-							<div class="promos-grid">
-								<div class="promo-row" v-for="promo in (props.cashbackInfo?.listOfPromos ?? [])"
-										 :key="promo.content_txt">
-									<span class="value">{{ promo.content_result?.formatCurrency?.() ?? '' }}</span>
-									<a v-if="promo.content_link" :href="promo.content_link" class="description"
-										 target="_blank">{{ promo.content_txt }}</a>
-									<span v-else class="description">{{ promo.content_txt }}</span>
+				<PopoverContent
+						side="top"
+						align="center"
+						:align-offset="0"
+						class="offre-vue-cashback-popover-content offre-shadow-ring border-0 rounded-xl px-3 py-0 w-max max-w-[calc(100vw-32px)]"
+						show-arrow
+						:arrow-width="16"
+						:arrow-height="8"
+						arrow-rounded
+						arrow-class="fill-white stroke-none"
+				>
+					<div class="offre-vue-cashback-popover">
+						<div class="promos-grid">
+							<div class="promo-row" v-for="promo in (props.cashbackInfo?.listOfPromos ?? [])"
+									 :key="promo.content_txt">
+								<span class="value">{{ promo.content_result?.formatCurrency?.() ?? '' }}</span>
+								<a v-if="promo.content_link" :href="promo.content_link" class="description"
+									 target="_blank">{{ promo.content_txt }}</a>
+								<span v-else class="description">{{ promo.content_txt }}</span>
+							</div>
+							<div class="info-action">
+								<div class="info">Для начисления бонусов, укажите номер карты в&nbsp;поле "Примечание к&nbsp;заказу"
 								</div>
-								<div class="info-action">
-									<div class="info">Для начисления бонусов, укажите номер карты в&nbsp;поле "Примечание к&nbsp;заказу"
-									</div>
-									<a href="https://coralbonus.ru/registration?promo=R3R5VO93GKG8N1PGQC1UP0G6EICQLRWEN3Z64WZGC4YBYIKHFJV55IND5O20WUJ"
-										 class="action" target="_blank">Активировать</a>
-								</div>
+								<a href="https://coralbonus.ru/registration?promo=R3R5VO93GKG8N1PGQC1UP0G6EICQLRWEN3Z64WZGC4YBYIKHFJV55IND5O20WUJ"
+									 class="action" target="_blank">Активировать</a>
 							</div>
 						</div>
-					</PopoverContent>
+					</div>
+				</PopoverContent>
 			</Popover>
 
 			<Button as="a" :href="props.offerHref" class="do-choose" target="_blank">Выбрать</Button>

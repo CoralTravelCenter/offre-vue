@@ -57,6 +57,7 @@ const emit = defineEmits([
   'request-map-mode'
 ]);
 
+// Bridge props to local v-model bindings used by shadcn controls.
 const selectedRegionModel = computed({
   get() {
     return props.selectedRegion;
@@ -90,6 +91,8 @@ function setGridViewMode(mode) {
   if (props.gridViewMode === mode) {
     return;
   }
+
+  // Reset selected map marker when user switches to map mode.
   if (mode === 'map') {
     emit('request-map-mode');
   }

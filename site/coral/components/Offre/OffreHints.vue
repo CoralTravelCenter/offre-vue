@@ -36,6 +36,7 @@ function retryProducts() {
 </script>
 
 <template>
+	<!-- API/network error state -->
 	<div v-if="!productsLoading && productsError" class="message-hint products-error">
 		<div class="icon warning"></div>
 		<div class="reason">Не удалось загрузить варианты туров.</div>
@@ -51,6 +52,7 @@ function retryProducts() {
 		</Button>
 	</div>
 
+	<!-- Empty result state for current filters -->
 	<div v-else-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
 		<div class="icon warning"></div>
 		<div class="reason">Из {{ $cityGenitiveCase(selectedDeparture.name) }} в данной подборке отелей нет подходящих

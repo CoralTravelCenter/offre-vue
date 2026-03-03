@@ -1,5 +1,4 @@
 <script setup>
-
 import {computed, nextTick, onMounted, onUnmounted, provide, ref, watch} from "vue";
 import {useMediaQuery, useScriptTag, useUrlSearchParams} from "@vueuse/core";
 import dayjs from "dayjs";
@@ -23,6 +22,16 @@ import {useOffreProducts} from "../../composables/useOffreProducts";
 
 dayjs.locale(locale_ru);
 
+const DESKTOP_LAYOUT_BREAKPOINT = "(min-width: 993px)";
+const DEFAULT_PAGE_SIZE = 10;
+const PAGER_SIBLING_COUNT = 1;
+const STICKY_BOTTOM_OFFSET = 16;
+const CONTROLS_STICKY_Z_INDEX = 30;
+const PAGER_STICKY_Z_INDEX = 20;
+const MV_MODE_TOP_OFFSET = 100;
+const DESKTOP_TOP_OFFSET = 16;
+const MOBILE_TOP_OFFSET = 74;
+
 const instance_uuid = uuid_v4();
 
 const props = defineProps({
@@ -39,13 +48,16 @@ provide('widget-hotels-list', props.hotelsList);
 const $el = ref();
 const calcCashbackFn = ref(() => {
 });
+
 useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.js', () => {
   calcCashbackFn.value = window._get_CBonuses;
 });
 provide('calc-cashback', {calcCashbackFn});
 
+// Shared layout mode (mobile/desktop) is consumed by nested components.
 const {layoutMode} = useOffreLayout();
 provide('layout-mode', layoutMode);
+
 const {
   regionOptions,
   regionsLoading,
@@ -60,6 +72,8 @@ const {
   selectedDepartureId
 } = useOffreFilters({props, rootEl: $el});
 provide('selected-departure', selectedDeparture);
+
+// Increment this token to force re-fetch without mutating filter state.
 const productsReloadToken = ref(0);
 
 const {
@@ -88,25 +102,30 @@ function retryProductsFetch() {
 provide('product-reference', {productReference, getReferenceValueByKey});
 provide('clicked-location-hotel-id', clickedLocationHotelId);
 
-const isLargeScreen = useMediaQuery('(min-width: 993px)')
-const searchParams = useUrlSearchParams('history')
+const isLargeScreen = useMediaQuery(DESKTOP_LAYOUT_BREAKPOINT);
+const searchParams = useUrlSearchParams('history');
 const isMvMode = computed(() => {
-  const raw = searchParams.mv
-  const value = Array.isArray(raw) ? raw[0] : raw
-  return String(value).toLowerCase() === 'true'
-})
+  const raw = searchParams.mv;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return String(value).toLowerCase() === 'true';
+});
+
+// Sticky top offset depends on /?mv=true mode and current layout.
 const controlsStickyOptions = computed(() => ({
-  top: isMvMode.value ? 100 : (isLargeScreen.value ? 16 : 74),
-  bottom: 16,
+  top: isMvMode.value
+    ? MV_MODE_TOP_OFFSET
+    : (isLargeScreen.value ? DESKTOP_TOP_OFFSET : MOBILE_TOP_OFFSET),
+  bottom: STICKY_BOTTOM_OFFSET,
   side: 'both',
-  zIndex: 30
-}))
+  zIndex: CONTROLS_STICKY_Z_INDEX
+}));
 
 const gridViewMode = ref('list');
 provide('grid-view-mode', gridViewMode);
 
+// List-mode pagination state.
 const productListPageNumber = ref(1);
-const productListPageSize = ref(10);
+const productListPageSize = ref(DEFAULT_PAGE_SIZE);
 const totalPages = computed(() => Math.ceil(productsList.length / productListPageSize.value));
 const productGridRef = ref();
 const hasScrolledPastFirstCard = ref(false);
@@ -117,6 +136,7 @@ watch(totalPages, (pages) => {
     productListPageNumber.value = 1;
     return;
   }
+  // Keep current page valid when filters shrink result set.
   if (productListPageNumber.value > pages) {
     productListPageNumber.value = pages;
   }
@@ -124,9 +144,9 @@ watch(totalPages, (pages) => {
 
 const pagerStickyOptions = computed(() => ({
   top: 0,
-  bottom: 16,
+  bottom: STICKY_BOTTOM_OFFSET,
   side: 'bottom',
-  zIndex: 20
+  zIndex: PAGER_STICKY_Z_INDEX
 }));
 
 const showProductSkeleton = computed(() => {
@@ -154,6 +174,7 @@ function observeFirstCard() {
     return;
   }
 
+  // Show pager only after user has scrolled past the first card.
   firstCardObserver = new IntersectionObserver(([entry]) => {
     if (!entry) {
       return;
@@ -169,12 +190,12 @@ const shouldShowPager = computed(() => {
 });
 
 watch(
-    [() => productsList.length, gridViewMode, productListPageNumber, showProductSkeleton, totalPages],
-    async () => {
-      await nextTick();
-      observeFirstCard();
-    },
-    {immediate: true}
+  [() => productsList.length, gridViewMode, productListPageNumber, showProductSkeleton, totalPages],
+  async () => {
+    await nextTick();
+    observeFirstCard();
+  },
+  {immediate: true}
 );
 
 onMounted(() => {
@@ -249,7 +270,7 @@ onUnmounted(() => {
             v-model:page="productListPageNumber"
             :items-per-page="productListPageSize"
             :total="productsList.length"
-            :sibling-count="1"
+            :sibling-count="PAGER_SIBLING_COUNT"
             class="w-auto"
         >
           <PaginationContent v-slot="{ items }" class="gap-2">

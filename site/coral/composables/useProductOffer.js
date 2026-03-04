@@ -2,6 +2,7 @@ import {computed, reactive, ref, unref, watch} from "vue";
 import dayjs from "dayjs";
 import {OnlyHotelProduct} from "../../lib/b2c-api";
 import {hotelCommonSearchCriterias} from "../config/globals";
+import {REQUEST_STATE} from "./request-state";
 
 const priceSuffixMap = {
   detailed: {
@@ -248,11 +249,25 @@ export function useProductOffer({
     return dayjs(dateValue).format('DD/MM/YYYY');
   });
 
+  const offerRequestState = computed(() => {
+    if (tourType.value === 'hotel' && fetchingHotelOffer.value) {
+      return REQUEST_STATE.LOADING;
+    }
+    if (tourType.value === 'hotel' && hotelOfferError.value) {
+      return REQUEST_STATE.ERROR;
+    }
+    if (offer.value) {
+      return REQUEST_STATE.SUCCESS;
+    }
+    return REQUEST_STATE.IDLE;
+  });
+
   return {
     hotel,
     tourType,
     fetchingHotelOffer,
     hotelOfferError,
+    offerRequestState,
     offer,
     offerFinalPrice,
     offerFinalPriceFormatted,

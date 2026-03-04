@@ -76,6 +76,7 @@ const {
   productsLoading,
   productsList,
   productReference,
+  normalizedRequestState,
   noMatchedProducts,
   productsError,
   clickedLocationHotelId,
@@ -251,6 +252,7 @@ onUnmounted(() => {
     <OffreHints
         :initial-loading="initialLoading"
         :products-loading="productsLoading"
+        :request-state="normalizedRequestState"
         :no-matched-products="noMatchedProducts"
         :products-error="productsError"
         :selected-region="selectedRegion"

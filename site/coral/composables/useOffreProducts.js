@@ -5,6 +5,7 @@ import {OnlyHotelProduct, PackageTourHotelProduct} from "../../lib/b2c-api";
 import {hotelCommonSearchCriterias, packageCommonSearchCriterias} from "../config/globals";
 import {additionalFiltersWithTerms} from "../../lib/data-ops";
 import {OFFRE_PRODUCTS_REQUEST_STATE, reduceOffreProductsRequestState} from "./offre-products-state";
+import {normalizeProductsRequestState} from "./request-state";
 
 export function useOffreProducts({
   props,
@@ -38,6 +39,10 @@ export function useOffreProducts({
   });
   const noMatchedProducts = computed(() => requestState.value === OFFRE_PRODUCTS_REQUEST_STATE.EMPTY);
   const productsError = computed(() => requestState.value === OFFRE_PRODUCTS_REQUEST_STATE.ERROR);
+  const normalizedRequestState = computed(() => {
+    // Унифицированный статус без специального значения empty.
+    return normalizeProductsRequestState(requestState.value, OFFRE_PRODUCTS_REQUEST_STATE);
+  });
   const clickedLocationHotelId = ref();
   const hotelInfoById = computed(() => {
     const lookup = new Map();
@@ -219,6 +224,7 @@ export function useOffreProducts({
     productsList,
     productReference,
     requestState,
+    normalizedRequestState,
     noMatchedProducts,
     productsError,
     clickedLocationHotelId,

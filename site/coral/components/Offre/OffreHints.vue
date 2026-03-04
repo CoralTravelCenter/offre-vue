@@ -1,9 +1,10 @@
 <script setup>
+import {computed} from "vue";
 import {Button} from "app/components/ui/button";
 
 const emit = defineEmits(['retry-products']);
 
-defineProps({
+const props = defineProps({
 	initialLoading: {
 		type: Boolean,
 		default: false
@@ -11,6 +12,10 @@ defineProps({
 	productsLoading: {
 		type: Number,
 		default: 0
+	},
+	requestState: {
+		type: String,
+		default: 'idle'
 	},
 	noMatchedProducts: {
 		type: Boolean,
@@ -30,6 +35,10 @@ defineProps({
 	}
 });
 
+const isRequestLoading = computed(() => props.requestState === 'loading' || props.productsLoading > 0);
+const isRequestError = computed(() => props.requestState === 'error' || props.productsError);
+const isRequestEmpty = computed(() => props.requestState === 'success' && props.noMatchedProducts);
+
 function retryProducts() {
 	emit('retry-products');
 }
@@ -37,7 +46,7 @@ function retryProducts() {
 
 <template>
 	<!-- API/network error state -->
-	<div v-if="!productsLoading && productsError" class="message-hint products-error">
+	<div v-if="!isRequestLoading && isRequestError" class="message-hint products-error">
 		<div class="icon warning"></div>
 		<div class="reason">Не удалось загрузить варианты туров.</div>
 		<div class="hint">Проверьте подключение к сети или повторите попытку чуть позже.</div>
@@ -53,7 +62,7 @@ function retryProducts() {
 	</div>
 
 	<!-- Empty result state for current filters -->
-	<div v-else-if="!productsLoading && noMatchedProducts && selectedRegion" class="message-hint no-matched-products">
+	<div v-else-if="!isRequestLoading && isRequestEmpty && selectedRegion" class="message-hint no-matched-products">
 		<div class="icon warning"></div>
 		<div class="reason">Из {{ $cityGenitiveCase(selectedDeparture.name) }} в данной подборке отелей нет подходящих
 			вариантов.

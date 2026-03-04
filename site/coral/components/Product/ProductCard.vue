@@ -27,6 +27,7 @@ const {
   hotel,
   tourType,
   fetchingHotelOffer,
+  offerRequestState,
   offer,
   offerFinalPrice,
   offerFinalPriceFormatted,
@@ -112,6 +113,7 @@ whenever(isProductCardVisible, () => {
           v-model:tour-type="tourType"
           :is-hotel-only="isHotelOnly"
           :fetching-hotel-offer="fetchingHotelOffer"
+          :offer-request-state="offerRequestState"
           :offer="offer"
           :offer-list-price-formatted="offerListPriceFormatted"
           :offer-final-price-formatted="offerFinalPriceFormatted"

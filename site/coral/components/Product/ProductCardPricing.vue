@@ -1,18 +1,19 @@
 <script setup>
 import {Popover, PopoverContent, PopoverTrigger} from "app/components/ui/popover";
 import {Button} from "app/components/ui/button";
-import {ToggleGroup, ToggleGroupItem} from "app/components/ui/toggle-group";
 import {Skeleton} from "app/components/ui/skeleton";
-import {computed} from "vue";
+import ProductPriceBlock from "./ProductPriceBlock.vue";
+import ProductTourTypeSwitch from "./ProductTourTypeSwitch.vue";
+
+const tourTypeModel = defineModel('tourType', {
+	type: String,
+	default: 'package'
+});
 
 const props = defineProps({
 	isHotelOnly: {
 		type: Boolean,
 		default: false
-	},
-	tourType: {
-		type: String,
-		default: 'package'
 	},
 	fetchingHotelOffer: {
 		type: Boolean,
@@ -40,46 +41,14 @@ const props = defineProps({
 	}
 });
 
-const emit = defineEmits(['update:tourType']);
-
-function setTourType(value) {
-	emit('update:tourType', value);
-}
-
-const selectedTourType = computed(() => (props.isHotelOnly ? 'hotel' : props.tourType));
-
-function setTourTypeFromToggle(value) {
-	// Ignore empty payload and duplicate updates from toggle-group.
-	if (!value || value === props.tourType) {
-		return;
-	}
-	setTourType(value);
-}
 </script>
 
 <template>
 	<div class="pricing">
-		<ToggleGroup
-				class="w-full"
-				type="single"
-				variant="outline"
-				:model-value="selectedTourType"
-				@update:model-value="setTourTypeFromToggle"
-		>
-			<ToggleGroupItem
-					class="flex-1 data-[state=on]:bg-transparent  data-[state=on]:text-[#0092D0] data-[state=on]:border-[#0092D0]"
-					v-if="!isHotelOnly"
-					value="package"
-			>
-				Тур с перелетом
-			</ToggleGroupItem>
-			<ToggleGroupItem
-					class="flex-1 data-[state=on]:bg-transparent  data-[state=on]:text-[#0092D0] data-[state=on]:border-[#0092D0]"
-					value="hotel"
-			>
-				Только отель
-			</ToggleGroupItem>
-		</ToggleGroup>
+		<ProductTourTypeSwitch
+				v-model="tourTypeModel"
+				:is-hotel-only="isHotelOnly"
+		/>
 
 		<div v-if="props.fetchingHotelOffer" class="tour-info-skeleton" aria-hidden="true">
 			<div class="price-discount">
@@ -103,11 +72,12 @@ function setTourTypeFromToggle(value) {
 		<div v-else class="tour-info">
 			<div class="price-discount">
 				<div class="price">
-					<div class="from-wording">цена от:</div>
-					<div v-if="props.offer.price.oldAmount" class="list-price">{{ props.offerListPriceFormatted }}</div>
-					<div class="final-price">
-						<span class="final-price__value" v-html="props.offerFinalPriceFormatted"></span>
-					</div>
+					<ProductPriceBlock
+							variant="card"
+							from-label="цена от:"
+							:old-price="props.offer.price.oldAmount ? props.offerListPriceFormatted : ''"
+							:final-price="props.offerFinalPriceFormatted"
+					/>
 				</div>
 				<div class="discount" v-if="props.offer.price.discountPercent">
 					{{ props.offer.price.discountPercent }}% Скидка
@@ -129,7 +99,7 @@ function setTourTypeFromToggle(value) {
 						side="top"
 						align="center"
 						:align-offset="0"
-						class="offre-vue-cashback-popover-content offre-shadow-ring border-0 rounded-xl px-3 py-0 w-max max-w-[calc(100vw-32px)]"
+						class="offre-vue-cashback-popover-content offre-shadow-ring border-0 rounded-xl px-3 py-0"
 						show-arrow
 						:arrow-width="16"
 						:arrow-height="8"
@@ -251,36 +221,6 @@ function setTourTypeFromToggle(value) {
 	white-space: nowrap;
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
-}
-
-.pricing .price-discount .from-wording {
-	font-size: 10px;
-	color: @coral-grey;
-}
-
-.pricing .price-discount .list-price {
-	font-size: 12px;
-	text-decoration: line-through @coral-red-error;
-}
-
-.pricing .price-discount .final-price {
-	display: inline-flex;
-	align-items: baseline;
-	gap: 4px;
-	font-size: 24px;
-	font-weight: 600;
-	color: @coral-main-blue;
-}
-
-.pricing .price-discount .final-price .per-person {
-	font-size: 62%;
-	font-weight: 400;
-}
-
-.pricing .price-discount .final-price :deep(.per-night) {
-	font-size: 62%;
-	font-weight: 300;
 }
 
 .pricing .price-discount .discount {
@@ -377,11 +317,35 @@ function setTourTypeFromToggle(value) {
 	flex-shrink: 0;
 }
 
+@media screen and (min-width: 1280px) {
+	.pricing {
+		height: 100%;
+		padding: 0 0 0 12px;
+		border-top: 0;
+		border-left: 1px solid fade(black, 10%);
+		justify-content: flex-start;
+		gap: 16px;
+	}
+
+	.pricing .tour-info,
+	.pricing .tour-info-skeleton {
+		flex: 0 0 auto;
+		justify-content: flex-start;
+		gap: 16px;
+		margin-top: auto;
+	}
+}
+
 .promos-grid {
 	display: flex;
 	flex-direction: column;
 	font-size: 12px;
 	font-weight: 600;
+}
+
+.offre-vue-cashback-popover-content {
+	width: max-content;
+	max-width: calc(100vw - 32px);
 }
 
 .promo-row {
@@ -399,6 +363,30 @@ function setTourTypeFromToggle(value) {
 
 	span {
 		text-align: left;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+	.offre-vue-cashback-popover-content {
+		width: min(560px, calc(100vw - 32px));
+	}
+
+	.promo-row {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: start;
+		gap: 12px 16px;
+	}
+
+	.promo-row .description {
+		min-width: 0;
+		text-wrap: wrap;
+	}
+
+	.info-action {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
 	}
 }
 

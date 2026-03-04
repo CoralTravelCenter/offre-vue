@@ -99,6 +99,20 @@ function retryProductsFetch() {
   productsReloadToken.value += 1;
 }
 
+const sharedTourTypeByHotelId = ref({});
+provide('shared-tour-type-by-hotel-id', sharedTourTypeByHotelId);
+
+watch(productsList, (nextProducts) => {
+  const knownHotelIds = new Set(
+    (nextProducts || []).map((product) => String(product?.hotel?.id ?? ''))
+  );
+  for (const hotelId of Object.keys(sharedTourTypeByHotelId.value)) {
+    if (!knownHotelIds.has(hotelId)) {
+      delete sharedTourTypeByHotelId.value[hotelId];
+    }
+  }
+}, {immediate: true});
+
 provide('product-reference', {productReference, getReferenceValueByKey});
 provide('clicked-location-hotel-id', clickedLocationHotelId);
 
@@ -218,20 +232,16 @@ onUnmounted(() => {
         v-sticky="controlsStickyOptions"
     >
       <OffreControls
-          :selected-region="selectedRegion"
+          v-model:selected-region="selectedRegion"
           :region-options="regionOptions"
           :regions-loading="regionsLoading"
           :wildcard-option="options.wildcardOption"
-          :selected-departure-id="selectedDepartureId"
+          v-model:selected-departure-id="selectedDepartureId"
           :departures="departures"
-          :selected-timeframe="selectedTimeframe"
+          v-model:selected-timeframe="selectedTimeframe"
           :timeframe-options="timeframeOptions"
           :is-timeframe-selectable="isTimeframeSelectable"
-          :grid-view-mode="gridViewMode"
-          @update:selected-region="selectedRegion = $event"
-          @update:selected-departure-id="selectedDepartureId = $event"
-          @update:selected-timeframe="selectedTimeframe = $event"
-          @update:grid-view-mode="gridViewMode = $event"
+          v-model:grid-view-mode="gridViewMode"
           @request-map-mode="clickedLocationHotelId = null"
       />
     </div>
@@ -341,8 +351,32 @@ onUnmounted(() => {
   gap: 16px;
 }
 
-.product-skeleton-list {
-  display: grid;
-  gap: 8px;
+.offre-vue .controls-sticky {
+  padding-bottom: 8px;
 }
+
+.product-skeleton-list {
+	display: grid;
+	gap: 8px;
+	grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 768px) {
+	.product-skeleton-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media screen and (min-width: 1024px) {
+  .offre-vue .controls-sticky {
+    padding: 8px 8px 8px 0;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .product-skeleton-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>

@@ -12,6 +12,7 @@ const props = defineProps(['product']);
 
 const widgetOptions = inject('widget-options');
 const widgetHotelsList = inject('widget-hotels-list');
+const sharedTourTypeByHotelId = inject('shared-tour-type-by-hotel-id', null);
 const {calcCashbackFn} = inject('calc-cashback');
 
 const {
@@ -29,6 +30,7 @@ const {
   product: toRef(props, 'product'),
   widgetOptions,
   widgetHotelsList,
+  sharedTourTypeByHotelId,
   priceLabelMode: 'detailed'
 });
 
@@ -60,7 +62,12 @@ const cashbackInfo = computed(() => {
 const gridViewMode = inject('grid-view-mode');
 
 const hotelUspsList = computed(() => {
-  return widgetHotelsList.find(hotelSetup => hotelSetup.id === hotel.id)?.usps;
+  const matchedHotelSetup = widgetHotelsList.find((hotelSetup) => {
+    const setupId = typeof hotelSetup === 'number' ? hotelSetup : hotelSetup?.id;
+    return setupId == hotel.id;
+  });
+
+  return Array.isArray(matchedHotelSetup?.usps) ? matchedHotelSetup.usps : [];
 });
 
 const clickedLocationHotelId = inject('clicked-location-hotel-id');
@@ -80,7 +87,7 @@ whenever(isProductCardVisible, () => {
 </script>
 
 <template>
-  <Card ref="$el" class="flex flex-col rounded-[20px] border border-[rgba(0,0,0,0.15)] bg-white p-2"
+  <Card ref="$el" class="product-card flex flex-col rounded-[20px] border border-[rgba(0,0,0,0.15)] bg-white p-2"
   >
     <CardContent class="product-card__content p-0">
       <ProductCardVisual :hotel="hotel" :offer-href="offerHref"/>
@@ -112,3 +119,37 @@ whenever(isProductCardVisible, () => {
     </CardFooter>
   </Card>
 </template>
+
+<style scoped lang="less">
+.product-card {
+  min-width: 0;
+}
+
+.product-card__content,
+.product-card__footer {
+  min-width: 0;
+}
+
+@media screen and (min-width: 1280px) {
+  .product-card {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr) 300px;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .product-card__content {
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .product-card__footer {
+    grid-column: 3;
+    grid-row: 1;
+    display: block;
+  }
+}
+</style>

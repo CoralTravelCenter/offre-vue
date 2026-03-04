@@ -2,8 +2,12 @@
 import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
 import {Skeleton} from "app/components/ui/skeleton";
 
+const model = defineModel({
+	type: [String, Number],
+	default: undefined
+});
+
 const props = defineProps({
-	modelValue: [String, Number],
 	wildcardOption: [Boolean, String],
 	loading: {
 		type: Boolean,
@@ -15,14 +19,13 @@ const props = defineProps({
 	}
 });
 
-const emit = defineEmits(['update:modelValue']);
 const scroller = ref();
 const hasLeftFade = ref(false);
 const hasRightFade = ref(false);
 const hasInitialScrollSync = ref(false);
 
 const selectedValue = computed(() => {
-	return props.modelValue == null ? undefined : String(props.modelValue);
+	return model.value == null ? undefined : String(model.value);
 });
 
 const availableValues = computed(() => {
@@ -58,7 +61,7 @@ function syncScrollFade() {
 
 async function selectOption(value) {
 	const nextValue = String(value);
-	emit('update:modelValue', nextValue);
+	model.value = nextValue;
 }
 
 function scrollToValue(value, behavior = "smooth") {
@@ -180,6 +183,12 @@ onUnmounted(() => {
 	}
 }
 
+@media screen and (min-width: 1024px) {
+	.region-select-shell {
+		margin-top: 0;
+	}
+}
+
 .region-select {
 	display: flex;
 	align-items: center;
@@ -220,13 +229,14 @@ onUnmounted(() => {
 }
 
 .region-select-skeleton__item {
-	display: inline-block;
+	display: block;
+	flex: 1 1 0;
+	min-width: 0;
 	height: 38px;
-	width: 124px;
 	border-radius: 24px;
 }
 
 .region-select-skeleton__item--active {
-	width: 160px;
+	flex: 1 1 0;
 }
 </style>

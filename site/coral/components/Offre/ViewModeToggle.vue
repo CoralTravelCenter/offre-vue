@@ -1,17 +1,13 @@
 <script setup>
 import {computed} from "vue";
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: 'list'
-  }
+const model = defineModel({
+  type: String,
+  default: 'list'
 });
 
-const emit = defineEmits(['update:modelValue']);
-
 // The single button toggles list <-> map mode.
-const isMapMode = computed(() => props.modelValue === 'map');
+const isMapMode = computed(() => model.value === 'map');
 
 const ariaLabel = computed(() => {
   if (isMapMode.value) {
@@ -21,7 +17,7 @@ const ariaLabel = computed(() => {
 });
 
 function toggleMode() {
-  emit('update:modelValue', isMapMode.value ? 'list' : 'map');
+  model.value = isMapMode.value ? 'list' : 'map';
 }
 </script>
 
@@ -42,7 +38,7 @@ function toggleMode() {
         ]"
         @click="toggleMode"
     >
-      <svg v-if="isMapMode" class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg v-if="!isMapMode" class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path
             d="M15.556 1.667H4.444a2.78 2.78 0 0 0-2.777 2.777v11.112a2.78 2.78 0 0 0 2.777 2.777h11.112a2.78 2.78 0 0 0 2.777-2.777V4.444a2.78 2.78 0 0 0-2.777-2.777M4.444 2.777h11.112a1.67 1.67 0 0 1 1.666 1.667v2.693L2.778 5.074v-.63a1.67 1.67 0 0 1 1.666-1.666M2.778 15.557v-9.36l6.022.86-2.033 10.166H4.444a1.67 1.67 0 0 1-1.666-1.667m12.778 1.666H7.9L9.902 7.214l7.32 1.045v7.297a1.67 1.67 0 0 1-1.667 1.666"
             fill="currentColor"

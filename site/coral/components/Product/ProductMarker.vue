@@ -7,10 +7,6 @@ import icon_elite from 'data-url:/site/coral/assets-inline/hotel-marker-elite.sv
 import {useProductOffer} from "../../composables/useProductOffer";
 
 import {openedMapMarker} from "./global-state";
-import ProductMarkerVisual from "./ProductMarkerVisual.vue";
-import ProductMarkerDetails from "./ProductMarkerDetails.vue";
-import ProductMarkerPricing from "./ProductMarkerPricing.vue";
-
 const $this = getCurrentInstance();
 
 const props = defineProps({
@@ -23,20 +19,12 @@ const props = defineProps({
 
 const widgetOptions = inject('widget-options');
 const widgetHotelsList = inject('widget-hotels-list');
-const {
-  hotel,
-  tourType,
-  fetchingHotelOffer,
-  offer,
-  offerFinalPriceFormatted,
-  offerListPriceFormatted,
-  isHotelOnly,
-  offerHref,
-  beginDate
-} = useProductOffer({
+const sharedTourTypeByHotelId = inject('shared-tour-type-by-hotel-id', null);
+const {hotel} = useProductOffer({
   product: toRef(props, 'product'),
   widgetOptions,
   widgetHotelsList,
+  sharedTourTypeByHotelId,
   priceLabelMode: 'compact'
 });
 
@@ -53,55 +41,19 @@ const placemarkIconUrl = computed(() => {
 const isOpen = ref(props.initiallyOpen);
 defineExpose({hide: () => isOpen.value = false});
 
-const selectedDeparture = inject('selected-departure');
-const {getReferenceValueByKey} = inject('product-reference');
-
-const hotelCategory = computed(() => getReferenceValueByKey('hotelCategories', hotel.categoryKey) || {});
-const hotelCategoryName = computed(() => hotelCategory.value.name || '');
-const hotelStarCount = computed(() => hotelCategory.value.starCount || 0);
-const mealType = computed(() => {
-  const mealKey = offer.value?.rooms?.[0]?.mealKey;
-  return getReferenceValueByKey('meals', mealKey)?.name || '';
-});
+const emit = defineEmits(['toggle']);
 
 function handleClick() {
   isOpen.value = !isOpen.value;
   openedMapMarker.value = isOpen.value ? $this : null;
+  emit('toggle', isOpen.value ? hotel.id : null);
 }
 
 </script>
 
 <template>
-  <div class="marker" :class="{ open: isOpen }" @click="handleClick">
-    <div class="placemark" :style="{ backgroundImage: `url(${ placemarkIconUrl })` }"></div>
-
-    <div class="popover">
-      <ProductMarkerVisual :hotel="hotel" :is-open="isOpen"/>
-
-      <div class="info-pricing">
-        <ProductMarkerDetails
-            :hotel="hotel"
-            :offer="offer"
-            :selected-departure-name="selectedDeparture?.name"
-            :begin-date="beginDate"
-            :hotel-category-name="hotelCategoryName"
-            :hotel-star-count="hotelStarCount"
-            :meal-type="mealType"
-            :is-open="isOpen"
-        />
-
-        <ProductMarkerPricing
-            v-model:tour-type="tourType"
-            :is-hotel-only="isHotelOnly"
-            :fetching-hotel-offer="fetchingHotelOffer"
-            :offer="offer"
-            :offer-list-price-formatted="offerListPriceFormatted"
-            :offer-final-price-formatted="offerFinalPriceFormatted"
-            :offer-href="offerHref"
-            :is-open="isOpen"
-        />
-      </div>
-    </div>
+  <div class="marker" :class="{ open: isOpen }">
+    <button class="placemark" type="button" :style="{ backgroundImage: `url(${ placemarkIconUrl })` }" @click.stop="handleClick"></button>
   </div>
 </template>
 
@@ -119,56 +71,13 @@ function handleClick() {
 
   .placemark {
     position: absolute;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
     inset: 0;
     background: center / cover no-repeat;
   }
 
-  &.open {
-    .popover {
-      padding: 0 1em 0 0;
-      border-radius: .5em;
-      box-shadow: 2px -2px 16px fade(black, 20%);
-
-      .info-pricing {
-        padding: 1em 0;
-      }
-    }
-  }
-
-  &:not(.open) {
-    .popover {
-      gap: 0;
-
-      .info-pricing {
-        padding: 0;
-        gap: 0;
-      }
-    }
-  }
-
-  .popover {
-    position: absolute;
-    z-index: -1;
-    line-height: 1.5;
-    padding: 0 .5em 0 2.2em;
-    border-radius: 100px;
-    left: 2px;
-    top: auto;
-    bottom: 1em;
-    max-width: unset;
-    box-shadow: 1px 1px 2px fade(black, 25%);
-    background: fade(white, 90%);
-    backdrop-filter: blur(4px);
-    display: flex;
-    gap: 1em;
-    overflow: hidden;
-    .transit(box-shadow, .25s);
-
-    .info-pricing {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-  }
 }
 </style>

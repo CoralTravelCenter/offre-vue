@@ -29,6 +29,13 @@ export function useOffreFilters({props, rootEl}) {
 
   const hotelInfos = ref([]);
   const regionsDirectory = ref({});
+  const hotelInfoById = computed(() => {
+    const lookup = new Map();
+    for (const info of hotelInfos.value || []) {
+      lookup.set(String(info.id), info);
+    }
+    return lookup;
+  });
 
   const departures = ref([]);
   const selectedDeparture = ref({});
@@ -135,12 +142,12 @@ export function useOffreFilters({props, rootEl}) {
         areas: 'areaKey',
         places: 'placeKey'
       }[props.options.groupBy];
-      const selectedRegionEntry = [...Object.entries(regionsDirectory.value[props.options.groupBy] || {})]
-        .find(([, value]) => value.name === selectedRegion.value);
-      const selectedRegionId = selectedRegionEntry?.[0];
+      const selectedRegionId = Object.entries(regionsDirectory.value[props.options.groupBy] || {})
+        .find(([, value]) => value.name === selectedRegion.value)?.[0];
 
       return hotelsDirectory.value.filter(hotel => {
-        const hotelInfo = hotelInfos.value.find(info => hotel.id == info.id);
+        // Используем map-lookup вместо поиска по массиву для каждой карточки.
+        const hotelInfo = hotelInfoById.value.get(String(hotel.id));
         const hasTimeframe = hotel.timeframes.some(tf => tf.key === selectedTimeframe.value);
         return !!hotelInfo
           && (selectedRegion.value === '*'

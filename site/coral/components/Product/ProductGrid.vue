@@ -196,6 +196,7 @@ const productsExceptSelectedByLocation = computed(() => {
 });
 
 const activeMapProduct = computed(() => productsSelectedByLocation.value[0] || null);
+const productHotelIds = computed(() => props.products.map((product) => product.hotel.id));
 
 watch(() => clickedLocationHotelId.value, (nextId) => {
 	if (nextId) {
@@ -227,14 +228,14 @@ watch(() => props.viewMode, (nextMode) => {
 }, {immediate: true});
 
 
-watch(() => props.products, () => {
+watch(productHotelIds, () => {
 	if (!activeMapHotelId.value) {
 		return;
 	}
 	if (!props.products.some(product => product.hotel.id === activeMapHotelId.value)) {
 		activeMapHotelId.value = null;
 	}
-}, {deep: true});
+});
 
 function handleMarkerToggle(nextHotelId) {
 	activeMapHotelId.value = nextHotelId;

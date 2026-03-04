@@ -96,11 +96,12 @@ function retryProductsFetch() {
 }
 
 const sharedTourTypeByHotelId = ref({});
+const productHotelIds = computed(() => {
+  return (productsList || []).map((product) => String(product?.hotel?.id ?? ''));
+});
 
-watch(productsList, (nextProducts) => {
-  const knownHotelIds = new Set(
-    (nextProducts || []).map((product) => String(product?.hotel?.id ?? ''))
-  );
+watch(productHotelIds, (nextHotelIds) => {
+  const knownHotelIds = new Set(nextHotelIds);
   for (const hotelId of Object.keys(sharedTourTypeByHotelId.value)) {
     if (!knownHotelIds.has(hotelId)) {
       delete sharedTourTypeByHotelId.value[hotelId];

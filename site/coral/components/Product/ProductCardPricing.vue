@@ -15,10 +15,6 @@ const props = defineProps({
 		type: Boolean,
 		default: false
 	},
-	fetchingHotelOffer: {
-		type: Boolean,
-		default: false
-	},
 	offerRequestState: {
 		type: String,
 		default: 'idle'
@@ -54,7 +50,7 @@ const props = defineProps({
 				:is-hotel-only="isHotelOnly"
 		/>
 
-		<div v-if="props.offerRequestState === 'loading' || props.fetchingHotelOffer" class="tour-info-skeleton" aria-hidden="true">
+		<div v-if="props.offerRequestState === 'loading'" class="tour-info-skeleton" aria-hidden="true">
 			<div class="price-discount">
 				<div class="price">
 					<Skeleton class="sk sk--from"/>

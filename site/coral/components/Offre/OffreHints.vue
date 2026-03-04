@@ -5,23 +5,11 @@ import {Button} from "app/components/ui/button";
 const emit = defineEmits(['retry-products']);
 
 const props = defineProps({
-	initialLoading: {
-		type: Boolean,
-		default: false
-	},
-	productsLoading: {
-		type: Number,
-		default: 0
-	},
 	requestState: {
 		type: String,
 		default: 'idle'
 	},
 	noMatchedProducts: {
-		type: Boolean,
-		default: false
-	},
-	productsError: {
 		type: Boolean,
 		default: false
 	},
@@ -35,8 +23,8 @@ const props = defineProps({
 	}
 });
 
-const isRequestLoading = computed(() => props.requestState === 'loading' || props.productsLoading > 0);
-const isRequestError = computed(() => props.requestState === 'error' || props.productsError);
+const isRequestLoading = computed(() => props.requestState === 'loading');
+const isRequestError = computed(() => props.requestState === 'error');
 const isRequestEmpty = computed(() => props.requestState === 'success' && props.noMatchedProducts);
 
 function retryProducts() {

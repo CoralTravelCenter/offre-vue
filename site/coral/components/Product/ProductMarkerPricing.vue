@@ -11,9 +11,9 @@ defineProps({
 		type: String,
 		default: 'package'
 	},
-	fetchingHotelOffer: {
-		type: Boolean,
-		default: false
+	offerRequestState: {
+		type: String,
+		default: 'idle'
 	},
 	offer: {
 		type: Object,
@@ -42,7 +42,7 @@ defineProps({
 <template>
 	<div class="pricing" :class="{ open: isOpen }">
 		<div class="price">
-			<template v-if="fetchingHotelOffer">
+			<template v-if="offerRequestState === 'loading'">
 				<Skeleton v-if="offer.price.oldAmount" class="sk sk--list-price"/>
 				<Skeleton class="sk sk--final-price"/>
 			</template>

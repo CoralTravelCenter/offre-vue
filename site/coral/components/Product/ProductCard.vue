@@ -26,7 +26,6 @@ const {calcCashbackFn} = calcCashback;
 const {
   hotel,
   tourType,
-  fetchingHotelOffer,
   offerRequestState,
   offer,
   offerFinalPrice,
@@ -112,7 +111,6 @@ whenever(isProductCardVisible, () => {
       <ProductCardPricing
           v-model:tour-type="tourType"
           :is-hotel-only="isHotelOnly"
-          :fetching-hotel-offer="fetchingHotelOffer"
           :offer-request-state="offerRequestState"
           :offer="offer"
           :offer-list-price-formatted="offerListPriceFormatted"

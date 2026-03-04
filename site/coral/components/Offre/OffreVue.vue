@@ -250,11 +250,8 @@ onUnmounted(() => {
     </div>
 
     <OffreHints
-        :initial-loading="initialLoading"
-        :products-loading="productsLoading"
         :request-state="normalizedRequestState"
         :no-matched-products="noMatchedProducts"
-        :products-error="productsError"
         :selected-region="selectedRegion"
         :selected-departure="selectedDeparture"
         @retry-products="retryProductsFetch"

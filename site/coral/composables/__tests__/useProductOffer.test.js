@@ -110,4 +110,32 @@ describe("useProductOffer", () => {
     expect(offerState.offerRequestState.value).toBe("error");
     expect(offerState.hotelOfferError.value).toBeTruthy();
   });
+
+  it("не переносит режим hotel между разными отелями", async () => {
+    const sharedTourTypeByHotelId = ref({});
+    const product = ref(createProduct());
+    const offerState = useProductOffer({
+      product,
+      widgetOptions: {pricing: "default"},
+      widgetHotelsList: ref([{id: "100"}, {id: "200"}]),
+      sharedTourTypeByHotelId
+    });
+
+    offerState.tourType.value = "hotel";
+    await nextTick();
+    expect(sharedTourTypeByHotelId.value["100"]).toBe("hotel");
+
+    product.value = {
+      ...createProduct(),
+      hotel: {
+        ...createProduct().hotel,
+        id: "200",
+        location: {id: "200-7-1-", type: 7}
+      }
+    };
+    await nextTick();
+
+    expect(offerState.tourType.value).toBe("package");
+    expect(sharedTourTypeByHotelId.value["200"]).toBe("package");
+  });
 });

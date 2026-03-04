@@ -69,9 +69,17 @@ export function useProductOffer({
     }
   });
 
-  watch(hotelIdKey, (hotelKey) => {
+  watch(hotelIdKey, (hotelKey, prevHotelKey) => {
     const sharedState = sharedTourTypeSource.value;
-    if (!hotelKey || !sharedState) {
+    if (!hotelKey) {
+      return;
+    }
+    if (hotelKey !== prevHotelKey) {
+      // При переходе на другой отель начинаем с дефолтного package,
+      // чтобы состояние "только отель" не переезжало между разными карточками.
+      localTourType.value = 'package';
+    }
+    if (!sharedState) {
       return;
     }
     if (typeof sharedState[hotelKey] !== 'string') {

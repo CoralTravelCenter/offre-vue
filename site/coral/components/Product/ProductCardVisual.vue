@@ -20,9 +20,9 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-  <a target="_blank" :href="props.offerHref" class="block relative">
+  <a target="_blank" :href="props.offerHref" class="product-card-visual block relative">
     <img v-if="imageUrl" :src="imageUrl" :alt="props.hotel?.name || ''"
-         class="block w-full h-50 rounded-[12px] object-cover">
+         class="product-card-visual__image block w-full rounded-[12px] object-cover">
     <div class="absolute top-2.5 left-2.5 badges-grid">
       <Badge v-if="props.hotel.recommended" variant="default" class="custom-badge bg-white text-black">
         Рекомендуем
@@ -46,5 +46,21 @@ const imageUrl = computed(() => {
   padding-block: 4px;
   padding-inline: 8px;
   border-radius: 12px;
+}
+
+.product-card-visual__image {
+  height: 200px;
+}
+
+@media screen and (min-width: 1280px) {
+  .product-card-visual {
+    height: 100%;
+    min-height: 240px;
+  }
+
+  .product-card-visual__image {
+    height: 100%;
+    min-height: 240px;
+  }
 }
 </style>

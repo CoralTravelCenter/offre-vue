@@ -105,4 +105,63 @@ import {Skeleton} from "app/components/ui/skeleton";
     height: 200px;
   }
 }
+
+@media screen and (min-width: 1280px) {
+  .product-card-skeleton {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr) 300px;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .product-card-skeleton__content {
+    grid-column: 1 / 3;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .product-card-skeleton__visual {
+    height: 100%;
+    min-height: 240px;
+  }
+
+  .product-card-skeleton__details {
+    justify-content: center;
+    gap: 0;
+    padding: 8px 0;
+    min-width: 0;
+  }
+
+  .product-card-skeleton__title {
+    margin-bottom: 8px;
+  }
+
+  .product-card-skeleton__meta {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .product-card-skeleton__meta--short {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .product-card-skeleton__footer {
+    grid-column: 3;
+    grid-row: 1;
+    margin-top: 0;
+    padding: 0 0 0 12px;
+    border-top: 0;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .product-card-skeleton__price-label {
+    margin-top: auto;
+  }
+}
 </style>

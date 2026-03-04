@@ -123,6 +123,16 @@
     }
 }
 
+@layer utilities {
+    .offre-shadow-ring {
+        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
+    }
+
+    .offre-sticky-shadow[data-sticky="true"] {
+        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
+    }
+}
+
 #header-sticky-bar {
     display: none !important
 }
@@ -134,12 +144,6 @@
     width: 100%;
 }
 
-@layer utilities {
-    .offre-shadow-ring {
-        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
-    }
-
-    .offre-sticky-shadow[data-sticky="true"] {
-        box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
-    }
-}
+/*.layout-container-limit {*/
+/*    padding: 0 16px !important;*/
+/*}*/

@@ -1,7 +1,8 @@
 <script setup>
-import {computed, inject, toRef} from "vue";
+import {computed, toRef} from "vue";
 import {Card, CardContent} from "app/components/ui/card";
 import {useProductOffer} from "../../composables/useProductOffer";
+import {useProductContext} from "../../composables/useProductContext";
 import ProductCardVisual from "./ProductCardVisual.vue";
 import ProductLocation from "./ProductLocation.vue";
 import ProductRatingStars from "./ProductRatingStars.vue";
@@ -16,11 +17,14 @@ const props = defineProps({
   }
 });
 
-const widgetOptions = inject('widget-options');
-const widgetHotelsList = inject('widget-hotels-list');
-const sharedTourTypeByHotelId = inject('shared-tour-type-by-hotel-id', null);
-const selectedDeparture = inject('selected-departure');
-const {getReferenceValueByKey} = inject('product-reference');
+const {
+  widgetOptions,
+  widgetHotelsList,
+  sharedTourTypeByHotelId,
+  selectedDeparture,
+  productReference
+} = useProductContext();
+const {getReferenceValueByKey} = productReference;
 
 const {
   hotel,

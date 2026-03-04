@@ -1,10 +1,11 @@
 <script setup>
-import {computed, getCurrentInstance, inject, ref, toRef} from "vue";
+import {computed, getCurrentInstance, ref, toRef} from "vue";
 
 import icon_default from 'data-url:/site/coral/assets-inline/hotel-marker-default.svg';
 import icon_cfc from 'data-url:/site/coral/assets-inline/hotel-marker-cfc.svg';
 import icon_elite from 'data-url:/site/coral/assets-inline/hotel-marker-elite.svg';
 import {useProductOffer} from "../../composables/useProductOffer";
+import {useProductContext} from "../../composables/useProductContext";
 
 import {openedMapMarker} from "./global-state";
 const $this = getCurrentInstance();
@@ -17,9 +18,7 @@ const props = defineProps({
   }
 });
 
-const widgetOptions = inject('widget-options');
-const widgetHotelsList = inject('widget-hotels-list');
-const sharedTourTypeByHotelId = inject('shared-tour-type-by-hotel-id', null);
+const {widgetOptions, widgetHotelsList, sharedTourTypeByHotelId} = useProductContext();
 const {hotel} = useProductOffer({
   product: toRef(props, 'product'),
   widgetOptions,

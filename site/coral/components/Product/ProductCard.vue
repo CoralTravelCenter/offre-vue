@@ -1,8 +1,9 @@
 <script setup>
-import {computed, inject, ref, toRef} from "vue";
+import {computed, ref, toRef} from "vue";
 import {useElementVisibility, whenever} from "@vueuse/core";
 import {trackAnyProductCardVisible} from "./global-state";
 import {useProductOffer} from "../../composables/useProductOffer";
+import {useProductContext} from "../../composables/useProductContext";
 import {Card, CardContent, CardFooter} from "app/components/ui/card";
 import ProductCardVisual from "./ProductCardVisual.vue";
 import ProductCardDetails from "./ProductCardDetails.vue";
@@ -10,10 +11,17 @@ import ProductCardPricing from "./ProductCardPricing.vue";
 
 const props = defineProps(['product']);
 
-const widgetOptions = inject('widget-options');
-const widgetHotelsList = inject('widget-hotels-list');
-const sharedTourTypeByHotelId = inject('shared-tour-type-by-hotel-id', null);
-const {calcCashbackFn} = inject('calc-cashback');
+const {
+  widgetOptions,
+  widgetHotelsList,
+  sharedTourTypeByHotelId,
+  calcCashback,
+  selectedDeparture,
+  productReference,
+  gridViewMode,
+  clickedLocationHotelId
+} = useProductContext();
+const {calcCashbackFn} = calcCashback;
 
 const {
   hotel,
@@ -35,9 +43,7 @@ const {
 });
 
 const $el = ref();
-
-const selectedDeparture = inject('selected-departure');
-const {getReferenceValueByKey} = inject('product-reference');
+const {getReferenceValueByKey} = productReference;
 
 const hotelCategory = computed(() => getReferenceValueByKey('hotelCategories', hotel.categoryKey) || {});
 const hotelCategoryName = computed(() => hotelCategory.value.name || '');
@@ -59,8 +65,6 @@ const cashbackInfo = computed(() => {
   });
 });
 
-const gridViewMode = inject('grid-view-mode');
-
 const hotelUspsList = computed(() => {
   const matchedHotelSetup = widgetHotelsList.find((hotelSetup) => {
     const setupId = typeof hotelSetup === 'number' ? hotelSetup : hotelSetup?.id;
@@ -69,8 +73,6 @@ const hotelUspsList = computed(() => {
 
   return Array.isArray(matchedHotelSetup?.usps) ? matchedHotelSetup.usps : [];
 });
-
-const clickedLocationHotelId = inject('clicked-location-hotel-id');
 
 function handleHotelLocationClick(nextHotel) {
   if (nextHotel.coordinates) {

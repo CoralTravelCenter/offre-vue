@@ -1,8 +1,9 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import {computed, inject, onUnmounted, reactive, ref, shallowRef, watch} from "vue";
+import {computed, onUnmounted, reactive, ref, shallowRef, watch} from "vue";
 import {v4 as uuid_v4} from 'uuid';
 import {invoke, until, useMediaQuery} from "@vueuse/core";
+import {useProductContext} from "../../composables/useProductContext";
 
 import {
 	createYmapsOptions,
@@ -173,7 +174,7 @@ function hoverZIndex(e) {
 	}
 }
 
-const clickedLocationHotelId = inject('clicked-location-hotel-id');
+const {clickedLocationHotelId} = useProductContext();
 const activeMapHotelId = ref(null);
 
 const productsSelectedByLocation = computed(() => {

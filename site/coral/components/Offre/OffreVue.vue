@@ -19,6 +19,7 @@ import {v4 as uuid_v4} from "uuid";
 import {useOffreLayout} from "../../composables/useOffreLayout";
 import {useOffreFilters} from "../../composables/useOffreFilters";
 import {useOffreProducts} from "../../composables/useOffreProducts";
+import {OFFRE_CONTEXT_KEYS} from "../../composables/offreContext";
 
 dayjs.locale(locale_ru);
 
@@ -42,8 +43,8 @@ const props = defineProps({
   hotelsList: {type: Array, default: []}
 });
 
-provide('widget-options', props.options);
-provide('widget-hotels-list', props.hotelsList);
+provide(OFFRE_CONTEXT_KEYS.widgetOptions, props.options);
+provide(OFFRE_CONTEXT_KEYS.widgetHotelsList, props.hotelsList);
 
 const $el = ref();
 const calcCashbackFn = ref(() => {
@@ -52,11 +53,11 @@ const calcCashbackFn = ref(() => {
 useScriptTag('https://b2ccdn.coral.ru/content/scripts/getbonus.js', () => {
   calcCashbackFn.value = window._get_CBonuses;
 });
-provide('calc-cashback', {calcCashbackFn});
+provide(OFFRE_CONTEXT_KEYS.calcCashback, {calcCashbackFn});
 
 // Shared layout mode (mobile/desktop) is consumed by nested components.
 const {layoutMode} = useOffreLayout();
-provide('layout-mode', layoutMode);
+provide(OFFRE_CONTEXT_KEYS.layoutMode, layoutMode);
 
 const {
   regionOptions,
@@ -71,7 +72,7 @@ const {
   selectedDeparture,
   selectedDepartureId
 } = useOffreFilters({props, rootEl: $el});
-provide('selected-departure', selectedDeparture);
+provide(OFFRE_CONTEXT_KEYS.selectedDeparture, selectedDeparture);
 
 // Increment this token to force re-fetch without mutating filter state.
 const productsReloadToken = ref(0);
@@ -100,7 +101,7 @@ function retryProductsFetch() {
 }
 
 const sharedTourTypeByHotelId = ref({});
-provide('shared-tour-type-by-hotel-id', sharedTourTypeByHotelId);
+provide(OFFRE_CONTEXT_KEYS.sharedTourTypeByHotelId, sharedTourTypeByHotelId);
 
 watch(productsList, (nextProducts) => {
   const knownHotelIds = new Set(
@@ -113,8 +114,8 @@ watch(productsList, (nextProducts) => {
   }
 }, {immediate: true});
 
-provide('product-reference', {productReference, getReferenceValueByKey});
-provide('clicked-location-hotel-id', clickedLocationHotelId);
+provide(OFFRE_CONTEXT_KEYS.productReference, {productReference, getReferenceValueByKey});
+provide(OFFRE_CONTEXT_KEYS.clickedLocationHotelId, clickedLocationHotelId);
 
 const isLargeScreen = useMediaQuery(DESKTOP_LAYOUT_BREAKPOINT);
 const searchParams = useUrlSearchParams('history');
@@ -135,7 +136,7 @@ const controlsStickyOptions = computed(() => ({
 }));
 
 const gridViewMode = ref('list');
-provide('grid-view-mode', gridViewMode);
+provide(OFFRE_CONTEXT_KEYS.gridViewMode, gridViewMode);
 
 // List-mode pagination state.
 const productListPageNumber = ref(1);

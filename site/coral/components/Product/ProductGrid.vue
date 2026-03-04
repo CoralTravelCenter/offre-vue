@@ -182,21 +182,25 @@ const productsSelectedByLocation = computed(() => {
 	if (!targetHotelId) {
 		return [];
 	}
-	const matchedProduct = props.products.find(product => product.hotel.id === targetHotelId);
+	const matchedProduct = props.products.find(product => String(product?.hotel?.id ?? '') === String(targetHotelId));
 	return matchedProduct ? [matchedProduct] : [];
 });
 
 const productsExceptSelectedByLocation = computed(() => {
 	const targetHotelId = activeMapHotelId.value ?? clickedLocationHotelId.value;
 	if (targetHotelId) {
-		return productsWithCoordinates.value.filter((product) => product.hotel.id !== targetHotelId);
+		return productsWithCoordinates.value.filter((product) => String(product?.hotel?.id ?? '') !== String(targetHotelId));
 	} else {
 		return productsWithCoordinates.value;
 	}
 });
 
 const activeMapProduct = computed(() => productsSelectedByLocation.value[0] || null);
-const productHotelIds = computed(() => props.products.map((product) => product.hotel.id));
+const productHotelIds = computed(() => {
+	return props.products
+		.map((product) => String(product?.hotel?.id ?? ''))
+		.filter(Boolean);
+});
 
 watch(() => clickedLocationHotelId.value, (nextId) => {
 	if (nextId) {
@@ -232,7 +236,7 @@ watch(productHotelIds, () => {
 	if (!activeMapHotelId.value) {
 		return;
 	}
-	if (!props.products.some(product => product.hotel.id === activeMapHotelId.value)) {
+	if (!props.products.some(product => String(product?.hotel?.id ?? '') === String(activeMapHotelId.value))) {
 		activeMapHotelId.value = null;
 	}
 });
@@ -244,18 +248,31 @@ function handleMarkerToggle(nextHotelId) {
 </script>
 
 <template>
-	<div ref="$el" class="product-grid" :data-instance-uuid="instance_uuid">
-		<Transition name="slide-inout">
-			<el-progress v-if="inProgress && showProgress" :percentage="inProgress" :indeterminate="true"
-									 :show-text="false"></el-progress>
+	<div ref="$el" class="product-grid flex flex-col text-[16px]" :data-instance-uuid="instance_uuid">
+		<Transition
+			enter-active-class="transition-[opacity,max-height]"
+			leave-active-class="transition-[opacity,max-height]"
+			enter-from-class="max-h-0 opacity-0"
+			leave-to-class="max-h-0 opacity-0"
+		>
+			<el-progress
+				v-if="inProgress && showProgress"
+				class="overflow-hidden max-h-[5em]"
+				:percentage="inProgress"
+				:indeterminate="true"
+				:show-text="false"
+			></el-progress>
 		</Transition>
-		<div v-if="viewMode === 'list'" class="offers-list">
+		<div
+			v-if="viewMode === 'list'"
+			class="offers-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1024px]:gap-4 min-[1280px]:grid-cols-1"
+		>
 			<TransitionGroup name="slide-inout">
 				<ProductCard v-for="product in pagedProductList" :product="product" :key="product.hotel.id"></ProductCard>
 			</TransitionGroup>
 		</div>
 
-		<div v-if="viewMode === 'map'" class="map-view">
+		<div v-if="viewMode === 'map'" class="map-view relative aspect-video min-h-[440px] overflow-hidden rounded-[16px]">
 			<yandex-map
 					v-model="map"
 					:settings="map_settings"
@@ -267,12 +284,13 @@ function handleMarkerToggle(nextHotelId) {
 															:grid-size="clustererGridSize"
 															zoom-on-cluster-click>
 					<template #cluster="{ length, clusterer }">
-						<div class="cluster" style="cursor:pointer;"
+						<div
+							class="cluster group relative h-[2.4em] w-[2.4em] -translate-x-1/2 -translate-y-1/2 cursor-pointer text-[14px] leading-none"
 								 @mouseenter="hoverZIndex"
 								 @mouseleave="hoverZIndex">
-							<div class="hud">{{ length }}</div>
+							<div class="hud absolute inset-0 grid place-content-center rounded-full border-2 border-white bg-primary text-primary-foreground shadow-[0_1px_2px_rgba(0,0,0,0.2)]">{{ length }}</div>
 							<template v-for="(range, idx) in [getClusterPriceRange(clusterer.features)]" :key="idx">
-								<div class="pricing">
+								<div class="pricing absolute -z-[1] top-[2px] flex h-[2.8em] flex-col items-end justify-evenly overflow-hidden rounded-[100px_3em_3em_100px] bg-white/90 px-[0.5em] pl-[3.5em] text-[0.75em] indent-[-10em] opacity-0 invisible shadow-none [text-wrap:nowrap] backdrop-blur-[4px] transition-[text-indent,opacity,box-shadow,visibility] duration-[250ms] group-hover:indent-0 group-hover:opacity-100 group-hover:visible group-hover:shadow-[0_1px_2px_rgba(0,0,0,0.2)]">
 									<span class="min">от {{ range.min }}</span>
 									<span class="max">до {{ range.max }}</span>
 								</div>
@@ -312,139 +330,13 @@ function handleMarkerToggle(nextHotelId) {
 				</yandex-map-marker>
 
 			</yandex-map>
-			<div v-if="activeMapProduct" class="map-selected-overlay">
-				<ProductMapOverlayCard :product="activeMapProduct"/>
+			<div
+				v-if="activeMapProduct"
+				class="map-selected-overlay pointer-events-none absolute inset-0 bottom-2 z-[12] flex h-full w-full items-end justify-center"
+			>
+				<ProductMapOverlayCard class="pointer-events-auto" :product="activeMapProduct"/>
 			</div>
 		</div>
 
 	</div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-@import "../../common/css/coral-colors";
-
-.product-grid {
-	display: flex;
-	flex-direction: column;
-	font-size: 16px;
-
-	.offers-list {
-		display: grid;
-		gap: 8px;
-		grid-template-columns: 1fr;
-	}
-
-	@media screen and (min-width: 768px) {
-		.offers-list {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media screen and (min-width: 1024px) {
-		.offers-list {
-			gap: 16px;
-		}
-	}
-
-	@media screen and (min-width: 1280px) {
-		.offers-list {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.el-progress {
-		overflow: hidden;
-		max-height: 5em;
-		.transit(opacity);
-		.transit(max-height);
-
-		&.slide-inout-enter-from, &.slide-inout-leave-to {
-			opacity: 0;
-			max-height: 0;
-		}
-
-	}
-
-	.map-view {
-		.proportional(16/9);
-		min-height: 440px;
-		border-radius: 16px;
-		overflow: hidden;
-		position: relative;
-
-		.cluster {
-			position: relative;
-			transform: translate(-50%, -50%);
-			font-size: 14px;
-			line-height: 1;
-			width: 2.4em;
-			height: 2.4em;
-
-			&:hover {
-				.pricing {
-					text-indent: 0;
-					opacity: 1;
-					visibility: visible;
-					box-shadow: 0 1px 2px fade(black, 20%);
-				}
-			}
-
-			.hud {
-				position: absolute;
-				inset: 0;
-				display: grid;
-				place-content: center;
-				background-color: @coral-main-blue;
-				color: white;
-				border: 2px solid white;
-				border-radius: 50%;
-				box-shadow: 0 1px 2px fade(black, 20%);
-			}
-
-			.pricing {
-				position: absolute;
-				z-index: -1;
-				top: 2px;
-				background: fade(white, 90%);
-				backdrop-filter: blur(4px);
-				border-radius: 100px 3em 3em 100px;
-				font-size: .75em;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-evenly;
-				align-items: flex-end;
-				height: 2.8em;
-				padding: 0 0.5em 0 3.5em;
-				overflow: hidden;
-				text-indent: -10em;
-				opacity: 0;
-				visibility: hidden;
-				box-shadow: none;
-				.transit(text-indent, .25s);
-				.transit(opacity, .25s);
-				.transit(box-shadow, .25s);
-			}
-		}
-
-	}
-
-}
-
-.map-selected-overlay {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	bottom: 8px;
-	z-index: 12;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-	pointer-events: none;
-}
-
-.map-selected-overlay > * {
-	pointer-events: auto;
-}
-</style>

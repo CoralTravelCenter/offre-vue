@@ -4,39 +4,58 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --destructive-foreground: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --coral-main-blue: #0093D0;
+    --coral-main-blue-accent: #0067B5;
+    --coral-main-yellow: #F0AB00;
+    --coral-main-yellow-accent: #E27300;
+    --coral-exclusive: #E84F0E;
+    --coral-elite: #333333;
+    --coral-grey: #777777;
+    --coral-page-bg: #EAF3FB;
+    --coral-soft-blue: #F4FAFF;
+    --coral-cashback: #FEEFCD;
+    --coral-success: #52C41A;
+    --coral-danger: #FF3333;
+    --coral-text: #1F2227;
+    --coral-stroke: rgba(0, 0, 0, 0.15);
+    --coral-stroke-soft: rgba(0, 0, 0, 0.10);
+    --coral-primary-soft: rgba(0, 147, 208, 0.08);
+
+    --background: #FFFFFF;
+    --foreground: var(--coral-text);
+    --card: #FFFFFF;
+    --card-foreground: var(--coral-text);
+    --popover: #FFFFFF;
+    --popover-foreground: var(--coral-text);
+    --primary: var(--coral-main-blue);
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--coral-page-bg);
+    --secondary-foreground: var(--coral-text);
+    --muted: var(--coral-soft-blue);
+    --muted-foreground: var(--coral-grey);
+    --accent: var(--coral-soft-blue);
+    --accent-foreground: var(--coral-main-blue);
+    --destructive: var(--coral-danger);
+    --destructive-foreground: #FFFFFF;
+    --border: var(--coral-stroke);
+    --input: var(--coral-stroke);
+    --ring: rgba(0, 147, 208, 0.45);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
+    --radius: 0.5rem;
+    --radius-card: 20px;
+    --radius-control: 8px;
+    --sidebar: #FFFFFF;
+    --sidebar-foreground: var(--coral-text);
+    --sidebar-primary: var(--coral-main-blue);
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: var(--coral-soft-blue);
+    --sidebar-accent-foreground: var(--coral-main-blue);
+    --sidebar-border: var(--coral-stroke);
+    --sidebar-ring: rgba(0, 147, 208, 0.45);
 }
 
 .dark {
@@ -111,6 +130,23 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+    --color-coral-main-blue: var(--coral-main-blue);
+    --color-coral-main-blue-accent: var(--coral-main-blue-accent);
+    --color-coral-main-yellow: var(--coral-main-yellow);
+    --color-coral-main-yellow-accent: var(--coral-main-yellow-accent);
+    --color-coral-exclusive: var(--coral-exclusive);
+    --color-coral-elite: var(--coral-elite);
+    --color-coral-grey: var(--coral-grey);
+    --color-coral-page-bg: var(--coral-page-bg);
+    --color-coral-soft-blue: var(--coral-soft-blue);
+    --color-coral-cashback: var(--coral-cashback);
+    --color-coral-success: var(--coral-success);
+    --color-coral-danger: var(--coral-danger);
+    --color-coral-text: var(--coral-text);
+    --color-coral-stroke: var(--coral-stroke);
+    --color-coral-stroke-soft: var(--coral-stroke-soft);
+    --radius-card: var(--radius-card);
+    --radius-control: var(--radius-control);
 }
 
 @layer base {

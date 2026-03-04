@@ -1,4 +1,6 @@
 <script setup>
+import locationPlacemarkIcon from 'data-url:/site/coral/assets-inline/location-placemark.svg';
+
 const props = defineProps({
   value: {
     type: String,
@@ -30,60 +32,24 @@ function handleClick() {
 
 <template>
   <div
-      class="product-location"
-      :class="[`product-location--${variant}`, { 'product-location--clickable': clickable && hasCoordinates }]"
+      :class="[
+        'product-location inline-flex items-center leading-[1.3]',
+        variant === 'card'
+          ? 'product-location--card mb-1 self-start py-1 text-[12px] font-light'
+          : 'product-location--marker text-[14px] text-black/60 max-[768px]:text-[12px]',
+        clickable && hasCoordinates ? 'product-location--clickable cursor-pointer' : ''
+      ]"
       @click="handleClick"
   >
+    <img
+      :class="[
+        'product-location__icon shrink-0 object-contain',
+        variant === 'card' ? 'mb-[2px] mr-1 h-[14px] w-[12px]' : 'mr-2 h-[16px] w-[13px]'
+      ]"
+      :src="locationPlacemarkIcon"
+      alt=""
+      aria-hidden="true"
+    >
     {{ value }}
   </div>
 </template>
-
-<style scoped lang="less">
-.product-location {
-  display: inline-flex;
-  align-items: center;
-  line-height: 1.3;
-
-  &::before {
-    content: '';
-    flex-shrink: 0;
-    background: url("data-url:/site/coral/assets-inline/location-placemark.svg") center / contain no-repeat;
-  }
-}
-
-.product-location--clickable {
-  cursor: pointer;
-}
-
-.product-location--card {
-  align-self: flex-start;
-  font-size: 12px;
-  font-weight: 300;
-  padding-block: 4px;
-  margin-bottom: 4px;
-
-  &::before {
-    width: 12px;
-    height: 14px;
-    margin-right: 4px;
-    margin-bottom: 2px;
-  }
-}
-
-.product-location--marker {
-  color: fade(black, 62%);
-  font-size: 14px;
-
-  &::before {
-    width: 13px;
-    height: 16px;
-    margin-right: 8px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .product-location--marker {
-    font-size: 12px;
-  }
-}
-</style>

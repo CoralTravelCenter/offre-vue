@@ -3,8 +3,11 @@ import {nextTick, ref} from "vue";
 import {useProductOffer} from "../useProductOffer";
 import * as b2cApi from "../../../lib/b2c-api";
 
-function flushPromises() {
-  return new Promise((resolve) => setTimeout(resolve, 0));
+async function flushAsyncState() {
+  for (let idx = 0; idx < 3; idx += 1) {
+    await Promise.resolve();
+    await nextTick();
+  }
 }
 
 function createProduct() {
@@ -83,7 +86,7 @@ describe("useProductOffer", () => {
     });
 
     offerState.tourType.value = "hotel";
-    await flushPromises();
+    await flushAsyncState();
 
     expect(searchSpy).toHaveBeenCalledTimes(1);
     expect(offerState.offer.value.price.amount).toBe(100000);
@@ -104,7 +107,7 @@ describe("useProductOffer", () => {
 
     const packageAmount = offerState.offer.value.price.amount;
     offerState.tourType.value = "hotel";
-    await flushPromises();
+    await flushAsyncState();
 
     expect(offerState.offer.value.price.amount).toBe(packageAmount);
     expect(offerState.offerRequestState.value).toBe("error");
@@ -112,6 +115,10 @@ describe("useProductOffer", () => {
   });
 
   it("не переносит режим hotel между разными отелями", async () => {
+    vi
+      .spyOn(b2cApi.OnlyHotelProduct, "PriceSearchList")
+      .mockResolvedValue({result: {products: [{offers: [createProduct().offers[0]]}]}})
+
     const sharedTourTypeByHotelId = ref({});
     const product = ref(createProduct());
     const offerState = useProductOffer({

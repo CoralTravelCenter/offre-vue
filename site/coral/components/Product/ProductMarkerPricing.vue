@@ -40,11 +40,21 @@ defineProps({
 </script>
 
 <template>
-	<div class="pricing" :class="{ open: isOpen }">
-		<div class="price">
+	<div
+		:class="[
+			'product-marker-pricing pricing w-full flex-col justify-end gap-2',
+			isOpen ? 'product-marker-pricing--open open flex' : 'product-marker-pricing--closed hidden'
+		]"
+	>
+		<div class="product-marker-pricing__price price block">
 			<template v-if="offerRequestState === 'loading'">
-				<Skeleton v-if="offer.price.oldAmount" class="sk sk--list-price"/>
-				<Skeleton class="sk sk--final-price"/>
+				<Skeleton
+					v-if="offer.price.oldAmount"
+					class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--list-price sk--list-price block h-[12px] w-[83px] rounded-[6px]"
+				/>
+				<Skeleton
+					class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--final-price sk--final-price mt-1 block h-[45px] w-[147px] rounded-[6px]"
+				/>
 			</template>
 			<template v-else>
 				<ProductPriceBlock
@@ -57,43 +67,3 @@ defineProps({
 		</div>
 	</div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-@import "../../common/css/coral-colors";
-
-.pricing {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	justify-content: flex-end;
-
-	&.open {
-		display: flex;
-	}
-
-	&:not(.open) {
-		display: none;
-	}
-
-	.price {
-		display: block;
-
-		.sk {
-			display: block;
-			border-radius: .35em;
-		}
-
-		.sk--list-price {
-			width: 5.2em;
-			height: .72em;
-		}
-
-		.sk--final-price {
-			width: 9.2em;
-			height: 2.8em;
-		}
-	}
-}
-</style>

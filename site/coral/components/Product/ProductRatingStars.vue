@@ -1,4 +1,7 @@
 <script setup>
+import filledStarIcon from 'data-url:/site/coral/assets-inline/rating-star-filled.svg';
+import emptyStarIcon from 'data-url:/site/coral/assets-inline/rating-star-empty.svg';
+
 const props = defineProps({
 	count: {
 		type: Number,
@@ -16,29 +19,22 @@ const props = defineProps({
 </script>
 
 <template>
-	<div class="product-rating">
-		<span v-for="n in count" :key="`star-filled-${variant}-${n}`" class="filled"></span>
-		<span v-for="n in (max - count)" :key="`star-empty-${variant}-${n}`" class="empty"></span>
-	</div>
+		<div class="product-rating product-rating--stars inline-flex gap-1">
+			<img
+				v-for="n in count"
+				:key="`star-filled-${variant}-${n}`"
+				class="product-rating__star product-rating__star--filled block h-5 w-5 object-cover"
+				:src="filledStarIcon"
+				alt=""
+				aria-hidden="true"
+			>
+			<img
+				v-for="n in (max - count)"
+				:key="`star-empty-${variant}-${n}`"
+				class="product-rating__star product-rating__star--empty block h-5 w-5 object-cover"
+				:src="emptyStarIcon"
+				alt=""
+				aria-hidden="true"
+			>
+		</div>
 </template>
-
-<style scoped lang="less">
-.product-rating {
-	display: flex;
-	gap: 4px;
-
-	> span {
-		background: center / cover no-repeat;
-		width: 20px;
-		height: 20px;
-
-		&.filled {
-			background-image: url(data-url:/site/coral/assets-inline/rating-star-filled.svg);
-		}
-
-		&.empty {
-			background-image: url(data-url:/site/coral/assets-inline/rating-star-empty.svg);
-		}
-	}
-}
-</style>

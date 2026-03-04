@@ -33,7 +33,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     v-bind="forwardedProps"
     :class="
       cn(
-        'relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-[14px] outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-[#F4FAFF] data-[highlighted]:text-[#1290CD] data-[state=checked]:bg-[#EAF3FB] data-[state=checked]:text-[#1290CD] [&_svg]:pointer-events-none [&_svg]:shrink-0 data-[state=checked]:[&_svg]:text-[#1290CD] [&_svg:not([class*=\'text-\'])]:text-muted-foreground [&_svg:not([class*=\'size-\'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
+        'relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-[14px] outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-muted data-[highlighted]:text-primary data-[state=checked]:bg-secondary data-[state=checked]:text-primary [&_svg]:pointer-events-none [&_svg]:shrink-0 data-[state=checked]:[&_svg]:text-primary [&_svg:not([class*=\'text-\'])]:text-muted-foreground [&_svg:not([class*=\'size-\'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2',
         props.class,
       )
     "

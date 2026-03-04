@@ -39,56 +39,24 @@ defineProps({
 </script>
 
 <template>
-	<div class="info" :class="{ open: isOpen }">
+	<div
+		:class="[
+			'product-marker-details info flex min-w-0 flex-col justify-start gap-2',
+			isOpen ? 'product-marker-details--open open text-[16px]' : 'product-marker-details--closed text-[0px]'
+		]"
+	>
 		<ProductLocation :value="hotel.locationSummary" variant="marker"/>
 
-		<h3 class="name">{{ hotel.name }}</h3>
+		<h3 class="product-marker-details__name name m-0 break-words text-[16px] font-semibold leading-[1.16]">{{ hotel.name }}</h3>
 
 		<ProductRatingStars v-if="hotelStarCount" :count="hotelStarCount" variant="marker"/>
-		<span v-else class="category-name">{{ hotelCategoryName }}</span>
+		<span v-else class="product-marker-details__category-name category-name text-coral-main-yellow">{{ hotelCategoryName }}</span>
 
-		<ul class="terms">
-			<li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDepartureName) }}</li>
-			<li class="begin-date">{{ beginDate }}</li>
-			<li class="stay-nights">{{ offer.stayNights }} {{ offer.stayNights.asNights() }}</li>
-			<li class="meal-type">{{ mealType }}</li>
+		<ul class="product-marker-details__terms terms hidden">
+			<li v-if="offer.flight" class="product-marker-details__term product-marker-details__term--departure departure">из {{ $cityGenitiveCase(selectedDepartureName) }}</li>
+			<li class="product-marker-details__term product-marker-details__term--begin-date begin-date">{{ beginDate }}</li>
+			<li class="product-marker-details__term product-marker-details__term--stay-nights stay-nights">{{ offer.stayNights }} {{ offer.stayNights.asNights() }}</li>
+			<li class="product-marker-details__term product-marker-details__term--meal-type meal-type">{{ mealType }}</li>
 		</ul>
 	</div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-@import "../../common/css/coral-colors";
-
-.info {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	gap: 8px;
-	min-width: 0;
-
-	&.open {
-		font-size: 16px;
-	}
-
-	&:not(.open) {
-		font-size: 0;
-	}
-}
-
-.info .name {
-	font-size: 16px;
-	line-height: 1.16;
-	margin: 0;
-	font-weight: 600;
-	word-break: break-word;
-}
-
-.info .category-name {
-	color: @coral-main-yellow;
-}
-
-.info ul.terms {
-	display: none;
-}
-</style>

@@ -2,6 +2,11 @@
 import ProductLocation from "./ProductLocation.vue";
 import ProductRatingStars from "./ProductRatingStars.vue";
 import ProductHotelName from "./ProductHotelName.vue";
+import cfcBadgeIcon from 'data-url:/site/coral/assets-inline/coral-family-club.svg';
+import flightIcon from 'data-url:/site/coral/assets-inline/icon-flight.svg';
+import calendarIcon from 'data-url:/site/coral/assets-inline/icon-cal.svg';
+import bedIcon from 'data-url:/site/coral/assets-inline/icon-bed.svg';
+import mealIcon from 'data-url:/site/coral/assets-inline/icon-meal.svg';
 
 defineProps({
 	hotel: {
@@ -50,210 +55,72 @@ function handleLocationClick(hotel) {
 </script>
 
 <template>
-	<div class="details">
+	<div class="product-card-details details flex flex-col justify-start py-2 min-[1280px]:justify-center min-[1280px]:gap-0">
 		<ProductLocation
-				class="location"
-				:value="hotel.locationSummary"
-				:clickable="true"
-				:has-coordinates="!!hotel.coordinates"
-				variant="card"
-				@click="handleLocationClick(hotel)"
+			class="product-card-details__location location min-[1280px]:m-0"
+			:value="hotel.locationSummary"
+			:clickable="true"
+			:has-coordinates="!!hotel.coordinates"
+			variant="card"
+			@click="handleLocationClick(hotel)"
 		/>
 
-		<ProductHotelName :offer-href="offerHref" :name="hotel.name"/>
+		<ProductHotelName
+			:offer-href="offerHref"
+			:name="hotel.name"
+			link-class="product-card-details__hotel-link hotel-name mb-1 text-inherit no-underline hover:underline min-[1280px]:mb-2"
+			title-class="product-card-details__hotel-title name text-[20px] font-bold"
+		/>
 
-		<div class="category-concept">
+		<div class="product-card-details__category-concept category-concept mb-2 flex items-center gap-2 min-[1280px]:mb-0">
 			<ProductRatingStars v-if="hotelStarCount" :count="hotelStarCount" variant="card"/>
-			<span v-else class="category-name">{{ hotelCategoryName }}</span>
-			<div class="concepts">
-				<span v-if="hotel.eliteHotel" class="elite-service-badge"><span>ELITE SERVICE</span></span>
-				<span v-if="hotel.sunFamilyClub || hotel.coralFamilyClub" class="cfc-badge"></span>
+			<span v-else class="product-card-details__category-name category-name text-coral-main-yellow">{{ hotelCategoryName }}</span>
+			<div class="product-card-details__concepts concepts flex items-center gap-2">
+				<span
+					v-if="hotel.eliteHotel"
+					class="product-card-details__elite-service-badge elite-service-badge inline-grid h-6 place-content-center rounded-[6px] bg-coral-elite px-3 text-[12px] font-light leading-none text-white"
+				><span class="text-[12px]">ELITE SERVICE</span></span>
+				<img
+					v-if="hotel.sunFamilyClub || hotel.coralFamilyClub"
+					class="product-card-details__cfc-badge cfc-badge block h-6 w-auto"
+					:src="cfcBadgeIcon"
+					alt=""
+					aria-hidden="true"
+				>
 			</div>
 		</div>
 
-		<ul class="terms">
-			<li v-if="offer.flight" class="departure">из {{ $cityGenitiveCase(selectedDepartureName) }}</li>
-			<li class="begin-date">{{ beginDate }}</li>
-			<li class="stay-nights">{{ offer.stayNights }} {{ offer.stayNights.asNights() }}</li>
-			<li class="meal-type">{{ mealType }}</li>
+		<ul class="product-card-details__terms terms m-0 flex list-none flex-wrap items-baseline gap-1 p-0 text-[12px] min-[1280px]:my-4">
+			<li v-if="offer.flight" class="product-card-details__term product-card-details__term--departure departure inline-flex items-center gap-1">
+				<img class="product-card-details__term-icon product-card-details__term-icon--departure h-[12px] w-[22px] object-contain" :src="flightIcon" alt="" aria-hidden="true">
+				из {{ $cityGenitiveCase(selectedDepartureName) }}
+			</li>
+			<li class="product-card-details__term product-card-details__term--begin-date begin-date inline-flex items-center gap-1">
+				<img class="product-card-details__term-icon product-card-details__term-icon--begin-date h-[12px] w-[14px] object-contain" :src="calendarIcon" alt="" aria-hidden="true">
+				{{ beginDate }}
+			</li>
+			<li class="product-card-details__term product-card-details__term--stay-nights stay-nights inline-flex items-center gap-1">
+				<img class="product-card-details__term-icon product-card-details__term-icon--stay-nights h-[12px] w-[17px] object-contain" :src="bedIcon" alt="" aria-hidden="true">
+				{{ offer.stayNights }} {{ offer.stayNights.asNights() }}
+			</li>
+			<li class="product-card-details__term product-card-details__term--meal-type meal-type inline-flex items-center gap-1">
+				<img class="product-card-details__term-icon product-card-details__term-icon--meal-type h-[12px] w-[19px] object-contain" :src="mealIcon" alt="" aria-hidden="true">
+				{{ mealType }}
+			</li>
 		</ul>
 
-		<ul v-if="hotelUspsList?.length" class="usps">
-			<li v-for="usp in hotelUspsList" :key="usp">{{ usp }}</li>
+		<ul
+			v-if="hotelUspsList?.length"
+			class="product-card-details__usps usps m-0 grid max-h-[137px] list-none grid-flow-col [grid-template-rows:repeat(auto-fill,minmax(16px,min-content))] gap-x-4 gap-y-1 border-t border-primary/25 pt-2 text-[14px] min-[1280px]:block min-[1280px]:border-0 min-[1280px]:pt-0 min-[1280px]:pl-2 min-[1280px]:text-[12px]"
+		>
+			<li
+				v-for="usp in hotelUspsList"
+				:key="usp"
+				class="product-card-details__usp-item flex"
+			>
+				<span class="product-card-details__usp-bullet mr-1.5 text-primary min-[1280px]:text-black">•</span>
+				<span>{{ usp }}</span>
+			</li>
 		</ul>
 	</div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/coral-colors";
-@import "../../common/css/layout";
-
-.details {
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	padding: 8px 0;
-}
-
-.details .category-concept {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	margin-bottom: 8px;
-}
-
-.details .category-name {
-	color: @coral-main-yellow;
-}
-
-.details .concepts {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.details .elite-service-badge {
-	display: inline-grid;
-	place-content: center;
-	height: 24px;
-	padding: 0 12px;
-	line-height: 1;
-	font-size: 12px;
-	font-weight: 300;
-	color: white;
-	border-radius: 6px;
-	background-color: #333;
-}
-
-.details .elite-service-badge > span {
-	font-size: 12px;
-}
-
-.details .cfc-badge {
-	display: block;
-	aspect-ratio: 153/35;
-	height: 24px;
-	font-size: 20px;
-	background: url("data-url:/site/coral/assets-inline/coral-family-club.svg") center / cover no-repeat;
-}
-
-.details .hotel-name {
-	color: unset;
-	text-decoration: none;
-	margin-bottom: 4px;
-}
-
-.details .hotel-name:hover {
-	text-decoration: underline;
-}
-
-.details .name {
-	font-size: 20px;
-	font-weight: 700;
-}
-
-.details .terms {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	gap: 4px;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	font-size: 12px;
-}
-
-.details .terms > li {
-	display: inline-flex;
-	align-items: center;
-}
-
-.details .terms > li::before {
-	content: '';
-	height: 1em;
-	margin-right: 4px;
-	background: center / contain no-repeat;
-}
-
-.details .terms > li.departure::before {
-	width: 22px;
-	background-image: url(data-url:/site/coral/assets-inline/icon-flight.svg);
-}
-
-.details .terms > li.begin-date::before {
-	width: 14px;
-	background-image: url(data-url:/site/coral/assets-inline/icon-cal.svg);
-}
-
-.details .terms > li.stay-nights::before {
-	width: 17px;
-	background-image: url(data-url:/site/coral/assets-inline/icon-bed.svg);
-}
-
-.details .terms > li.meal-type::before {
-	width: 19px;
-	background-image: url(data-url:/site/coral/assets-inline/icon-meal.svg);
-}
-
-.details .usps {
-	display: grid;
-	grid-auto-flow: column;
-	grid-template-rows: repeat(auto-fill, minmax(16px, min-content));
-	gap: 4px 16px;
-	max-height: 137px;
-	margin: 0;
-	padding: 8px 0 0;
-	list-style: none;
-	font-size: 14px;
-	border-top: 1px solid fade(@coral-main-blue, 25%);
-}
-
-.details .usps > li {
-	display: flex;
-}
-
-.details .usps > li::before {
-	content: '\2022';
-	margin-right: 6px;
-	color: @coral-main-blue;
-}
-
-@media screen and (min-width: 1280px) {
-	.details {
-		justify-content: center;
-		gap: 0;
-	}
-
-	.details .location,
-	.details .hotel-name,
-	.details .category-concept,
-	.details .terms,
-	.details .usps {
-		margin: 0;
-	}
-
-	.details .hotel-name {
-		margin-bottom: 8px;
-	}
-
-	.details .usps {
-		padding-top: 0;
-		border-top: 0;
-	}
-
-	.details .terms {
-		margin-top: 16px;
-		margin-bottom: 16px;
-	}
-
-	.details .usps {
-		display: block;
-		font-size: 12px;
-		padding-left: 8px;
-	}
-
-	.details .usps > li::before {
-		color: #000000;
-	}
-}
-</style>

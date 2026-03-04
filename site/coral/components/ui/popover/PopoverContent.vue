@@ -77,7 +77,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
         :width="arrowWidth"
         :height="arrowHeight"
         :rounded="arrowRounded"
-        :class="cn('fill-white stroke-[rgba(0,0,0,0.12)]', props.arrowClass)"
+        :class="cn('fill-white stroke-border', props.arrowClass)"
       />
     </PopoverContent>
   </PopoverPortal>

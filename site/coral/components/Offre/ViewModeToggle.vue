@@ -22,23 +22,23 @@ function toggleMode() {
 </script>
 
 <template>
-  <div class="view-mode-toggle flex items-center justify-end">
+  <div class="view-mode-toggle view-mode-toggle--single flex items-center justify-end">
     <button
         type="button"
         :aria-pressed="isMapMode"
         :aria-label="ariaLabel"
         :data-state="isMapMode ? 'on' : 'off'"
         :class="[
-          'inline-flex h-10 w-10 items-center justify-center rounded-[8px] border bg-white transition-colors duration-200',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd]',
+          'view-mode-toggle__button inline-flex h-10 w-10 items-center justify-center rounded-[8px] border bg-white transition-colors duration-200',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45',
           isMapMode
-              ? 'border-[#0d98d9] text-[#0d98d9]'
-              : 'border-[#d4d9df] text-[#1f2227]',
-          'hover:border-[#0d98d9] hover:text-[#0d98d9]'
+              ? 'border-primary text-primary'
+              : 'border-border text-foreground',
+          'hover:border-primary hover:text-primary'
         ]"
         @click="toggleMode"
     >
-      <svg v-if="!isMapMode" class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg v-if="!isMapMode" class="view-mode-toggle__icon h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path
             d="M15.556 1.667H4.444a2.78 2.78 0 0 0-2.777 2.777v11.112a2.78 2.78 0 0 0 2.777 2.777h11.112a2.78 2.78 0 0 0 2.777-2.777V4.444a2.78 2.78 0 0 0-2.777-2.777M4.444 2.777h11.112a1.67 1.67 0 0 1 1.666 1.667v2.693L2.778 5.074v-.63a1.67 1.67 0 0 1 1.666-1.666M2.778 15.557v-9.36l6.022.86-2.033 10.166H4.444a1.67 1.67 0 0 1-1.666-1.667m12.778 1.666H7.9L9.902 7.214l7.32 1.045v7.297a1.67 1.67 0 0 1-1.667 1.666"
             fill="currentColor"
@@ -61,7 +61,7 @@ function toggleMode() {
             fill-opacity=".85"
         />
       </svg>
-      <svg v-else class="h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <svg v-else class="view-mode-toggle__icon h-5 w-5" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path
             fill-rule="evenodd"
             clip-rule="evenodd"

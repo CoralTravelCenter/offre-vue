@@ -89,9 +89,11 @@ whenever(isProductCardVisible, () => {
 </script>
 
 <template>
-  <Card ref="$el" class="product-card flex flex-col rounded-[20px] border border-[rgba(0,0,0,0.15)] bg-white p-2"
+  <Card
+    ref="$el"
+    class="product-card flex min-w-0 flex-col rounded-[20px] border border-border bg-white p-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)_300px] min-[1280px]:items-stretch min-[1280px]:gap-4"
   >
-    <CardContent class="product-card__content p-0">
+    <CardContent class="product-card__content min-w-0 p-0 min-[1280px]:col-span-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)] min-[1280px]:items-stretch min-[1280px]:gap-4">
       <ProductCardVisual :hotel="hotel" :offer-href="offerHref"/>
       <ProductCardDetails
           :hotel="hotel"
@@ -107,7 +109,7 @@ whenever(isProductCardVisible, () => {
       />
     </CardContent>
 
-    <CardFooter class="product-card__footer p-0 block">
+    <CardFooter class="product-card__footer block min-w-0 p-0 min-[1280px]:col-start-3 min-[1280px]:row-start-1">
       <ProductCardPricing
           v-model:tour-type="tourType"
           :is-hotel-only="isHotelOnly"
@@ -121,37 +123,3 @@ whenever(isProductCardVisible, () => {
     </CardFooter>
   </Card>
 </template>
-
-<style scoped lang="less">
-.product-card {
-  min-width: 0;
-}
-
-.product-card__content,
-.product-card__footer {
-  min-width: 0;
-}
-
-@media screen and (min-width: 1280px) {
-  .product-card {
-    display: grid;
-    grid-template-columns: 300px minmax(0, 1fr) 300px;
-    align-items: stretch;
-    gap: 16px;
-  }
-
-  .product-card__content {
-    grid-column: 1 / 3;
-    display: grid;
-    grid-template-columns: 300px minmax(0, 1fr);
-    gap: 16px;
-    align-items: stretch;
-  }
-
-  .product-card__footer {
-    grid-column: 3;
-    grid-row: 1;
-    display: block;
-  }
-}
-</style>

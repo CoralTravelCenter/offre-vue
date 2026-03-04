@@ -90,19 +90,19 @@ function scrollToValue(value, behavior = "smooth") {
 	requestAnimationFrame(syncScrollFade);
 }
 
-	watch(
-			[selectedValue, availableValues],
-			async ([value, values]) => {
-			if (!value || !values.includes(value)) {
-				requestAnimationFrame(syncScrollFade);
-				return;
-				}
-				await nextTick();
-				scrollToValue(value, hasInitialScrollSync.value ? 'smooth' : 'auto');
-				hasInitialScrollSync.value = true;
-			},
-			{immediate: true}
-	);
+watch(
+	[selectedValue, availableValues],
+	async ([value, values]) => {
+		if (!value || !values.includes(value)) {
+			requestAnimationFrame(syncScrollFade);
+			return;
+		}
+		await nextTick();
+		scrollToValue(value, hasInitialScrollSync.value ? 'smooth' : 'auto');
+		hasInitialScrollSync.value = true;
+	},
+	{immediate: true}
+);
 
 onMounted(() => {
 	syncScrollFade();
@@ -116,127 +116,46 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div class="region-select-shell" :class="{ 'has-left-fade': hasLeftFade, 'has-right-fade': hasRightFade }">
-		<div v-if="loading" class="region-select-skeleton" aria-hidden="true">
-			<Skeleton class="region-select-skeleton__item region-select-skeleton__item--active"/>
-			<Skeleton class="region-select-skeleton__item"/>
-			<Skeleton class="region-select-skeleton__item"/>
-			<Skeleton class="region-select-skeleton__item"/>
+	<div
+		class="region-select-shell relative mt-2 min-w-0 before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:z-[1] before:w-1/5 before:opacity-0 before:transition-opacity before:duration-200 before:ease-in-out before:content-[''] before:bg-[linear-gradient(to_right,var(--coral-page-bg)_0%,rgba(234,243,251,0)_100%)] after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-[1] after:w-1/5 after:opacity-0 after:transition-opacity after:duration-200 after:ease-in-out after:content-[''] after:bg-[linear-gradient(to_left,var(--coral-page-bg)_0%,rgba(234,243,251,0)_100%)] lg:mt-0"
+		:class="{ 'before:opacity-100': hasLeftFade, 'after:opacity-100': hasRightFade }"
+	>
+		<div
+			v-if="loading"
+			class="region-select-skeleton region-select-skeleton--loading flex items-center gap-2 overflow-hidden px-2"
+			aria-hidden="true"
+		>
+			<Skeleton class="region-select-skeleton__item region-select-skeleton__item--active block h-[38px] min-w-0 flex-[1_1_0] rounded-[24px]"/>
+			<Skeleton class="region-select-skeleton__item block h-[38px] min-w-0 flex-[1_1_0] rounded-[24px]"/>
+			<Skeleton class="region-select-skeleton__item block h-[38px] min-w-0 flex-[1_1_0] rounded-[24px]"/>
+			<Skeleton class="region-select-skeleton__item block h-[38px] min-w-0 flex-[1_1_0] rounded-[24px]"/>
 		</div>
 
-		<ul v-else ref="scroller" class="region-select" @scroll.passive="syncScrollFade">
+		<ul
+			v-else
+			ref="scroller"
+			class="region-select region-select__list m-0 flex list-none items-center overflow-x-scroll px-2 [scroll-padding-inline:8px] [scrollbar-width:none] [-ms-overflow-style:none] snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+			@scroll.passive="syncScrollFade"
+		>
 			<li
-					class="region-select__item"
-					v-if="wildcardOption"
-					data-value="*"
-					:class="{ selected: selectedValue === '*' }"
-					@click="selectOption('*')"
+				v-if="wildcardOption"
+				class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-[24px] px-5 py-3 text-[14px] snap-start"
+				data-value="*"
+				:class="{ 'region-select__item--selected bg-primary text-primary-foreground': selectedValue === '*' }"
+				@click="selectOption('*')"
 			>
 				{{ tidyLabel(wildcardOption) }}
 			</li>
 			<li
-					class="region-select__item"
-					v-for="option in optionsList"
-					:key="option"
-					:data-value="String(option)"
-					:class="{ selected: selectedValue === String(option) }"
-					@click="selectOption(option)"
+				v-for="option in optionsList"
+				:key="option"
+				class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-[24px] px-5 py-3 text-[14px] snap-start"
+				:data-value="String(option)"
+				:class="{ 'region-select__item--selected bg-primary text-primary-foreground': selectedValue === String(option) }"
+				@click="selectOption(option)"
 			>
 				{{ tidyLabel(option) }}
 			</li>
 		</ul>
 	</div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/coral-colors";
-
-.region-select-shell {
-	position: relative;
-	min-width: 0;
-	margin-top: 8px;
-
-	&::before,
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		width: 20%;
-		pointer-events: none;
-		opacity: 0;
-		transition: opacity 0.2s ease;
-		z-index: 1;
-	}
-
-	&::after {
-		right: 0;
-		background: linear-gradient(to left, #FFFFFF 0%, rgba(234, 243, 251, 0) 100%);
-	}
-
-	&.has-left-fade::before {
-		opacity: 1;
-	}
-
-	&.has-right-fade::after {
-		opacity: 1;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	.region-select-shell {
-		margin-top: 0;
-	}
-}
-
-.region-select {
-	display: flex;
-	align-items: center;
-	list-style: none;
-	margin: 0;
-	padding: 0 8px;
-	overflow-x: scroll;
-	scroll-snap-type: x mandatory;
-	scrollbar-width: none;
-	-ms-overflow-style: none;
-	scroll-padding-inline: 8px;
-
-	&::-webkit-scrollbar {
-		display: none;
-	}
-}
-
-.region-select__item {
-	padding: 12px 20px;
-	border-radius: 24px;
-	font-size: 14px;
-	cursor: pointer;
-	scroll-snap-align: start;
-	flex: 0 0 auto;
-
-	&.selected {
-		color: white;
-		background-color: @coral-main-blue;
-	}
-}
-
-.region-select-skeleton {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 0 8px;
-	overflow: hidden;
-}
-
-.region-select-skeleton__item {
-	display: block;
-	flex: 1 1 0;
-	min-width: 0;
-	height: 38px;
-	border-radius: 24px;
-}
-
-.region-select-skeleton__item--active {
-	flex: 1 1 0;
-}
-</style>

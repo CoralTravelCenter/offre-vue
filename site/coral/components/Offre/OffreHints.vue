@@ -1,6 +1,7 @@
 <script setup>
 import {computed} from "vue";
 import {Button} from "app/components/ui/button";
+import iconWarning from 'data-url:/site/coral/assets-inline/icon-warning.svg';
 
 const emit = defineEmits(['retry-products']);
 
@@ -34,98 +35,36 @@ function retryProducts() {
 
 <template>
 	<!-- API/network error state -->
-	<div v-if="!isRequestLoading && isRequestError" class="message-hint products-error">
-		<div class="icon warning"></div>
-		<div class="reason">Не удалось загрузить варианты туров.</div>
-		<div class="hint">Проверьте подключение к сети или повторите попытку чуть позже.</div>
+	<div
+		v-if="!isRequestLoading && isRequestError"
+		class="offre-hints__message message-hint offre-hints__message--error grid grid-cols-[min-content_auto] grid-rows-[auto_auto_auto] gap-2 rounded-2xl bg-destructive/5 p-4"
+	>
+		<img class="offre-hints__icon offre-hints__icon--warning h-10 w-10 place-self-center object-contain [grid-area:1/1/-1/2]" :src="iconWarning" alt="" aria-hidden="true">
+		<div class="offre-hints__reason self-end text-[16px] font-semibold leading-none [grid-area:1/2]">Не удалось загрузить варианты туров.</div>
+		<div class="offre-hints__hint self-start text-[14px] font-light leading-none [grid-area:2/2]">Проверьте подключение к сети или повторите попытку чуть позже.</div>
 		<Button
-				type="button"
-				variant="outline"
-				size="sm"
-				class="retry-action !h-8 !rounded-[8px] !border-[#0092D0]/35 !bg-white !text-[#0092D0] hover:!border-[#0092D0] hover:!bg-white hover:!text-[#0092D0]"
-				@click="retryProducts"
+			type="button"
+			variant="outline"
+			size="sm"
+			class="offre-hints__retry retry-action [grid-area:3/2] justify-self-start !h-8 !rounded-[8px] !border-primary/35 !bg-white !text-primary hover:!border-primary hover:!bg-white hover:!text-primary"
+			@click="retryProducts"
 		>
 			Повторить
 		</Button>
 	</div>
 
 	<!-- Empty result state for current filters -->
-	<div v-else-if="!isRequestLoading && isRequestEmpty && selectedRegion" class="message-hint no-matched-products">
-		<div class="icon warning"></div>
-		<div class="reason">Из {{ $cityGenitiveCase(selectedDeparture.name) }} в данной подборке отелей нет подходящих
+	<div
+		v-else-if="!isRequestLoading && isRequestEmpty && selectedRegion"
+		class="offre-hints__message message-hint offre-hints__message--empty grid grid-cols-[min-content_auto] grid-rows-[auto_auto_auto] gap-2 rounded-2xl bg-coral-main-yellow/5 p-4"
+	>
+		<img class="offre-hints__icon offre-hints__icon--warning h-10 w-10 place-self-center object-contain [grid-area:1/1/-1/2]" :src="iconWarning" alt="" aria-hidden="true">
+		<div class="offre-hints__reason self-end text-[16px] font-semibold leading-none [grid-area:1/2]">Из {{ $cityGenitiveCase(selectedDeparture.name) }} в данной подборке отелей нет подходящих
 			вариантов.
 		</div>
-		<div class="hint">Пожалуйста, попробуйте поменять условия выбора &mdash; регион / город вылета / период
+		<div class="offre-hints__hint self-start text-[14px] font-light leading-none [grid-area:2/2]">Пожалуйста, попробуйте поменять условия выбора &mdash; регион / город вылета / период
 			путешествия
 		</div>
 	</div>
 
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-@import "../../common/css/coral-colors";
-
-.message-hint {
-	display: grid;
-	grid-template-columns: min-content auto;
-	grid-template-rows: auto auto auto;
-	gap: 8px;
-	padding: 16px;
-	border-radius: 16px;
-
-	&.no-matched-products {
-		background: fade(@coral-main-yellow, 5%);
-	}
-
-	&.products-error {
-		background: fade(@coral-red-error, 5%);
-	}
-
-	&.initial-loading {
-		background: fade(@coral-main-blue, 5%);
-	}
-
-	.icon {
-		grid-area: 1 / 1 / -1 / 2;
-		justify-self: center;
-		align-self: center;
-	}
-
-	.reason {
-		grid-area: 1 / 2;
-		font-weight: 600;
-		font-size: 16px;
-		align-self: end;
-		line-height: 1;
-	}
-
-	.hint {
-		grid-area: 2 / 2;
-		font-weight: 300;
-		font-size: 14px;
-		align-self: start;
-		line-height: 1;
-	}
-
-	.retry-action {
-		grid-area: 3 / 2;
-		justify-self: start;
-	}
-}
-
-.icon {
-	width: 40px;
-	height: 40px;
-	background: center / contain no-repeat;
-
-	&.warning {
-		background-image: url("data-url:/site/coral/assets-inline/icon-warning.svg");
-	}
-
-	&.info {
-		background-image: url("data-url:/site/coral/assets-inline/icon-info.svg");
-	}
-}
-
-</style>

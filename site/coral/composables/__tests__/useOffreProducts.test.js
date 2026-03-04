@@ -1,10 +1,13 @@
 import {describe, expect, it, beforeEach, vi} from "vitest";
-import {ref} from "vue";
+import {nextTick, ref} from "vue";
 import {useOffreProducts} from "../useOffreProducts";
 import * as b2cApi from "../../../lib/b2c-api";
 
-function flushPromises() {
-  return new Promise((resolve) => setTimeout(resolve, 0));
+async function flushAsyncState() {
+  for (let idx = 0; idx < 3; idx += 1) {
+    await Promise.resolve();
+    await nextTick();
+  }
 }
 
 function createParams() {
@@ -49,7 +52,7 @@ describe("useOffreProducts", () => {
     });
 
     const offerProducts = useOffreProducts(createParams());
-    await flushPromises();
+    await flushAsyncState();
 
     expect(offerProducts.normalizedRequestState.value).toBe("success");
     expect(offerProducts.productsList.length).toBe(1);
@@ -59,7 +62,7 @@ describe("useOffreProducts", () => {
     vi.spyOn(b2cApi.PackageTourHotelProduct, "PriceSearchList").mockRejectedValue(new Error("api failed"));
 
     const offerProducts = useOffreProducts(createParams());
-    await flushPromises();
+    await flushAsyncState();
 
     expect(offerProducts.normalizedRequestState.value).toBe("error");
     expect(offerProducts.productsError.value).toBe(true);

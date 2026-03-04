@@ -19,17 +19,12 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-	<img class="visual" :class="{ open: props.isOpen }" :src="imageUrl" alt="">
+	<img
+		:class="[
+			'product-marker-visual visual h-full w-full shrink-0 rounded-[12px] object-cover',
+			props.isOpen ? 'product-marker-visual--open open' : ''
+		]"
+		:src="imageUrl"
+		alt=""
+	>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-
-.visual {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	flex-shrink: 0;
-	border-radius: 12px;
-}
-</style>

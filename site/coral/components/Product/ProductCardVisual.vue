@@ -20,47 +20,32 @@ const imageUrl = computed(() => {
 </script>
 
 <template>
-  <a target="_blank" :href="props.offerHref" class="product-card-visual block relative">
-    <img v-if="imageUrl" :src="imageUrl" :alt="props.hotel?.name || ''"
-         class="product-card-visual__image block w-full rounded-[12px] object-cover">
-    <div class="absolute top-2.5 left-2.5 badges-grid">
-      <Badge v-if="props.hotel.recommended" variant="default" class="custom-badge bg-white text-black">
+  <a
+      target="_blank"
+      :href="props.offerHref"
+      class="product-card-visual relative block xl:h-full xl:min-h-[240px]"
+  >
+    <img
+        v-if="imageUrl"
+        :src="imageUrl"
+        :alt="props.hotel?.name || ''"
+        class="product-card-visual__image block h-[200px] w-full rounded-[12px] object-cover xl:h-full xl:min-h-[240px]"
+    >
+    <div class="product-card-visual__badges badge-grid absolute left-2.5 top-2.5 flex flex-col gap-2">
+      <Badge
+          v-if="props.hotel.recommended"
+          variant="default"
+          class="product-card-visual__badge product-card-visual__badge--recommended rounded-[12px] bg-white px-2 py-1 text-[12px] text-black"
+      >
         Рекомендуем
       </Badge>
-      <Badge v-if="props.hotel.exclusive" variant="default" class="custom-badge bg-[#E84F0E] text-white">
+      <Badge
+          v-if="props.hotel.exclusive"
+          variant="default"
+          class="product-card-visual__badge product-card-visual__badge--exclusive rounded-[12px] bg-coral-exclusive px-2 py-1 text-[12px] text-white"
+      >
         Эксклюзив
       </Badge>
     </div>
   </a>
 </template>
-
-<style lang="less" scoped>
-.badges-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.custom-badge {
-  font-size: 12px;
-  padding-block: 4px;
-  padding-inline: 8px;
-  border-radius: 12px;
-}
-
-.product-card-visual__image {
-  height: 200px;
-}
-
-@media screen and (min-width: 1280px) {
-  .product-card-visual {
-    height: 100%;
-    min-height: 240px;
-  }
-
-  .product-card-visual__image {
-    height: 100%;
-    min-height: 240px;
-  }
-}
-</style>

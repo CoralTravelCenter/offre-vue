@@ -230,9 +230,13 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="offre-vue" ref="$el" :data-instance-uuid="instance_uuid">
+  <div
+      class="offre-vue box-border m-0 flex w-full flex-col gap-4 p-0 text-[16px] font-normal [--el-font-family:inherit] [--el-fill-color-light:var(--coral-primary-soft)] [--el-color-primary:var(--coral-main-blue)] [&_.el-progress-bar]:font-inherit [&_.el-progress-bar]:[--el-color-primary:var(--coral-main-blue)]"
+      ref="$el"
+      :data-instance-uuid="instance_uuid"
+  >
     <div
-        class="controls-sticky offre-sticky-shadow overflow-clip pb-2 rounded-2xl border border-[rgba(0,0,0,0.15)] bg-white"
+        class="controls-sticky offre-sticky-shadow overflow-clip rounded-2xl border border-border bg-white pb-2 min-[1024px]:py-2 min-[1024px]:pr-2 min-[1024px]:pl-0"
         v-sticky="controlsStickyOptions"
     >
       <OffreControls
@@ -258,7 +262,7 @@ onUnmounted(() => {
         @retry-products="retryProductsFetch"
     />
 
-    <div v-if="showProductSkeleton" class="product-skeleton-list" aria-hidden="true">
+    <div v-if="showProductSkeleton" class="product-skeleton-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1280px]:grid-cols-1" aria-hidden="true">
       <ProductCardSkeleton/>
       <ProductCardSkeleton/>
     </div>
@@ -274,7 +278,7 @@ onUnmounted(() => {
 
     <div
         v-show="shouldShowPager"
-        class="pager-sticky offre-sticky-shadow mx-auto w-fit overflow-clip rounded-2xl border border-[rgba(0,0,0,0.15)] bg-white"
+        class="pager-sticky offre-sticky-shadow mx-auto w-fit overflow-clip rounded-2xl border border-border bg-white"
         v-sticky="pagerStickyOptions"
     >
       <div class="p-2">
@@ -287,7 +291,7 @@ onUnmounted(() => {
         >
           <PaginationContent v-slot="{ items }" class="gap-2">
             <PaginationPrevious
-                class="h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+                class="h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
             />
             <template v-for="(item, index) in items"
                       :key="`pager-item-${index}-${item.type}-${item.value ?? 'ellipsis'}`">
@@ -296,16 +300,16 @@ onUnmounted(() => {
                   :value="item.value"
                   :is-active="item.value === productListPageNumber"
                   :class="[
-                    'h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60',
-                    item.value === productListPageNumber ? 'bg-[#0d98d9] border-[#0d98d9] text-white' : ''
+                    'h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60',
+                    item.value === productListPageNumber ? 'bg-primary border-primary text-primary-foreground' : ''
                   ]"
               >
                 {{ item.value }}
               </PaginationItem>
-              <PaginationEllipsis v-else :index="index" class="h-10 w-10 text-[#1f2227]"/>
+              <PaginationEllipsis v-else :index="index" class="h-10 w-10 text-foreground"/>
             </template>
             <PaginationNext
-                class="h-10 w-10 min-w-10 rounded-lg border border-[#d4d9df] bg-white p-0 text-[#1f2227] shadow-none hover:border-[#0d98d9] hover:bg-white hover:text-[#0d98d9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6eb8dd] focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+                class="h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
             />
           </PaginationContent>
         </Pagination>
@@ -313,72 +317,3 @@ onUnmounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="less">
-@import "../../common/css/coral-colors";
-@import "../../common/css/layout";
-
-:root {
-  --el-font-family: inherit !important;
-  --el-fill-color-light: fade(@coral-main-blue, 8%) !important;
-  --el-color-primary: @coral-main-blue;
-}
-
-.el-progress-bar {
-  font-family: inherit;
-  --el-color-primary: @coral-main-blue;
-}
-
-.offre-vue {
-  .el-button-group {
-    display: flex;
-    justify-content: end;
-    gap: 8px;
-
-    &:after, &:before {
-      display: none;
-    }
-  }
-}
-
-.offre-vue {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  .bbox();
-  font-size: 16px;
-  font-weight: normal;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.offre-vue .controls-sticky {
-  padding-bottom: 8px;
-}
-
-.product-skeleton-list {
-	display: grid;
-	gap: 8px;
-	grid-template-columns: 1fr;
-}
-
-@media screen and (min-width: 768px) {
-	.product-skeleton-list {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-}
-
-@media screen and (min-width: 1024px) {
-  .offre-vue .controls-sticky {
-    padding: 8px 8px 8px 0;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .product-skeleton-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-</style>

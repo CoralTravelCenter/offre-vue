@@ -1,11 +1,14 @@
 import {describe, expect, it, beforeEach, vi} from "vitest";
-import {ref} from "vue";
+import {nextTick, ref} from "vue";
 import {useOffreProducts} from "../useOffreProducts";
 import {useProductOffer} from "../useProductOffer";
 import * as b2cApi from "../../../lib/b2c-api";
 
-function flushPromises() {
-  return new Promise((resolve) => setTimeout(resolve, 0));
+async function flushAsyncState() {
+  for (let idx = 0; idx < 3; idx += 1) {
+    await Promise.resolve();
+    await nextTick();
+  }
 }
 
 function createPackageProduct() {
@@ -70,7 +73,7 @@ describe("offre -> product flow smoke", () => {
       reloadToken: ref(0)
     });
 
-    await flushPromises();
+    await flushAsyncState();
     expect(productsState.productsList.length).toBe(1);
     expect(productsState.normalizedRequestState.value).toBe("success");
 
@@ -93,7 +96,7 @@ describe("offre -> product flow smoke", () => {
     });
 
     listCardState.tourType.value = "hotel";
-    await flushPromises();
+    await flushAsyncState();
 
     expect(mapCardState.tourType.value).toBe("hotel");
     expect(mapCardState.offer.value.price.amount).toBe(100000);

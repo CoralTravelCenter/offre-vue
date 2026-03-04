@@ -51,32 +51,17 @@ function handleClick() {
 </script>
 
 <template>
-  <div class="marker" :class="{ open: isOpen }">
-    <button class="placemark" type="button" :style="{ backgroundImage: `url(${ placemarkIconUrl })` }" @click.stop="handleClick"></button>
+  <div
+    :class="[
+      'product-marker marker relative h-[37px] w-7 -translate-x-1/2 -translate-y-full text-[14px] leading-none',
+      isOpen ? 'product-marker--open open' : ''
+    ]"
+  >
+    <button
+      class="product-marker__placemark placemark absolute inset-0 cursor-pointer border-0 bg-transparent bg-cover bg-center bg-no-repeat p-0"
+      type="button"
+      :style="{ backgroundImage: `url(${ placemarkIconUrl })` }"
+      @click.stop="handleClick"
+    ></button>
   </div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/layout";
-@import "../../common/css/coral-colors";
-
-.marker {
-  font-size: 14px;
-  line-height: 1;
-  position: relative;
-  width: 2em;
-  height: (43/33) * 2em;
-  transform: translate(-50%, -100%);
-
-  .placemark {
-    position: absolute;
-    padding: 0;
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
-    inset: 0;
-    background: center / cover no-repeat;
-  }
-
-}
-</style>

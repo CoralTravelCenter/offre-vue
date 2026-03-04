@@ -20,7 +20,11 @@ defineProps({
 </script>
 
 <template>
-	<a :href="offerHref" target="_blank" :class="linkClass">
-		<h3 :class="titleClass">{{ name }}</h3>
-	</a>
+		<a
+			:href="offerHref"
+			target="_blank"
+			:class="['product-hotel-name__link inline-block text-inherit no-underline', linkClass]"
+		>
+			<h3 :class="['product-hotel-name__title m-0', titleClass]">{{ name }}</h3>
+		</a>
 </template>

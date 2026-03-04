@@ -29,20 +29,20 @@ const selectedValue = computed({
 
 <template>
 	<ToggleGroup
-			class="w-full"
-			type="single"
-			variant="outline"
-			v-model="selectedValue"
+				class="product-tour-type-switch w-full"
+				type="single"
+				variant="outline"
+				v-model="selectedValue"
 	>
 		<ToggleGroupItem
 				v-if="!isHotelOnly"
-				class="flex-1 data-[state=on]:bg-transparent data-[state=on]:text-[#0092D0] data-[state=on]:border-[#0092D0]"
+				class="product-tour-type-switch__item product-tour-type-switch__item--package flex-1 data-[state=on]:bg-transparent data-[state=on]:text-primary data-[state=on]:border-primary"
 				value="package"
 		>
 			Тур с перелетом
 		</ToggleGroupItem>
 		<ToggleGroupItem
-				class="flex-1 data-[state=on]:bg-transparent data-[state=on]:text-[#0092D0] data-[state=on]:border-[#0092D0]"
+				class="product-tour-type-switch__item product-tour-type-switch__item--hotel flex-1 data-[state=on]:bg-transparent data-[state=on]:text-primary data-[state=on]:border-primary"
 				value="hotel"
 		>
 			Только отель

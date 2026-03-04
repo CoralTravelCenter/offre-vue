@@ -20,102 +20,52 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="product-price-block" :class="`product-price-block--${variant}`">
-    <div class="product-price-block__from">{{ fromLabel }}</div>
-    <div class="product-price-block__price">
-      <div v-if="oldPrice" class="product-price-block__old">{{ oldPrice }}</div>
-      <div class="product-price-block__final" v-html="finalPrice"></div>
+  <div
+    :class="[
+      'product-price-block whitespace-nowrap leading-none',
+      variant === 'card' ? 'product-price-block--card' : 'product-price-block--marker'
+    ]"
+  >
+    <div
+      :class="[
+        'product-price-block__from',
+        variant === 'card'
+          ? 'text-[10px] text-coral-grey'
+          : 'text-[20px] text-black/45 max-[768px]:text-[14px]'
+      ]"
+    >
+      {{ fromLabel }}
+    </div>
+
+    <div
+      :class="[
+        'product-price-block__price flex',
+        variant === 'card'
+          ? 'flex-col gap-1'
+          : 'flex-wrap items-end gap-x-3 gap-y-[6px] max-[768px]:gap-x-[10px]'
+      ]"
+    >
+      <div
+        v-if="oldPrice"
+        :class="[
+          'product-price-block__old',
+          variant === 'card'
+            ? 'text-[12px] text-coral-grey line-through decoration-destructive'
+            : 'text-[20px] leading-none text-black/55 max-[768px]:text-[14px]'
+        ]"
+      >
+        {{ oldPrice }}
+      </div>
+
+      <div
+        :class="[
+          'product-price-block__final text-primary font-semibold',
+          variant === 'card'
+            ? 'inline-flex items-baseline gap-1 text-[24px] [&_.per-night]:text-[62%] [&_.per-night]:font-light'
+            : 'text-[52px] leading-none max-[768px]:text-[18px]'
+        ]"
+        v-html="finalPrice"
+      ></div>
     </div>
   </div>
 </template>
-
-<style scoped lang="less">
-@import "../../common/css/coral-colors";
-
-.product-price-block {
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.product-price-block__from {
-  color: @coral-grey;
-}
-
-.product-price-block__price {
-  display: flex;
-}
-
-.product-price-block__old {
-  text-decoration: line-through @coral-red-error;
-}
-
-.product-price-block__final {
-  color: @coral-main-blue;
-  font-weight: 600;
-}
-
-.product-price-block--card .product-price-block__from {
-  font-size: 10px;
-}
-
-.product-price-block--card .product-price-block__price {
-  flex-direction: column;
-  gap: 4px;
-}
-
-.product-price-block--card .product-price-block__old {
-  font-size: 12px;
-}
-
-.product-price-block--card .product-price-block__final {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  font-size: 24px;
-}
-
-.product-price-block--card .product-price-block__final :deep(.per-night) {
-  font-size: 62%;
-  font-weight: 300;
-}
-
-.product-price-block--marker .product-price-block__from {
-  color: fade(black, 45%);
-  font-size: 20px;
-}
-
-.product-price-block--marker .product-price-block__price {
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.product-price-block--marker .product-price-block__old {
-  font-size: 20px;
-  color: fade(black, 55%);
-  line-height: 1;
-}
-
-.product-price-block--marker .product-price-block__final {
-  font-size: 52px;
-  line-height: 1;
-}
-
-@media screen and (max-width: 768px) {
-  .product-price-block--marker .product-price-block__from {
-    font-size: 14px;
-  }
-
-  .product-price-block--marker .product-price-block__price {
-    gap: 6px 10px;
-  }
-
-  .product-price-block--marker .product-price-block__old {
-    font-size: 14px;
-  }
-
-  .product-price-block--marker .product-price-block__final {
-    font-size: 18px;
-  }
-}
-</style>

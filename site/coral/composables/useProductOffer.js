@@ -1,39 +1,15 @@
 import {computed, reactive, ref, unref, watch} from "vue";
 import dayjs from "dayjs";
-import {OnlyHotelProduct} from "../../lib/b2c-api";
-import {hotelCommonSearchCriterias} from "../config/globals";
-import {REQUEST_STATE} from "./request-state";
-
-const priceSuffixMap = {
-  detailed: {
-    'per-person': '<span class="per-person"> / чел</span>',
-    'per-night': '<span class="per-night"> за ночь</span>',
-    default: ''
-  },
-  compact: {
-    'per-person': '',
-    'per-night': '',
-    default: ''
-  }
-};
-
-function formatCurrencySafe(value, currency) {
-  if (value == null) {
-    return '';
-  }
-  return typeof value.formatCurrency === 'function'
-    ? value.formatCurrency(currency)
-    : '';
-}
-
-function syncReactiveObject(target, source) {
-  for (const key of Object.keys(target)) {
-    if (!(key in source)) {
-      delete target[key];
-    }
-  }
-  Object.assign(target, source);
-}
+import {REQUEST_STATE} from "../lib/state/request-state";
+import {
+  buildOfferHref,
+  formatCurrencySafe,
+  normalizePricingOption,
+  resolvePriceSuffix,
+  syncReactiveObject
+} from "../lib/product-offer";
+import {useTourTypeState} from "./useTourTypeState";
+import {useHotelOfferSelection} from "./useHotelOfferSelection";
 
 export function useProductOffer({
   product,
@@ -42,51 +18,15 @@ export function useProductOffer({
   sharedTourTypeByHotelId,
   priceLabelMode = 'detailed'
 }) {
-  const localTourType = ref('package');
   const productSource = computed(() => unref(product) || {});
   const hotel = reactive({});
-  const sharedTourTypeSource = computed(() => unref(sharedTourTypeByHotelId) || null);
   const hotelIdKey = computed(() => (hotel.id != null ? String(hotel.id) : ''));
 
-  const tourType = computed({
-    get() {
-      const hotelKey = hotelIdKey.value;
-      const sharedState = sharedTourTypeSource.value;
-      if (hotelKey && sharedState && typeof sharedState[hotelKey] === 'string') {
-        return sharedState[hotelKey];
-      }
-      return localTourType.value;
-    },
-    set(value) {
-      const nextValue = value === 'hotel' ? 'hotel' : 'package';
-      localTourType.value = nextValue;
-
-      const hotelKey = hotelIdKey.value;
-      const sharedState = sharedTourTypeSource.value;
-      if (hotelKey && sharedState) {
-        sharedState[hotelKey] = nextValue;
-      }
-    }
+  const {tourType} = useTourTypeState({
+    hotelIdKey,
+    sharedTourTypeByHotelId,
+    defaultTourType: 'package'
   });
-
-  watch(hotelIdKey, (hotelKey, prevHotelKey) => {
-    const sharedState = sharedTourTypeSource.value;
-    if (!hotelKey) {
-      return;
-    }
-    if (hotelKey !== prevHotelKey) {
-      // При переходе на другой отель начинаем с дефолтного package,
-      // чтобы состояние "только отель" не переезжало между разными карточками.
-      localTourType.value = 'package';
-    }
-    if (!sharedState) {
-      return;
-    }
-    if (typeof sharedState[hotelKey] !== 'string') {
-      // Инициализируем общее состояние для отеля текущим локальным значением.
-      sharedState[hotelKey] = localTourType.value;
-    }
-  }, {immediate: true});
 
   const packageOffers = ref([]);
   watch(
@@ -98,97 +38,32 @@ export function useProductOffer({
     },
     {immediate: true}
   );
+
   const packageOffer = computed(() => packageOffers.value?.[0]);
-  const hotelOffer = ref();
-  const fetchingHotelOffer = ref(false);
-  const offer = ref(packageOffer.value);
-  const hotelOfferError = ref(null);
-  const hotelOfferRequestId = ref(0);
-  watch(
-    [() => hotel.id, () => packageOffer.value?.checkInDate, () => packageOffer.value?.stayNights],
-    () => {
-      hotelOffer.value = undefined;
-      if (tourType.value === 'package') {
-        offer.value = packageOffer.value;
-      }
-    },
-    {immediate: true}
-  );
-
-  watch(
-    [tourType, hotelOffer, packageOffer, () => hotel?.location?.id, () => hotel?.location?.type],
-    ([nextTourType, nextHotelOffer, nextPackageOffer, locationId, locationType], _prev, onCleanup) => {
-      const requestId = ++hotelOfferRequestId.value;
-      let cancelled = false;
-      onCleanup(() => {
-        cancelled = true;
-      });
-
-      if (nextTourType === 'package') {
-        fetchingHotelOffer.value = false;
-        hotelOfferError.value = null;
-        offer.value = nextPackageOffer;
-        return;
-      }
-
-      if (nextHotelOffer) {
-        fetchingHotelOffer.value = false;
-        hotelOfferError.value = null;
-        offer.value = nextHotelOffer;
-        return;
-      }
-
-      if (!nextPackageOffer || !locationId || !locationType) {
-        hotelOfferError.value = new Error('Hotel offer cannot be loaded: missing base package offer or hotel location');
-        offer.value = nextPackageOffer;
-        fetchingHotelOffer.value = false;
-        return;
-      }
-
-      const searchCriterias = Object.assign({}, hotelCommonSearchCriterias, {
-        beginDates: [nextPackageOffer.checkInDate],
-        nights: [{value: nextPackageOffer.stayNights}],
-        arrivalLocations: [{id: locationId, type: locationType}]
-      });
-      hotelOfferError.value = null;
-      fetchingHotelOffer.value = true;
-      OnlyHotelProduct.PriceSearchList({searchCriterias})
-        .then(responseJson => {
-          if (cancelled || requestId !== hotelOfferRequestId.value) {
-            return;
-          }
-          const nextOffer = responseJson?.result?.products?.[0]?.offers?.[0];
-          if (!nextOffer) {
-            throw new Error('OnlyHotelProduct returned empty offers');
-          }
-          offer.value = nextOffer;
-          hotelOffer.value = nextOffer;
-        })
-        .catch(error => {
-          if (cancelled || requestId !== hotelOfferRequestId.value) {
-            return;
-          }
-          hotelOfferError.value = error;
-          offer.value = nextPackageOffer;
-        })
-        .finally(() => {
-          if (cancelled || requestId !== hotelOfferRequestId.value) {
-            return;
-          }
-          fetchingHotelOffer.value = false;
-        });
-    },
-    {immediate: true}
-  );
+  const {
+    offer,
+    fetchingHotelOffer,
+    hotelOfferError
+  } = useHotelOfferSelection({
+    hotel,
+    packageOffer,
+    tourType
+  });
+  const widgetOptionsSource = computed(() => {
+    const source = unref(widgetOptions);
+    return source && typeof source === 'object' ? source : {};
+  });
+  const pricingOption = computed(() => normalizePricingOption(widgetOptionsSource.value.pricing));
 
   const offerFinalPrice = computed(() => {
     const amount = Number(offer.value?.price?.amount) || 0;
     const passengers = offer.value?.rooms?.[0]?.passengers?.length || 1;
     const stayNights = Number(offer.value?.stayNights) || 1;
 
-    if (widgetOptions.pricing === 'per-person') {
+    if (pricingOption.value === 'per-person') {
       return amount / passengers;
-    } else if (widgetOptions.pricing === 'per-night') {
+    }
+    if (pricingOption.value === 'per-night') {
       return amount / stayNights;
     }
     return amount;
@@ -199,9 +74,7 @@ export function useProductOffer({
     if (!valueFormatted) {
       return '';
     }
-    const pricingOption = widgetOptions.pricing || 'default';
-    const selectedMap = priceSuffixMap[priceLabelMode] || priceSuffixMap.detailed;
-    const suffix = selectedMap[pricingOption] || selectedMap.default;
+    const suffix = resolvePriceSuffix(priceLabelMode, pricingOption.value);
     return valueFormatted + suffix;
   });
 
@@ -210,9 +83,10 @@ export function useProductOffer({
     const passengers = offer.value?.rooms?.[0]?.passengers?.length || 1;
     const stayNights = Number(offer.value?.stayNights) || 1;
 
-    if (widgetOptions.pricing === 'per-person') {
+    if (pricingOption.value === 'per-person') {
       return oldAmount / passengers;
-    } else if (widgetOptions.pricing === 'per-night') {
+    }
+    if (pricingOption.value === 'per-night') {
       return oldAmount / stayNights;
     }
     return oldAmount;
@@ -226,6 +100,7 @@ export function useProductOffer({
     const list = unref(widgetHotelsList);
     return Array.isArray(list) ? list : [];
   });
+
   const isHotelOnly = computed(() => {
     const hotelId = hotel.id;
     if (!hotelId) {
@@ -239,14 +114,13 @@ export function useProductOffer({
   });
 
   const offerHref = computed(() => {
-    const redirectionUrl = offer.value?.link?.redirectionUrl;
-    if (!redirectionUrl) {
-      return '#';
-    }
-    const host = location.hostname === 'localhost' ? '//new.coral.ru' : '';
-    const urlFix = redirectionUrl.includes('/hotels') ? '' : '/hotels';
-    const queryParam = offer.value?.link?.queryParam || '';
-    return `${host}${urlFix}${redirectionUrl}/?qp=${queryParam}&p=${(isHotelOnly.value || tourType.value !== 'package') ? 2 : 1}`;
+    return buildOfferHref({
+      redirectionUrl: offer.value?.link?.redirectionUrl,
+      queryParam: offer.value?.link?.queryParam,
+      isHotelOnly: isHotelOnly.value,
+      tourType: tourType.value,
+      hostname: location.hostname
+    });
   });
 
   const beginDate = computed(() => {

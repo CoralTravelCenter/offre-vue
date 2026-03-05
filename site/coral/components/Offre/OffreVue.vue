@@ -231,7 +231,7 @@ onUnmounted(() => {
 
 <template>
   <div
-      class="offre-vue box-border m-0 flex w-full flex-col gap-4 p-0 text-[16px] font-normal [--el-font-family:inherit] [--el-fill-color-light:var(--coral-primary-soft)] [--el-color-primary:var(--coral-main-blue)] [&_.el-progress-bar]:font-inherit [&_.el-progress-bar]:[--el-color-primary:var(--coral-main-blue)]"
+      class="offre-vue box-border m-0 flex w-full flex-col gap-4 p-0 text-[16px] font-normal [--el-font-family:inherit] [--el-fill-color-light:var(--coral-primary-soft)] [--el-color-primary:var(--coral-main-blue)]"
       ref="$el"
       :data-instance-uuid="instance_uuid"
   >
@@ -270,7 +270,6 @@ onUnmounted(() => {
     <ProductGrid
         ref="productGridRef"
         :products="productsList"
-        :in-progress="productsLoading"
         :view-mode="gridViewMode"
         :page-number="productListPageNumber"
         :page-size="productListPageSize"

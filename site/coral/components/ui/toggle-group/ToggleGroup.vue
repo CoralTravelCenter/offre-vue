@@ -1,7 +1,6 @@
 <script setup>
 import { reactiveOmit } from "@vueuse/core";
 import { ToggleGroupRoot, useForwardPropsEmits } from "reka-ui";
-import { provide } from "vue";
 import { cn } from "app/lib/utils";
 
 const props = defineProps({
@@ -28,12 +27,6 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["update:modelValue"]);
-
-provide("toggleGroup", {
-  variant: props.variant,
-  size: props.size,
-  spacing: props.spacing,
-});
 
 const delegatedProps = reactiveOmit(props, "class", "size", "variant");
 const forwarded = useForwardPropsEmits(delegatedProps, emits);

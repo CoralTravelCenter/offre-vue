@@ -90,10 +90,11 @@ whenever(isProductCardVisible, () => {
 
 <template>
   <Card
-    ref="$el"
-    class="product-card flex min-w-0 flex-col rounded-[20px] border border-border bg-white p-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)_300px] min-[1280px]:items-stretch min-[1280px]:gap-4"
+      ref="$el"
+      class="product-card flex min-w-0 flex-col rounded-[20px] border border-border bg-white p-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)_300px] min-[1280px]:items-stretch min-[1280px]:gap-4"
   >
-    <CardContent class="product-card__content min-w-0 p-0 min-[1280px]:col-span-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)] min-[1280px]:items-stretch min-[1280px]:gap-4">
+    <CardContent
+        class="product-card__content min-w-0 p-0 min-[1280px]:col-span-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)] min-[1280px]:items-stretch min-[1280px]:gap-4">
       <ProductCardVisual :hotel="hotel" :offer-href="offerHref"/>
       <ProductCardDetails
           :hotel="hotel"
@@ -109,7 +110,8 @@ whenever(isProductCardVisible, () => {
       />
     </CardContent>
 
-    <CardFooter class="product-card__footer block min-w-0 p-0 min-[1280px]:col-start-3 min-[1280px]:row-start-1">
+    <CardFooter
+        class="product-card__footer block min-w-0 p-0 min-[1280px]:h-full min-[1280px]:col-start-3 min-[1280px]:row-start-1 mt-auto">
       <ProductCardPricing
           v-model:tour-type="tourType"
           :is-hotel-only="isHotelOnly"

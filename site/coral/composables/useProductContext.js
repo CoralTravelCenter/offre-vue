@@ -1,5 +1,5 @@
 import {inject} from "vue";
-import {OFFRE_CONTEXT_KEYS} from "./offreContext";
+import {OFFRE_CONTEXT_KEYS} from "../lib/context/offre-context";
 
 function injectRequired(key, debugName) {
   const value = inject(key, undefined);

@@ -23,7 +23,6 @@ const instance_uuid = uuid_v4();
 
 const props = defineProps({
 	products: Array,
-	inProgress: Boolean,
 	pageNumber: {
 		type: Number,
 		default: 1
@@ -40,31 +39,12 @@ const props = defineProps({
 const $el = ref();
 const showMapZoomControl = useMediaQuery('(max-width: 768px)');
 
-const showProgress = ref(false);
-let showProgressTimeout;
 const mapSkeletonHold = ref(false);
 const mapReady = ref(false);
 const mapSkeletonMinElapsed = ref(false);
 let mapSkeletonMinTimeout;
 
-// Keep progress bar hidden for very short requests to avoid UI flicker.
-watch(() => props.inProgress, (inProgress) => {
-	if (inProgress) {
-		if (!showProgressTimeout) {
-			showProgressTimeout = setTimeout(() => {
-				showProgress.value = true;
-			});
-		}
-		return;
-	}
-	clearTimeout(showProgressTimeout);
-	showProgressTimeout = null;
-	showProgress.value = false;
-}, {immediate: true});
-
 onUnmounted(() => {
-	clearTimeout(showProgressTimeout);
-	showProgressTimeout = null;
 	clearTimeout(mapSkeletonMinTimeout);
 	mapSkeletonMinTimeout = null;
 });
@@ -249,20 +229,6 @@ function handleMarkerToggle(nextHotelId) {
 
 <template>
 	<div ref="$el" class="product-grid flex flex-col text-[16px]" :data-instance-uuid="instance_uuid">
-		<Transition
-			enter-active-class="transition-[opacity,max-height]"
-			leave-active-class="transition-[opacity,max-height]"
-			enter-from-class="max-h-0 opacity-0"
-			leave-to-class="max-h-0 opacity-0"
-		>
-			<el-progress
-				v-if="inProgress && showProgress"
-				class="overflow-hidden max-h-[5em]"
-				:percentage="inProgress"
-				:indeterminate="true"
-				:show-text="false"
-			></el-progress>
-		</Transition>
 		<div
 			v-if="viewMode === 'list'"
 			class="offers-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1024px]:gap-4 min-[1280px]:grid-cols-1"

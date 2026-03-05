@@ -29,7 +29,7 @@ function toggleMode() {
         :aria-label="ariaLabel"
         :data-state="isMapMode ? 'on' : 'off'"
         :class="[
-          'view-mode-toggle__button inline-flex h-10 w-10 items-center justify-center rounded-[8px] border bg-white transition-colors duration-200',
+          'view-mode-toggle__button inline-flex h-10 w-10 items-center justify-center rounded-lg border bg-white cursor-pointer transition-colors duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45',
           isMapMode
               ? 'border-primary text-primary'

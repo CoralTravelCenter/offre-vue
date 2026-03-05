@@ -4,8 +4,11 @@ import {merge, omit} from "lodash";
 import {OnlyHotelProduct, PackageTourHotelProduct} from "../../lib/b2c-api";
 import {hotelCommonSearchCriterias, packageCommonSearchCriterias} from "../config/globals";
 import {additionalFiltersWithTerms} from "../../lib/data-ops";
-import {OFFRE_PRODUCTS_REQUEST_STATE, reduceOffreProductsRequestState} from "./offre-products-state";
-import {normalizeProductsRequestState} from "./request-state";
+import {
+  OFFRE_PRODUCTS_REQUEST_STATE,
+  reduceOffreProductsRequestState
+} from "../lib/state/offre-products-state";
+import {normalizeProductsRequestState} from "../lib/state/request-state";
 
 export function useOffreProducts({
   props,

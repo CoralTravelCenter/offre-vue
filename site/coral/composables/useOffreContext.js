@@ -1,5 +1,5 @@
 import {provide} from "vue";
-import {OFFRE_CONTEXT_KEYS} from "./offreContext";
+import {OFFRE_CONTEXT_KEYS} from "../lib/context/offre-context";
 
 export function provideOffreContext(context) {
   provide(OFFRE_CONTEXT_KEYS.widgetOptions, context.widgetOptions);

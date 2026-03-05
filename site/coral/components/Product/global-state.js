@@ -9,7 +9,9 @@ let _anyProductVisibleTracked = false;
 export function trackAnyProductCardVisible() {
     if (!_anyProductVisibleTracked) {
         try {
-            ym(96674199, 'reachGoal', 'view_handmade_hotellist');
+            if (typeof window !== 'undefined' && typeof window.ym === 'function') {
+                window.ym(96674199, 'reachGoal', 'view_handmade_hotellist');
+            }
             _anyProductVisibleTracked = true;
         } catch (ex) {
             console.warn(ex);

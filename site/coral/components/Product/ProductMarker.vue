@@ -19,7 +19,10 @@ const props = defineProps({
 });
 
 const {widgetOptions, widgetHotelsList, sharedTourTypeByHotelId} = useProductContext();
-const {hotel} = useProductOffer({
+const {
+  hotel,
+  offerFinalPriceFormatted
+} = useProductOffer({
   product: toRef(props, 'product'),
   widgetOptions,
   widgetHotelsList,
@@ -63,5 +66,11 @@ function handleClick() {
       :style="{ backgroundImage: `url(${ placemarkIconUrl })` }"
       @click.stop="handleClick"
     ></button>
+    <div
+      v-if="offerFinalPriceFormatted"
+      class="product-marker__price-badge absolute left-[30px] top-[2px] rounded-full bg-white/90 px-2 py-1 text-[12px] leading-none whitespace-nowrap shadow-[0_1px_2px_rgba(0,0,0,0.2)] backdrop-blur-[4px]"
+    >
+      {{ offerFinalPriceFormatted }}
+    </div>
   </div>
 </template>

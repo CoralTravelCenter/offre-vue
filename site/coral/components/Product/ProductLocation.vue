@@ -37,7 +37,7 @@ function handleClick() {
         variant === 'card'
           ? 'product-location--card mb-1 self-start  text-[12px] font-light'
           : 'product-location--marker text-[14px] text-black/60 max-[768px]:text-[12px]',
-        clickable && hasCoordinates ? 'product-location--clickable cursor-pointer' : ''
+        clickable && hasCoordinates ? 'product-location--clickable cursor-pointer hover:underline' : ''
       ]"
       @click="handleClick"
   >

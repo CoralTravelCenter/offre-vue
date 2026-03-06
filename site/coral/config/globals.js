@@ -1,7 +1,5 @@
 const globals = {
     vueCDNUrl: 'https://unpkg.com/vue@3.5.29/dist/vue.global.js',
-    elementPlusCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.full.min.js',
-    elementPlusStylesCDNUrl: 'https://unpkg.com/element-plus@2.4.4/dist/index.css',
     //
     devLocation: 'office',
     productionAPIHost: '//b2capi.coral.ru',

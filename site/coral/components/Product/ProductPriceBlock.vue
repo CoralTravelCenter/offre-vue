@@ -14,6 +14,14 @@ const props = defineProps({
     type: String,
     default: 'цена от'
   },
+  finalValueClass: {
+    type: String,
+    default: ''
+  },
+  suffixClass: {
+    type: String,
+    default: ''
+  },
   variant: {
     type: String,
     default: 'card'
@@ -24,8 +32,10 @@ const hasPriceSuffix = computed(() => {
   const value = String(props.finalPrice || '').toLowerCase();
   return value.includes('per-person')
     || value.includes('per-night')
-    || value.includes('/ чел')
-    || value.includes('за ночь');
+    || value.includes('price-suffix')
+    || value.includes('за одного')
+    || value.includes('за ночь')
+    || value.includes('за двоих');
 });
 
 const showHardcodedPerPersonSuffix = computed(() => {
@@ -75,12 +85,12 @@ const showHardcodedPerPersonSuffix = computed(() => {
           :class="[
         'product-price-block__final text-primary font-semibold leading-7',
         variant === 'card'
-          ? 'inline-flex items-baseline gap-1 text-[24px] [&_.per-night]:text-[62%] [&_.per-night]:font-light [&_.per-person]:text-[62%] [&_.per-person]:font-light'
+          ? 'inline-flex items-baseline gap-1 text-[24px] [&_.price-suffix]:text-[20px] [&_.price-suffix]:font-light'
           : 'text-[52px] leading-none max-[768px]:text-[18px]'
       ]"
       >
-        <span class="product-price-block__final-value" v-html="finalPrice"></span>
-        <span v-if="showHardcodedPerPersonSuffix" class="per-person"> / чел</span>
+        <span :class="['product-price-block__final-value', finalValueClass]" v-html="finalPrice"></span>
+        <span v-if="showHardcodedPerPersonSuffix" :class="['price-suffix price-suffix--fallback', suffixClass]"> / за двоих</span>
       </div>
     </div>
   </div>

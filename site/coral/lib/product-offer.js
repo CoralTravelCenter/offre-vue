@@ -1,8 +1,8 @@
 const PRICE_SUFFIX_MAP = {
   detailed: {
-    'per-person': '<span class="per-person"> / чел</span>',
-    'per-night': '<span class="per-night"> за ночь</span>',
-    default: ''
+    'per-person': '<span class="price-suffix price-suffix--per-person"> / за одного</span>',
+    'per-night': '<span class="price-suffix price-suffix--per-night"> / за ночь</span>',
+    default: '<span class="price-suffix price-suffix--default"> / за двоих</span>'
   },
   compact: {
     'per-person': '',

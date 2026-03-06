@@ -7,7 +7,9 @@
     color-scheme: light;
 
     --coral-main-blue: #0093D0;
+    --coral-href: #0093D0;
     --coral-main-yellow: #F0AB00;
+    --coral-yellow-lite: #EFD48F;
     --coral-exclusive: #E84F0E;
     --coral-elite: #333333;
     --coral-grey: #777777;
@@ -16,6 +18,7 @@
     --coral-cashback: #FEEFCD;
     --coral-success: #52C41A;
     --coral-danger: #FF3333;
+    --coral-red-warn: #FFDCDC;
     --coral-text: #1F2227;
     --coral-stroke: rgba(0, 0, 0, 0.15);
     --coral-stroke-soft: rgba(0, 0, 0, 0.10);
@@ -109,6 +112,15 @@
 
     .offre-sticky-shadow[data-sticky="true"] {
         box-shadow: 0 0 14px rgba(0, 0, 0, 0.14);
+    }
+
+    .offre-vue a:hover {
+        text-decoration-line: underline;
+    }
+
+    .offre-vue a.do-choose:hover,
+    .offre-vue a.action:hover {
+        text-decoration-line: none;
     }
 }
 

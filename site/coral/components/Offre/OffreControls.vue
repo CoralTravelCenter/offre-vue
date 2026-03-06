@@ -86,7 +86,7 @@ function capitalizeFirst(value) {
     <Select v-else v-model="selectedDepartureIdModel">
       <SelectTrigger
           size="3"
-          class="offre-controls__trigger offre-controls__trigger--departure controls__departure col-1 row-2 h-10 w-full min-w-0 bg-white capitalize shadow-none min-[1024px]:col-2 min-[1024px]:row-1"
+          class="offre-controls__trigger offre-controls__trigger--departure controls__departure col-1 row-2 h-10 w-full min-w-0 border-input bg-transparent text-sm font-medium capitalize shadow-none transition-colors duration-150 hover:bg-primary/5 active:bg-primary/10 data-[state=open]:border-primary data-[state=open]:text-primary min-[1024px]:col-2 min-[1024px]:row-1"
       >
         <svg
             v-show="!breakpointKey"
@@ -130,7 +130,7 @@ function capitalizeFirst(value) {
     <Select v-else-if="isTimeframeSelectable" v-model="selectedTimeframeModel">
       <SelectTrigger
           size="3"
-          class="offre-controls__trigger offre-controls__trigger--timeframe controls__timeframe col-2 row-2 h-10 w-full min-w-0 bg-white capitalize shadow-none min-[1024px]:col-3 min-[1024px]:row-1"
+          class="offre-controls__trigger offre-controls__trigger--timeframe controls__timeframe col-2 row-2 h-10 w-full min-w-0 border-input bg-transparent text-sm font-medium capitalize shadow-none transition-colors duration-150 hover:bg-primary/5 active:bg-primary/10 data-[state=open]:border-primary data-[state=open]:text-primary min-[1024px]:col-3 min-[1024px]:row-1"
       >
         <svg
             v-show="!breakpointKey"

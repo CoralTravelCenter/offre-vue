@@ -23,7 +23,7 @@ defineProps({
 		<a
 			:href="offerHref"
 			target="_blank"
-			:class="['product-hotel-name__link inline-block text-inherit no-underline min-[1280px]:mt-2 min-[1280px]:mb-2', linkClass]"
+			:class="['product-hotel-name__link inline-block text-inherit hover:underline min-[1280px]:mt-2 min-[1280px]:mb-2', linkClass]"
 		>
 			<h3 :class="['product-hotel-name__title m-0', titleClass]">{{ name }}</h3>
 		</a>

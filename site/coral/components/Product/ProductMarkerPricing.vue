@@ -41,7 +41,7 @@ defineProps({
 
 <template>
 	<div
-		:class="[
+			:class="[
 			'product-marker-pricing pricing w-full flex-col justify-end gap-2',
 			isOpen ? 'product-marker-pricing--open open flex' : 'product-marker-pricing--closed hidden'
 		]"
@@ -49,11 +49,11 @@ defineProps({
 		<div class="product-marker-pricing__price price block">
 			<template v-if="offerRequestState === 'loading'">
 				<Skeleton
-					v-if="offer.price.oldAmount"
-					class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--list-price sk--list-price block h-[12px] w-[83px] rounded-[6px]"
+						v-if="offer.price.oldAmount"
+						class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--list-price sk--list-price block h-3 w-20.75 rounded-[6px]"
 				/>
 				<Skeleton
-					class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--final-price sk--final-price mt-1 block h-[45px] w-[147px] rounded-[6px]"
+						class="product-marker-pricing__skeleton sk product-marker-pricing__skeleton--final-price sk--final-price mt-1 block h-11.25 w-36.75 rounded-[6px]"
 				/>
 			</template>
 			<template v-else>

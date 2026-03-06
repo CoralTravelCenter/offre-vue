@@ -1,6 +1,6 @@
 <script setup>
 import ProductCard from "./ProductCard.vue";
-import {computed, onUnmounted, reactive, ref, shallowRef, watch} from "vue";
+import {computed, reactive, ref, shallowRef, watch} from "vue";
 import {v4 as uuid_v4} from 'uuid';
 import {invoke, until, useMediaQuery} from "@vueuse/core";
 import {useProductContext} from "../../composables/useProductContext";
@@ -38,16 +38,7 @@ const props = defineProps({
 });
 const $el = ref();
 const showMapZoomControl = useMediaQuery('(max-width: 768px)');
-
-const mapSkeletonHold = ref(false);
-const mapReady = ref(false);
-const mapSkeletonMinElapsed = ref(false);
-let mapSkeletonMinTimeout;
-
-onUnmounted(() => {
-	clearTimeout(mapSkeletonMinTimeout);
-	mapSkeletonMinTimeout = null;
-});
+const showBottomMapOverlay = useMediaQuery('(max-width: 1023px)');
 
 const pagedProductList = computed(() => {
 	const pageNumber = Number.isFinite(props.pageNumber) ? Math.max(1, props.pageNumber) : 1;
@@ -191,24 +182,7 @@ watch(() => clickedLocationHotelId.value, (nextId) => {
 watch(() => props.viewMode, (nextMode) => {
 	if (nextMode !== 'map') {
 		activeMapHotelId.value = null;
-		mapSkeletonHold.value = false;
-		mapReady.value = false;
-		mapSkeletonMinElapsed.value = false;
-		clearTimeout(mapSkeletonMinTimeout);
-		mapSkeletonMinTimeout = null;
-		return;
 	}
-	mapSkeletonHold.value = true;
-	mapReady.value = !!map.value;
-	mapSkeletonMinElapsed.value = false;
-	clearTimeout(mapSkeletonMinTimeout);
-	mapSkeletonMinTimeout = setTimeout(() => {
-		mapSkeletonMinElapsed.value = true;
-		if (mapReady.value) {
-			mapSkeletonHold.value = false;
-		}
-		mapSkeletonMinTimeout = null;
-	}, 350);
 }, {immediate: true});
 
 
@@ -286,18 +260,24 @@ function handleMarkerToggle(nextHotelId) {
                                        }"
 													 :style="{ cursor: 'pointer' }"
 													 :key="product.hotel.id">
-					<ProductMarker
-							:product="product"
-							initially-open
-							@mouseenter="hoverZIndex"
-							@mouseleave="hoverZIndex"
-							@toggle="handleMarkerToggle"
-					/>
+          <div class="relative">
+            <ProductMarker
+                :product="product"
+                initially-open
+                @mouseenter="hoverZIndex"
+                @mouseleave="hoverZIndex"
+                @toggle="handleMarkerToggle"
+            />
+            <ProductMapOverlayCard
+                class="pointer-events-auto hidden min-[1024px]:block min-[1024px]:absolute min-[1024px]:left-1/2 min-[1024px]:bottom-[42px] min-[1024px]:z-[20] min-[1024px]:-translate-x-1/2 min-[1024px]:!w-[360px] min-[1024px]:max-w-[92vw] min-[1024px]:mb-0"
+                :product="product"
+            />
+          </div>
 				</yandex-map-marker>
 
 			</yandex-map>
 			<div
-				v-if="activeMapProduct"
+				v-if="activeMapProduct && showBottomMapOverlay"
 				class="map-selected-overlay pointer-events-none absolute inset-0 bottom-2 z-[12] flex h-full w-full items-end justify-center"
 			>
 				<ProductMapOverlayCard class="pointer-events-auto" :product="activeMapProduct"/>

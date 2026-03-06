@@ -14,6 +14,10 @@ const props = defineProps({
 	variant: {
 		type: String,
 		default: 'card'
+	},
+	starClass: {
+		type: String,
+		default: 'h-5 w-5'
 	}
 });
 </script>
@@ -23,7 +27,7 @@ const props = defineProps({
 			<img
 				v-for="n in count"
 				:key="`star-filled-${variant}-${n}`"
-				class="product-rating__star product-rating__star--filled block h-5 w-5 object-cover"
+				:class="['product-rating__star product-rating__star--filled block object-cover', starClass]"
 				:src="filledStarIcon"
 				alt=""
 				aria-hidden="true"
@@ -31,7 +35,7 @@ const props = defineProps({
 			<img
 				v-for="n in (max - count)"
 				:key="`star-empty-${variant}-${n}`"
-				class="product-rating__star product-rating__star--empty block h-5 w-5 object-cover"
+				:class="['product-rating__star product-rating__star--empty block object-cover', starClass]"
 				:src="emptyStarIcon"
 				alt=""
 				aria-hidden="true"

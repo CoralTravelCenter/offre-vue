@@ -29,7 +29,7 @@ const PAGER_SIBLING_COUNT = 1;
 const STICKY_BOTTOM_OFFSET = 16;
 const CONTROLS_STICKY_Z_INDEX = 30;
 const PAGER_STICKY_Z_INDEX = 20;
-const MV_MODE_TOP_OFFSET = 100;
+const MV_MODE_TOP_OFFSET = 76;
 const DESKTOP_TOP_OFFSET = 16;
 const MOBILE_TOP_OFFSET = 74;
 
@@ -111,6 +111,7 @@ watch(productHotelIds, (nextHotelIds) => {
 
 
 const isLargeScreen = useMediaQuery(DESKTOP_LAYOUT_BREAKPOINT);
+const isDesktop1024 = useMediaQuery('(min-width: 1024px)');
 const searchParams = useUrlSearchParams('history');
 const isMvMode = computed(() => {
   const raw = searchParams.mv;
@@ -170,6 +171,7 @@ const pagerStickyOptions = computed(() => ({
 const showProductSkeleton = computed(() => {
   return initialLoading.value || (productsLoading.value > 0 && productsList.length === 0);
 });
+const skeletonCardCount = computed(() => (isDesktop1024.value ? 4 : 2));
 
 function disconnectFirstCardObserver() {
   if (firstCardObserver) {
@@ -231,7 +233,7 @@ onUnmounted(() => {
 
 <template>
   <div
-      class="offre-vue box-border m-0 flex w-full flex-col gap-4 p-0 text-[16px] font-normal [--el-font-family:inherit] [--el-fill-color-light:var(--coral-primary-soft)] [--el-color-primary:var(--coral-main-blue)]"
+      class="offre-vue box-border m-0 flex w-full flex-col gap-4 p-0 text-[16px] font-normal"
       ref="$el"
       :data-instance-uuid="instance_uuid"
   >
@@ -262,9 +264,8 @@ onUnmounted(() => {
         @retry-products="retryProductsFetch"
     />
 
-    <div v-if="showProductSkeleton" class="product-skeleton-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1280px]:grid-cols-1" aria-hidden="true">
-      <ProductCardSkeleton/>
-      <ProductCardSkeleton/>
+    <div v-if="showProductSkeleton" class="product-skeleton-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1024px]:gap-4 min-[1280px]:grid-cols-1" aria-hidden="true">
+      <ProductCardSkeleton v-for="idx in skeletonCardCount" :key="`product-skeleton-${idx}`"/>
     </div>
 
     <ProductGrid

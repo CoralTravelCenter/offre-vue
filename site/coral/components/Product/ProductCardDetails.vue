@@ -38,6 +38,10 @@ defineProps({
     type: String,
     default: ''
   },
+  isEliteHotel: {
+    type: Boolean,
+    default: false
+  },
   hotelUspsList: {
     type: Array,
     default: () => []
@@ -67,7 +71,12 @@ function handleLocationClick(hotel) {
         :offer-href="offerHref"
         :name="hotel.name"
         link-class="product-card-details__hotel-link hotel-name mb-1 text-inherit no-underline hover:underline"
-        title-class="product-card-details__hotel-title name text-[20px] font-bold text-black"
+        :title-class="[
+          'product-card-details__hotel-title name text-[20px] text-black',
+          isEliteHotel
+            ? 'font-normal [font-family:var(--product-card-font-family)] leading-[1.2] tracking-[0.015em]'
+            : 'font-bold'
+        ]"
     />
 
     <div class="product-card-details__category-concept category-concept mb-2 flex items-center gap-2 min-[1280px]:mb-0">

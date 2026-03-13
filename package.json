@@ -9,6 +9,7 @@
         "@parcel/optimizer-data-url": "^2.12.0",
         "@parcel/transformer-inline-string": "^2.12.0",
         "@parcel/transformer-vue": "^2.12.0",
+        "@types/uuid": "^10.0.0",
         "autoprefixer": "^10.4.27",
         "local-cors-proxy": "^1.1.0",
         "parcel": "^2.12.0",

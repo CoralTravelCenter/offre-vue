@@ -114,9 +114,9 @@ useResizeObserver($scroller, () => {
 		>
 			<li
 					v-if="wildcardOption"
-					class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-3xl px-5 py-3 text-[14px] snap-start transition-colors hover:not-[region-select__item--selected]::text-(--coral-href)"
+					class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-3xl px-5 py-3 text-[14px] snap-start transition-colors"
 					data-value="*"
-					:class="{ 'region-select__item--selected bg-primary text-primary-foreground': selectedValue === '*' }"
+					:class="selectedValue === '*' ? 'region-select__item--selected bg-primary text-primary-foreground' : 'hover:text-[var(--coral-href)]'"
 					@click="selectOption('*')"
 			>
 				{{ tidyLabel(wildcardOption) }}
@@ -124,9 +124,9 @@ useResizeObserver($scroller, () => {
 			<li
 					v-for="option in optionsList"
 					:key="option"
-					class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-3xl px-5 py-3 text-[14px] snap-start transition-colors hover:text-(--coral-href)"
+					class="region-select__item region-select__item--option shrink-0 cursor-pointer rounded-3xl px-5 py-3 text-[14px] snap-start transition-colors"
 					:data-value="String(option)"
-					:class="{ 'region-select__item--selected bg-primary text-primary-foreground': selectedValue === String(option) }"
+					:class="selectedValue === String(option) ? 'region-select__item--selected bg-primary text-primary-foreground' : 'hover:text-[var(--coral-href)]'"
 					@click="selectOption(option)"
 			>
 				{{ tidyLabel(option) }}

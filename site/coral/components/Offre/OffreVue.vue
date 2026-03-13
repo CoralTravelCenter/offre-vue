@@ -1,5 +1,5 @@
 <script setup>
-import {computed, nextTick, onMounted, onUnmounted, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 import {useMediaQuery, useScriptTag, useUrlSearchParams} from "@vueuse/core";
 import dayjs from "dayjs";
 import locale_ru from "dayjs/locale/ru";
@@ -28,7 +28,6 @@ const DEFAULT_PAGE_SIZE = 10;
 const PAGER_SIBLING_COUNT = 1;
 const STICKY_BOTTOM_OFFSET = 16;
 const CONTROLS_STICKY_Z_INDEX = 30;
-const PAGER_STICKY_Z_INDEX = 20;
 const MV_MODE_TOP_OFFSET = 76;
 const DESKTOP_TOP_OFFSET = 16;
 const MOBILE_TOP_OFFSET = 74;
@@ -91,10 +90,6 @@ const {
   reloadToken: productsReloadToken
 });
 
-function retryProductsFetch() {
-  productsReloadToken.value += 1;
-}
-
 const sharedTourTypeByHotelId = ref({});
 const productHotelIds = computed(() => {
   return (productsList || []).map((product) => String(product?.hotel?.id ?? ''));
@@ -146,9 +141,6 @@ provideOffreContext({
 const productListPageNumber = ref(1);
 const productListPageSize = ref(DEFAULT_PAGE_SIZE);
 const totalPages = computed(() => Math.ceil(productsList.length / productListPageSize.value));
-const productGridRef = ref();
-const hasScrolledPastFirstCard = ref(false);
-let firstCardObserver = null;
 
 watch(totalPages, (pages) => {
   if (!pages) {
@@ -161,74 +153,15 @@ watch(totalPages, (pages) => {
   }
 }, {immediate: true});
 
-const pagerStickyOptions = computed(() => ({
-  top: 0,
-  bottom: STICKY_BOTTOM_OFFSET,
-  side: 'bottom',
-  zIndex: PAGER_STICKY_Z_INDEX
-}));
-
 const showProductSkeleton = computed(() => {
-  return initialLoading.value || (productsLoading.value > 0 && productsList.length === 0);
+  return initialLoading.value
+    || (productsLoading.value > 0 && productsList.length === 0);
 });
 const skeletonCardCount = computed(() => (isDesktop1024.value ? 4 : 2));
 
-function disconnectFirstCardObserver() {
-  if (firstCardObserver) {
-    firstCardObserver.disconnect();
-    firstCardObserver = null;
-  }
-}
-
-function observeFirstCard() {
-  disconnectFirstCardObserver();
-  hasScrolledPastFirstCard.value = false;
-
-  if (gridViewMode.value !== 'list' || showProductSkeleton.value || totalPages.value <= 1) {
-    return;
-  }
-
-  const gridRoot = productGridRef.value?.$el;
-  const firstCardEl = gridRoot?.querySelector('.offers-list > *');
-  if (!firstCardEl) {
-    return;
-  }
-
-  // Show pager only after user has scrolled past the first card.
-  firstCardObserver = new IntersectionObserver(([entry]) => {
-    if (!entry) {
-      return;
-    }
-    hasScrolledPastFirstCard.value = entry.boundingClientRect.bottom <= 0;
-  }, {threshold: 0});
-
-  firstCardObserver.observe(firstCardEl);
-}
-
 const shouldShowPager = computed(() => {
-  return gridViewMode.value === 'list' && totalPages.value > 1 && hasScrolledPastFirstCard.value;
+  return gridViewMode.value === 'list' && totalPages.value > 1;
 });
-
-watch(
-  [() => productsList.length, gridViewMode, productListPageNumber, showProductSkeleton, totalPages],
-  async () => {
-    await nextTick();
-    observeFirstCard();
-  },
-  {immediate: true}
-);
-
-onMounted(() => {
-  window.OffreVue ||= {version: '1.0.0'};
-  nextTick(() => {
-    observeFirstCard();
-  });
-});
-
-onUnmounted(() => {
-  disconnectFirstCardObserver();
-});
-
 </script>
 
 <template>
@@ -261,7 +194,6 @@ onUnmounted(() => {
         :no-matched-products="noMatchedProducts"
         :selected-region="selectedRegion"
         :selected-departure="selectedDeparture"
-        @retry-products="retryProductsFetch"
     />
 
     <div v-if="showProductSkeleton" class="product-skeleton-list grid grid-cols-1 gap-2 min-[768px]:grid-cols-2 min-[1024px]:gap-4 min-[1280px]:grid-cols-1" aria-hidden="true">
@@ -269,7 +201,6 @@ onUnmounted(() => {
     </div>
 
     <ProductGrid
-        ref="productGridRef"
         :products="productsList"
         :view-mode="gridViewMode"
         :page-number="productListPageNumber"
@@ -278,8 +209,7 @@ onUnmounted(() => {
 
     <div
         v-show="shouldShowPager"
-        class="pager-sticky offre-sticky-shadow mx-auto w-fit overflow-clip rounded-2xl border border-border bg-white"
-        v-sticky="pagerStickyOptions"
+        class="pager-wrap mx-auto w-fit overflow-clip rounded-2xl border border-border bg-white"
     >
       <div class="p-2">
         <Pagination
@@ -291,7 +221,7 @@ onUnmounted(() => {
         >
           <PaginationContent v-slot="{ items }" class="gap-2">
             <PaginationPrevious
-                class="h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+                class="h-10 w-10 min-w-10 cursor-pointer rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary/45 hover:bg-primary/5 hover:text-primary active:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:hover:border-border disabled:hover:bg-white disabled:hover:text-foreground disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
             />
             <template v-for="(item, index) in items"
                       :key="`pager-item-${index}-${item.type}-${item.value ?? 'ellipsis'}`">
@@ -300,8 +230,10 @@ onUnmounted(() => {
                   :value="item.value"
                   :is-active="item.value === productListPageNumber"
                   :class="[
-                    'h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60',
-                    item.value === productListPageNumber ? 'bg-primary border-primary text-primary-foreground' : ''
+                    'h-10 w-10 min-w-10 cursor-pointer rounded-lg border border-border bg-white p-0 text-foreground shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60',
+                    item.value === productListPageNumber
+                      ? 'border-primary bg-primary text-primary-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground'
+                      : 'hover:border-primary/45 hover:bg-primary/5 hover:text-primary active:bg-primary/10'
                   ]"
               >
                 {{ item.value }}
@@ -309,7 +241,7 @@ onUnmounted(() => {
               <PaginationEllipsis v-else :index="index" class="h-10 w-10 text-foreground"/>
             </template>
             <PaginationNext
-                class="h-10 w-10 min-w-10 rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary hover:bg-white hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
+                class="h-10 w-10 min-w-10 cursor-pointer rounded-lg border border-border bg-white p-0 text-foreground shadow-none hover:border-primary/45 hover:bg-primary/5 hover:text-primary active:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/45 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:hover:border-border disabled:hover:bg-white disabled:hover:text-foreground disabled:opacity-60 [&>span]:hidden [&>svg]:h-5 [&>svg]:w-5"
             />
           </PaginationContent>
         </Pagination>

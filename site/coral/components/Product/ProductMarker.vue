@@ -8,36 +8,37 @@ import {useProductOffer} from "../../composables/useProductOffer";
 import {useProductContext} from "../../composables/useProductContext";
 
 import {openedMapMarker} from "./global-state";
+
 const $this = getCurrentInstance();
 
 const props = defineProps({
-  product: Object,
-  initiallyOpen: {
-    type: Boolean,
-    default: false
-  }
+	product: Object,
+	initiallyOpen: {
+		type: Boolean,
+		default: false
+	}
 });
 
 const {widgetOptions, widgetHotelsList, sharedTourTypeByHotelId} = useProductContext();
 const {
-  hotel,
-  offerFinalPriceFormatted
+	hotel,
+	offerFinalPriceFormatted
 } = useProductOffer({
-  product: toRef(props, 'product'),
-  widgetOptions,
-  widgetHotelsList,
-  sharedTourTypeByHotelId,
-  priceLabelMode: 'compact'
+	product: toRef(props, 'product'),
+	widgetOptions,
+	widgetHotelsList,
+	sharedTourTypeByHotelId,
+	priceLabelMode: 'compact'
 });
 
 const placemarkIconUrl = computed(() => {
-  if (hotel.sunFamilyClub || hotel.coralFamilyClub) {
-    return icon_cfc;
-  }
-  if (hotel.eliteHotel) {
-    return icon_elite;
-  }
-  return icon_default;
+	if (hotel.sunFamilyClub || hotel.coralFamilyClub) {
+		return icon_cfc;
+	}
+	if (hotel.eliteHotel) {
+		return icon_elite;
+	}
+	return icon_default;
 });
 
 const isOpen = ref(props.initiallyOpen);
@@ -46,31 +47,31 @@ defineExpose({hide: () => isOpen.value = false});
 const emit = defineEmits(['toggle']);
 
 function handleClick() {
-  isOpen.value = !isOpen.value;
-  openedMapMarker.value = isOpen.value ? $this : null;
-  emit('toggle', isOpen.value ? hotel.id : null);
+	isOpen.value = !isOpen.value;
+	openedMapMarker.value = isOpen.value ? $this : null;
+	emit('toggle', isOpen.value ? hotel.id : null);
 }
 
 </script>
 
 <template>
-  <div
-    :class="[
+	<div
+			:class="[
       'product-marker marker relative h-[37px] w-7 -translate-x-1/2 -translate-y-full text-[14px] leading-none',
       isOpen ? 'product-marker--open open' : ''
     ]"
-  >
-    <button
-      class="product-marker__placemark placemark absolute inset-0 cursor-pointer border-0 bg-transparent bg-cover bg-center bg-no-repeat p-0"
-      type="button"
-      :style="{ backgroundImage: `url(${ placemarkIconUrl })` }"
-      @click.stop="handleClick"
-    ></button>
-    <div
-      v-if="offerFinalPriceFormatted"
-      class="product-marker__price-badge absolute left-[30px] top-[2px] rounded-full bg-white/90 px-2 py-1 text-[12px] leading-none whitespace-nowrap shadow-[0_1px_2px_rgba(0,0,0,0.2)] backdrop-blur-[4px]"
-    >
-      {{ offerFinalPriceFormatted }}
-    </div>
-  </div>
+	>
+		<button
+				class="product-marker__placemark placemark absolute inset-0 cursor-pointer border-0 bg-transparent bg-cover bg-center bg-no-repeat p-0"
+				type="button"
+				:style="{ backgroundImage: `url(${ placemarkIconUrl })` }"
+				@click.stop="handleClick"
+		></button>
+		<div
+				v-if="offerFinalPriceFormatted && !isOpen"
+				class="product-marker__price-badge absolute left-7.5 top-0.5 rounded-full bg-white/90 px-2 py-1 text-[12px] leading-none whitespace-nowrap shadow-[0_1px_2px_rgba(0,0,0,0.2)] backdrop-blur-xs"
+		>
+			{{ offerFinalPriceFormatted }}
+		</div>
+	</div>
 </template>

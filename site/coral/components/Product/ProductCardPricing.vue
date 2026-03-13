@@ -5,7 +5,7 @@ import {Button} from "app/components/ui/button";
 import {Skeleton} from "app/components/ui/skeleton";
 import ProductPriceBlock from "./ProductPriceBlock.vue";
 import ProductTourTypeSwitch from "./ProductTourTypeSwitch.vue";
-import {useViewportBreakpoints} from "../../composables/useViewportBreakpoints";
+import {useViewportBreakpoints} from "app/composables/useViewportBreakpoints";
 
 const tourTypeModel = defineModel('tourType', {
 	type: String,
@@ -14,6 +14,10 @@ const tourTypeModel = defineModel('tourType', {
 
 const props = defineProps({
 	isHotelOnly: {
+		type: Boolean,
+		default: false
+	},
+	isEliteHotel: {
 		type: Boolean,
 		default: false
 	},
@@ -117,7 +121,12 @@ onBeforeUnmount(() => {
 
 <template>
 	<div
-			class="product-card-pricing pricing flex w-full flex-col gap-2 border-t border-coral-stroke-soft pt-2 min-[1280px]:h-full min-[1280px]:justify-start min-[1280px]:gap-4 min-[1280px]:border-l min-[1280px]:border-coral-stroke-soft min-[1280px]:border-t-0 min-[1280px]:pl-3 min-[1280px]:pt-0">
+			class="product-card-pricing pricing flex w-full flex-col gap-2 border-t border-coral-stroke-soft pt-2 min-[1280px]:h-full min-[1280px]:justify-start min-[1280px]:gap-4 min-[1280px]:border-l min-[1280px]:border-coral-stroke-soft min-[1280px]:border-t-0 min-[1280px]:pl-3 min-[1280px]:pt-0"
+			:style="{
+				'--product-card-discount-bg': props.isEliteHotel ? '#B6985B' : '#52C41A',
+				'--product-card-discount-fold': props.isEliteHotel ? '#8F7342' : '#389E0D'
+			}"
+	>
 		<ProductTourTypeSwitch
 				class="product-card-pricing__tour-switch"
 				v-model="tourTypeModel"
@@ -132,29 +141,29 @@ onBeforeUnmount(() => {
 			<div class="product-card-pricing__price-discount price-discount relative grid grid-cols-[1fr_auto] items-end">
 				<div class="product-card-pricing__price price flex flex-col gap-1 whitespace-nowrap leading-none">
 					<Skeleton
-							class="product-card-pricing__sk product-card-pricing__sk--from sk block h-[10px] w-[72px] rounded-[6px]"/>
+					/>
 					<Skeleton v-if="props.offer.price.oldAmount"
-										class="product-card-pricing__sk product-card-pricing__sk--old sk block h-3 w-[108px] rounded-[6px]"/>
+										class="product-card-pricing__sk product-card-pricing__sk--old sk block h-3 w-27 rounded-[6px]"/>
 					<Skeleton
-							class="product-card-pricing__sk product-card-pricing__sk--final sk block h-7 w-[156px] rounded-[6px]"/>
+							class="product-card-pricing__sk product-card-pricing__sk--final sk block h-7 w-39 rounded-[6px]"/>
 				</div>
 				<Skeleton
 						v-if="props.offer.price.discountPercent"
-						class="product-card-pricing__sk product-card-pricing__sk--badge sk absolute bottom-0 right-1 h-6 w-[94px] translate-x-[22px] rounded-[6px_6px_0_6px]"
+						class="product-card-pricing__sk product-card-pricing__sk--badge sk absolute bottom-0 right-1 h-6 w-23.5 translate-x-5.5 rounded-[6px_6px_0_6px]"
 				/>
 			</div>
 			<div v-if="props.cashbackInfo"
-					 class="product-card-pricing__cashback cashback cashback--skeleton grid w-full grid-cols-[1fr_auto] rounded-[8px] bg-coral-cashback px-2 py-[6px] text-left">
+					 class="product-card-pricing__cashback cashback cashback--skeleton grid w-full grid-cols-[1fr_auto] rounded-lg bg-[#F3F4F6] px-2 py-1.5 text-left">
 				<div class="product-card-pricing__cashback-info info flex flex-col justify-center">
 					<Skeleton
-							class="product-card-pricing__sk product-card-pricing__sk--up-to sk block h-[14px] w-[184px] rounded-[6px]"/>
+							class="product-card-pricing__sk product-card-pricing__sk--up-to sk block h-3.5 w-46 rounded-[6px]"/>
 					<Skeleton
-							class="product-card-pricing__sk product-card-pricing__sk--bonus sk mt-1 block h-3 w-[142px] rounded-[6px]"/>
+							class="product-card-pricing__sk product-card-pricing__sk--bonus sk mt-1 block h-3 w-35.5 rounded-[6px]"/>
 				</div>
 				<Skeleton
-						class="product-card-pricing__sk product-card-pricing__sk--card sk h-[33px] w-[54px] self-center rounded-[6px]"/>
+						class="product-card-pricing__sk product-card-pricing__sk--card sk h-8.25 w-13.5 self-center rounded-[6px]"/>
 			</div>
-			<Skeleton class="product-card-pricing__sk product-card-pricing__sk--button sk h-12 w-full rounded-[8px]"/>
+			<Skeleton class="product-card-pricing__sk product-card-pricing__sk--button sk h-12 w-full rounded-lg"/>
 		</div>
 
 		<div v-else
@@ -170,7 +179,7 @@ onBeforeUnmount(() => {
 				</div>
 				<div
 						v-if="props.offer.price.discountPercent"
-						class="product-card-pricing__discount pricing-discount__discount absolute bottom-0 right-1 grid h-6 translate-x-[22px] place-content-center rounded-[6px_6px_0_6px] bg-coral-success px-3 text-[12px] leading-none text-white"
+						class="product-card-pricing__discount pricing-discount__discount absolute bottom-0 right-1 grid h-6 translate-x-5.5 place-content-center rounded-[6px_6px_0_6px] bg-[var(--product-card-discount-bg)] px-3 text-[12px] leading-none text-white"
 				>
 					{{ props.offer.price.discountPercent }}% Скидка
 				</div>
@@ -185,7 +194,7 @@ onBeforeUnmount(() => {
 					<!-- Entire cashback banner acts as popover trigger. -->
 					<button
 							type="button"
-							class="product-card-pricing__cashback cashback cashback-trigger m-0 grid w-full cursor-pointer grid-cols-[1fr_auto] rounded-lg border-0 bg-coral-cashback px-2 py-1.5 text-left text-inherit appearance-none font-inherit outline-none transition-[filter,box-shadow] duration-150 hover:brightness-[0.98] hover:shadow-sm active:brightness-[0.95] focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+							class="product-card-pricing__cashback cashback cashback-trigger m-0 grid w-full cursor-pointer grid-cols-[1fr_auto] rounded-lg border-0 bg-coral-cashback px-2 py-1.5 text-left text-inherit appearance-none font-inherit outline-none transition-[filter] duration-150 hover:brightness-[0.98] active:brightness-[0.95] focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
 							aria-label="Показать условия кешбэка CoralBonus"
 							@mouseenter="handleCashbackTriggerEnter"
 							@mouseleave="handleCashbackTriggerLeave"
@@ -222,7 +231,7 @@ onBeforeUnmount(() => {
 									:key="promo.content_txt">
 								<span class="value text-left">{{ promo.content_result?.formatCurrency?.() ?? '' }}</span>
 								<a v-if="promo.content_link" :href="promo.content_link"
-									 class="description cursor-pointer text-right underline decoration-[1px] underline-offset-2 transition-colors duration-150 hover:text-primary active:text-primary/80 focus:outline-none focus-visible:outline-none focus-visible:ring-0 min-[768px]:max-[1279px]:min-w-0 min-[768px]:max-[1279px]:text-wrap"
+									 class="description cursor-pointer text-right underline decoration-1 underline-offset-2 transition-colors duration-150 hover:text-primary active:text-primary/80 focus:outline-none focus-visible:outline-none focus-visible:ring-0 min-[768px]:max-[1279px]:min-w-0 min-[768px]:max-[1279px]:text-wrap"
 									 target="_blank">{{ promo.content_txt }}</a>
 								<span v-else
 											class="description text-left min-[768px]:max-[1279px]:min-w-0 min-[768px]:max-[1279px]:text-wrap">{{
@@ -234,7 +243,7 @@ onBeforeUnmount(() => {
 								<div class="info">Для начисления бонусов, укажите номер карты в&nbsp;поле "Примечание к&nbsp;заказу"
 								</div>
 								<a href="https://coralbonus.ru/registration?promo=R3R5VO93GKG8N1PGQC1UP0G6EICQLRWEN3Z64WZGC4YBYIKHFJV55IND5O20WUJ"
-									 class="action inline-flex h-8 cursor-pointer items-center justify-center rounded-[8px] bg-primary px-3 py-1.5 text-primary-foreground transition-colors duration-150 hover:bg-primary/90 active:bg-primary/80 focus:outline-none focus-visible:outline-none focus-visible:ring-0"
+									 class="action inline-flex h-8 cursor-pointer items-center justify-center rounded-lg bg-primary px-3 py-1.5 text-primary-foreground transition-colors duration-150 hover:bg-primary/90 active:bg-primary/80 focus:outline-none focus-visible:outline-none focus-visible:ring-0"
 									 target="_blank">Активировать</a>
 							</div>
 						</div>
@@ -245,7 +254,13 @@ onBeforeUnmount(() => {
 			<Button
 					as="a"
 					:href="props.offerHref"
-					class="product-card-pricing__choose-button do-choose block h-12 shrink-0 cursor-pointer rounded-lg !bg-primary p-3.25 text-center text-[16px] leading-[1.3] !text-primary-foreground no-underline transition-colors duration-150 hover:!bg-primary/90 active:!bg-primary/80"
+					variant="coral"
+					:class="[
+						'product-card-pricing__choose-button do-choose block h-12 shrink-0 cursor-pointer rounded-lg p-3.25 text-center text-[16px] leading-[1.3] no-underline',
+						props.isEliteHotel
+							? 'bg-black! text-white! hover:bg-black/90! active:bg-black/80!'
+							: 'bg-primary! text-primary-foreground! hover:bg-primary/90! active:bg-primary/80!'
+					]"
 					target="_blank"
 			>Выбрать
 			</Button>
@@ -261,7 +276,7 @@ onBeforeUnmount(() => {
 	right: 0;
 	width: 10px;
 	height: 7px;
-	background: linear-gradient(to bottom right, darken(#52C41A, 10%) 50%, transparent 55%);
+	background: linear-gradient(to bottom right, var(--product-card-discount-fold) 50%, transparent 55%);
 }
 
 .product-card-pricing .cashback .cashback-card-pulse {
@@ -273,18 +288,18 @@ onBeforeUnmount(() => {
 		transform: scale(1);
 		filter: none;
 	}
-  88% {
-    transform: scale(1.04);
-    filter: drop-shadow(0 0 6px rgba(0, 147, 208, 0.30));
-  }
+	88% {
+		transform: scale(1.04);
+		filter: drop-shadow(0 0 6px rgba(0, 147, 208, 0.30));
+	}
 	90% {
 		transform: scale(1);
 		filter: none;
 	}
-  92% {
-    transform: scale(1.03);
-    filter: drop-shadow(0 0 5px rgba(0, 147, 208, 0.24));
-  }
+	92% {
+		transform: scale(1.03);
+		filter: drop-shadow(0 0 5px rgba(0, 147, 208, 0.24));
+	}
 	94% {
 		transform: scale(1);
 		filter: none;

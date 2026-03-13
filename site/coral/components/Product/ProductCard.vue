@@ -73,6 +73,18 @@ const hotelUspsList = computed(() => {
 
   return Array.isArray(matchedHotelSetup?.usps) ? matchedHotelSetup.usps : [];
 });
+const isEliteHotel = computed(() => Boolean(hotel.eliteHotel));
+const productCardStyle = computed(() => {
+  if (!isEliteHotel.value) {
+    return undefined;
+  }
+
+  return {
+    '--primary': '#B6985B',
+    '--color-primary': 'var(--primary)',
+    '--product-card-font-family': '"Trajan Pro 3", serif'
+  };
+});
 
 function handleHotelLocationClick(nextHotel) {
   if (nextHotel.coordinates) {
@@ -92,6 +104,7 @@ whenever(isProductCardVisible, () => {
   <Card
       ref="$el"
       class="product-card flex min-w-0 flex-col rounded-[20px] border border-border bg-white p-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)_300px] min-[1280px]:items-stretch min-[1280px]:gap-4"
+      :style="productCardStyle"
   >
     <CardContent
         class="product-card__content min-w-0 p-0 min-[1280px]:col-span-2 min-[1280px]:grid min-[1280px]:grid-cols-[300px_minmax(0,1fr)] min-[1280px]:items-stretch min-[1280px]:gap-4">
@@ -106,6 +119,7 @@ whenever(isProductCardVisible, () => {
           :hotel-star-count="hotelStarCount"
           :meal-type="mealType"
           :hotel-usps-list="hotelUspsList"
+          :is-elite-hotel="isEliteHotel"
           @location-click="handleHotelLocationClick"
       />
     </CardContent>
@@ -115,6 +129,7 @@ whenever(isProductCardVisible, () => {
       <ProductCardPricing
           v-model:tour-type="tourType"
           :is-hotel-only="isHotelOnly"
+          :is-elite-hotel="isEliteHotel"
           :offer-request-state="offerRequestState"
           :offer="offer"
           :offer-list-price-formatted="offerListPriceFormatted"

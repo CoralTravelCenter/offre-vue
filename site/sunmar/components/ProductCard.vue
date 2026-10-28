@@ -149,7 +149,7 @@ function handleHotelLocationClick(hotel) {
                     <li class="meal-type">{{ mealType }}</li>
                 </ul>
                 <ul class="usps" v-if="hotelUspsList">
-                    <li v-for="usp in hotelUspsList">{{ usp }}</li>
+                    <li v-for="usp in hotelUspsList" v-html="usp"></li>
                 </ul>
             </div>
         </div>

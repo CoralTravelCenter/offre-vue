@@ -1,0 +1,14 @@
+{
+    env: {
+        devPageUrl: 'https://www.coral.ru/test-offre-vue/',
+        liveTemplateUrl: 'https://www.coral.ru/preview/22fad3a3-92b5-4750-a30f-e7b63f3b46cd/',
+        cmsPlaceholderWidgetName: 'html',
+        brand: 'coral-responsive',
+        cmsWidgetContainer: '<div>{{{ widget_markup }}}</div>',
+//        cdnAssetsURL: '//b2ccdn.coral.ru/content/landing-pages/coralbonus-club'
+    },
+    contents: [
+        '/site/coral/markup/app.html',
+        '/site/coral/markup/widget-render-html-in-usps.html',
+    ]
+}

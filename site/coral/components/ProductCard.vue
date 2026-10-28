@@ -158,7 +158,7 @@ whenever(isProductCardVisible, () => {
                     <li class="meal-type">{{ mealType }}</li>
                 </ul>
                 <ul class="usps" v-if="hotelUspsList">
-                    <li v-for="usp in hotelUspsList">{{ usp }}</li>
+                    <li v-for="usp in hotelUspsList" v-html="usp"></li>
                 </ul>
             </div>
         </div>
@@ -474,7 +474,8 @@ whenever(isProductCardVisible, () => {
             padding: 1em 0 0;
             font-size: (12/14em);
             display: grid;
-            grid-template-rows: repeat(auto-fill, minmax(1.2em, min-content));
+            //grid-template-rows: repeat(auto-fill, minmax(1.2em, min-content));
+            grid-template-rows: fit-content(100%);
             /* grid-template-columns: repeat(auto-fill, minmax(50%, max-content)); */
             grid-auto-flow: column;
             gap: .5em 2em;
